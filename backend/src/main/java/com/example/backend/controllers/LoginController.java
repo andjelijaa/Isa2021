@@ -3,6 +3,7 @@ package com.example.backend.controllers;
 
 import com.example.backend.models.User;
 import com.example.backend.models.request.RequestUser;
+import com.example.backend.models.request.RequestVlasnikUser;
 import com.example.backend.repository.UserRepository;
 import com.example.backend.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,5 +55,17 @@ public class LoginController {
         }
     }
 
+    @PostMapping("/signUpVlasnik")
+    public RequestVlasnikUser signUpVlasnik(@RequestBody RequestVlasnikUser requestVlasnikUser){
+        System.out.println("requestVlasnikUser");
+        System.out.println(requestVlasnikUser);
+
+        if(requestVlasnikUser.getLozinka().equals(requestVlasnikUser.getLozinkaPonovljena())){
+//            ovde ce mo pretvoriti u pravog usera i validirati samo da vidimo sta sve treba njemu
+
+        }
+//        poslati adminu sistema treba videti da li preko email-a ili message queue-a
+        return requestVlasnikUser;
+    }
 
 }
