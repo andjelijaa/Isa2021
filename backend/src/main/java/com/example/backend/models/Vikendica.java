@@ -1,6 +1,7 @@
 package com.example.backend.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(	name = "vikendice" )
@@ -17,6 +18,69 @@ public class Vikendica {
     private String opis;
     @Column(name = "prosecna_ocena")
     private float prosecna_ocena;
+    @Column(name = "slike")
+    @ElementCollection(targetClass=Integer.class)
+    private List<String> slike;
+    @Column(name = "broj_soba")
+    private int broj_soba;
+    @Column(name = "broj_kreveta")
+    private int broj_kreveta;
+    @Column(name = "pravila_ponasanja")
+    private String pravila_ponasanja;
+   // @OneToOne(cascade = CascadeType.ALL)
+   // @JoinColumn(name = "cenovnik" )
+   // private Cenovnik cenovnik;
+    @ManyToOne
+    @JoinColumn(name = "vikendicaId",insertable = false, updatable = false)
+    private Vlasnik vlasnik;
+
+    public Vlasnik getVlasnik() {
+        return vlasnik;
+    }
+
+    public void setVlasnik(Vlasnik vlasnik) {
+        this.vlasnik = vlasnik;
+    }
+
+     /*public Cenovnik getCenovnik() {
+         return cenovnik;
+     }
+
+     public void setCenovnik(Cenovnik cenovnik) {
+         this.cenovnik = cenovnik;
+     }
+*/
+         public List<String> getSlike() {
+             return slike;
+         }
+
+         public void setSlike(List<String> slike) {
+             this.slike = slike;
+         }
+
+    public int getBroj_soba() {
+        return broj_soba;
+    }
+
+    public void setBroj_soba(int broj_soba) {
+        this.broj_soba = broj_soba;
+    }
+
+    public int getBroj_kreveta() {
+        return broj_kreveta;
+    }
+
+    public void setBroj_kreveta(int broj_kreveta) {
+        this.broj_kreveta = broj_kreveta;
+    }
+
+    public String getPravila_ponasanja() {
+        return pravila_ponasanja;
+    }
+
+    public void setPravila_ponasanja(String pravila_ponasanja) {
+        this.pravila_ponasanja = pravila_ponasanja;
+    }
 
     public Vikendica() {
     }
