@@ -2,6 +2,7 @@ package com.example.backend.models;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -13,6 +14,7 @@ public class User {
     private String username;
     private String password;
     private String address;
+
 
     public User(int id, String username, String password, String address) {
         this.id = id;
