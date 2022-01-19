@@ -5,9 +5,7 @@ import com.example.backend.models.Vlasnik;
 import com.example.backend.repository.VikendicaRepository;
 import com.example.backend.repository.VlasnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,7 +34,21 @@ public class VlasnikController {
         return null;
     }
 
-    
+    @PostMapping("/dodaj")
+    public Vikendica dodaj(@CookieValue(value = "userId", defaultValue = "") String vlasnikId,
+                           @RequestBody Vikendica vikendica){
+        if(!vlasnikId.equals("")){
+            Optional<Vlasnik> vlasnik = vlasnikRepository.findById(Long.parseLong(vlasnikId));
+            if(vlasnik.get() == null){
+                return null;
+            }else{
+                vikendica.setVlasnik(vlasnik.get());
+                Vikendica newVikendica = vikendicaRepository.saveAndFlush(vikendica);
+                return newVikendica;
+            }
+        }
+        return null;
+    }
 
 
 
