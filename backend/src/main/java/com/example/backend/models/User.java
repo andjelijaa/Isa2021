@@ -16,6 +16,7 @@ public class User {
     private String address;
 
 
+
     public User(int id, String username, String password, String address) {
         this.id = id;
         this.username = username;
@@ -23,6 +24,10 @@ public class User {
         this.address = address;
     }
 
+ /*   @ManyToOne
+    @JoinColumn(name = "id")
+    private List<Rezervacije> rezervacije;
+*/
     public User() {
     }
 

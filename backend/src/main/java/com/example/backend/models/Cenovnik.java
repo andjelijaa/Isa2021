@@ -1,8 +1,7 @@
 package com.example.backend.models;
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+
 import java.util.HashMap;
 import java.util.Map;
 
