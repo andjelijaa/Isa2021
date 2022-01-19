@@ -50,7 +50,20 @@ public class VlasnikController {
         return null;
     }
 
-
+    @PutMapping("/izmeni")
+    public Vikendica izmeni(@CookieValue(value = "userId", defaultValue = "") String vlasnikId,
+                            @RequestBody Vikendica vikendica){
+        if(!vlasnikId.equals("")){
+            Optional<Vlasnik> vlasnik = vlasnikRepository.findById(Long.parseLong(vlasnikId));
+            if(vlasnik.get() == null){
+                return null;
+            }else{
+                Vikendica newVikendica = vikendicaRepository.saveAndFlush(vikendica);
+                return newVikendica;
+            }
+        }
+        return null;
+    }
 
 
 }
