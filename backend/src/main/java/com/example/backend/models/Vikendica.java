@@ -27,9 +27,8 @@ public class Vikendica {
     private int broj_kreveta;
     @Column(name = "pravila_ponasanja")
     private String pravila_ponasanja;
-   // @OneToOne(cascade = CascadeType.ALL)
-   // @JoinColumn(name = "cenovnik" )
-   // private Cenovnik cenovnik;
+    //@Column(name="cenovnik")
+    //private Cenovnik cenovnik;
     @ManyToOne
     @JoinColumn(name = "vikendicaId",insertable = false, updatable = false)
     private Vlasnik vlasnik;
