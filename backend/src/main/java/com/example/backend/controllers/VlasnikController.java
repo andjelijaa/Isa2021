@@ -65,5 +65,16 @@ public class VlasnikController {
         return null;
     }
 
+    @DeleteMapping("/izbrisi")
+    public void izbrisi(@CookieValue(value = "userId", defaultValue = "") String vlasnikId,
+                        @RequestBody Vikendica vikendica){
+        if(!vlasnikId.equals("")){
+            Optional<Vlasnik> vlasnik = vlasnikRepository.findById(Long.parseLong(vlasnikId));
+            if(vlasnik.get() != null){
+                vikendicaRepository.delete(vikendica);
+            }
+        }
+    }
+
 
 }
