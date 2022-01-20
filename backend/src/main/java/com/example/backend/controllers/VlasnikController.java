@@ -94,8 +94,15 @@ public class VlasnikController {
     @GetMapping("/istorija")
     public List<Rezervacije> istorija(@CookieValue(value = "userId", defaultValue = "") String vlasnikId,
                                       @RequestBody Rezervacije rezervacije){
-
+        if(!vlasnikId.equals("")){
+            Optional<Vlasnik> vlasnik = vlasnikRepository.findById(Long.parseLong(vlasnikId));
+            if(vlasnik.get() == null){
+                return null;
+            }else{
+                return null;
+//              return rezervacijeRepository.findByVlasnik(vlasnik.get());
+            }
+        }
         return null;
     }
-
 }
