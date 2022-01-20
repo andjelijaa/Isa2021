@@ -1,7 +1,9 @@
 package com.example.backend.controllers;
 
+import com.example.backend.models.Rezervacije;
 import com.example.backend.models.Vikendica;
 import com.example.backend.models.Vlasnik;
+import com.example.backend.repository.RezervacijeRepository;
 import com.example.backend.repository.VikendicaRepository;
 import com.example.backend.repository.VlasnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class VlasnikController {
     @Autowired
     VikendicaRepository vikendicaRepository;
 
+
+    @Autowired
+    RezervacijeRepository rezervacijeRepository;
 
     @GetMapping("/pretraga")
     public List<Vikendica> getVikendice(@CookieValue(value = "userId", defaultValue = "") String vlasnikId){
@@ -75,6 +80,17 @@ public class VlasnikController {
             }
         }
     }
+    @PostMapping("/definisi")
+    public void definisi(@CookieValue(value = "userId", defaultValue = "") String vlasnikId,
+                         @RequestBody Rezervacije rezervacije){
+        if(!vlasnikId.equals("")){
+            Optional<Vlasnik> vlasnik = vlasnikRepository.findById(Long.parseLong(vlasnikId));
+            if(vlasnik.get() != null){
+                rezervacijeRepository.save(rezervacije);
+            }
+        }
+    }
+
 
 
 }
