@@ -91,6 +91,11 @@ public class VlasnikController {
         }
     }
 
+    @GetMapping("/istorija")
+    public List<Rezervacije> istorija(@CookieValue(value = "userId", defaultValue = "") String vlasnikId,
+                                      @RequestBody Rezervacije rezervacije){
 
+        return null;
+    }
 
 }
