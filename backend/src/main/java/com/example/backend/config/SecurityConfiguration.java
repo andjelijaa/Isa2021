@@ -2,7 +2,7 @@ package com.example.backend.config;
 
 
 import com.example.backend.filter.JwtFilter;
-import com.example.backend.services.MyUserDetailServece;
+import com.example.backend.services.MyUserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private JwtFilter jwtFilter;
 
     @Autowired
-    private MyUserDetailServece myUserDetailServece;
+    private MyUserDetailService myUserDetailServece;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -42,7 +42,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/api/signIn", "/api/signUp","/signUpVlasnik","/api/user/index")
+                .antMatchers("/api/signIn", "/api/signUp","/api/signUpVlasnik","/api/user/index")
                 .permitAll()
                 .anyRequest()
                 .authenticated();

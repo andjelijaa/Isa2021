@@ -1,6 +1,6 @@
 package com.example.backend.filter;
 
-import com.example.backend.services.MyUserDetailServece;
+import com.example.backend.services.MyUserDetailService;
 import com.example.backend.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,7 +23,7 @@ public class JwtFilter extends OncePerRequestFilter {
     private JwtUtils jwtUtils;
 
     @Autowired
-    private MyUserDetailServece myUserDetailServece;
+    private MyUserDetailService myUserDetailServece;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
@@ -36,8 +36,12 @@ public class JwtFilter extends OncePerRequestFilter {
         }
 
         if(!username.equals("") && SecurityContextHolder.getContext().getAuthentication() == null){
-            UserDetails userDetails = myUserDetailServece.loadUserByUsername(username);
-
+            UserDetails userDetails = null;
+            try{
+                userDetails = myUserDetailServece.loadUserByUsername(username);
+            }catch (Exception e){
+                System.out.println(e);
+            }
             if(jwtUtils.validateToken(token, userDetails)){
                 UsernamePasswordAuthenticationToken upat = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
