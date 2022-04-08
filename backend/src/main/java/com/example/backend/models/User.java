@@ -2,6 +2,7 @@ package com.example.backend.models;
 
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,18 @@ public class User {
     private String password;
     private String address;
 
+    @ManyToMany
+    @JoinColumn(name = "id")
+    private List<Rezervacije> rezervacije;
+
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
 
 
     public User(int id, String username, String password, String address) {
@@ -24,10 +37,33 @@ public class User {
         this.address = address;
     }
 
- /*   @ManyToOne
-    @JoinColumn(name = "id")
-    private List<Rezervacije> rezervacije;
-*/
+
+    public User(int id, String username, String password, String address, List<Rezervacije> rezervacije, Collection<Role> roles) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.address = address;
+        this.rezervacije = rezervacije;
+        this.roles = roles;
+    }
+
+
+    public List<Rezervacije> getRezervacije() {
+        return rezervacije;
+    }
+
+    public void setRezervacije(List<Rezervacije> rezervacije) {
+        this.rezervacije = rezervacije;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
+    }
+
     public User() {
     }
 
