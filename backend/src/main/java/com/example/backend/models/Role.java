@@ -1,5 +1,6 @@
 package com.example.backend.models;
 
+import java.util.List;
 import lombok.Data;
 import lombok.Getter;
 
@@ -16,7 +17,7 @@ public class Role {
 
     private String name;
     @ManyToMany(mappedBy = "roles")
-    private Collection<User> users;
+    private List<User> users;
 
     @ManyToMany
     @JoinTable(
@@ -25,9 +26,9 @@ public class Role {
                     name = "role_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(
                     name = "privilege_id", referencedColumnName = "id"))
-    private Collection<Privilege> privileges;
+    private List<Privilege> privileges;
 
-    public Role(Long id, String name, Collection<User> users, Collection<Privilege> privileges) {
+    public Role(Long id, String name, List<User> users, List<Privilege> privileges) {
         this.id = id;
         this.name = name;
         this.users = users;
@@ -54,7 +55,7 @@ public class Role {
         return users;
     }
 
-    public void setUsers(Collection<User> users) {
+    public void setUsers(List<User> users) {
         this.users = users;
     }
 
@@ -62,7 +63,7 @@ public class Role {
         return privileges;
     }
 
-    public void setPrivileges(Collection<Privilege> privileges) {
+    public void setPrivileges(List<Privilege> privileges) {
         this.privileges = privileges;
     }
 }

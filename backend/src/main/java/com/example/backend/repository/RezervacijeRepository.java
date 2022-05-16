@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface RezervacijeRepository extends JpaRepository<Rezervacije, Long> {
 
-  //    public List<Rezervacije> findByVlasnik(Vlasnik v);
+  public List<Rezervacije> findByVlasnikId(int id);
 }

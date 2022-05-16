@@ -23,6 +23,7 @@ public class Vikendica {
     @Column(name = "prosecna_ocena")
     private float prosecna_ocena;
 
+    @Transient
     @Column(name = "slike")
     @ElementCollection(targetClass=Integer.class)
     private List<String> slike;
@@ -36,12 +37,11 @@ public class Vikendica {
     @Column(name = "pravila_ponasanja")
     private String pravila_ponasanja;
 
-
-    @Column(name="cenovnik")
-    private Cenovnik cenovnik;
+   // @Column(name="cenovnik")
+    //private Cenovnik cenovnik;
 
     @ManyToOne
-    @JoinColumn(name = "vikendicaId",insertable = false, updatable = false)
+    @JoinColumn(name = "vlasnikId")
     private Vlasnik vlasnik;
 
     public Vlasnik getVlasnik() {
@@ -128,11 +128,4 @@ public class Vikendica {
     }
 
 
-    public Cenovnik getCenovnik() {
-        return cenovnik;
-    }
-
-   public void setCenovnik(Cenovnik cenovnik) {
-        this.cenovnik = cenovnik;
-    }
 }
