@@ -25,7 +25,7 @@ public class VlasnikBrodaController {
     @Autowired
     VlasnikRepository vlasnikRepository;
 
-    @GetMapping("/pretragaa")
+    @GetMapping("/search")
     public List<Vikendica> getVikendice(@CookieValue(value = "userId", defaultValue = "") String vlasnikId){
         if(!vlasnikId.equals("")){
             Optional<Vlasnik> vlasnik = vlasnikRepository.findById(Long.parseLong(vlasnikId));

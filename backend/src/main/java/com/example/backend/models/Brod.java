@@ -1,8 +1,11 @@
 package com.example.backend.models;
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
 @Table(	name = "brodovi" )
+@Data
 public class Brod {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,6 +24,10 @@ public class Brod {
     private String slobodni_termini;
     @Column(name = "cenovnik")
     private String cenovnik;
+
+    @ManyToOne
+    @JoinColumn(name = "vlasnikId")
+    private VlasnikBroda vlasnikBroda;
 
     public Brod() {
     }

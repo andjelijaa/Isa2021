@@ -30,7 +30,7 @@ public class VikendicaDto {
         this.broj_soba = dto.getBroj_soba();
         this.broj_kreveta = dto.getBroj_kreveta();
         this.pravila_ponasanja = dto.getPravila_ponasanja();
-        this.cenovnik = dto.getCenovnik();
+     //   this.cenovnik = dto.getCenovnik();
         this.vlasnik = dto.getVlasnik();
     }
 
