@@ -99,9 +99,7 @@ public class VlasnikController {
             if(vlasnik.get() == null){
                 return null;
             }else{
-                return null;
-//              return rezervacijeRepository.findByVlasnik(vlasnik.get());
-            }
+                return rezervacijeRepository.findByVlasnikId(vlasnik.get().getVlasnikId());}
         }
         return null;
     }
