@@ -18,7 +18,7 @@
                 {{card.text}}
               </b-card-text>
 
-              <b-button :href="card.href" variant="primary">Go somewhere</b-button>
+              <b-button :href="card.href" variant="primary" @click="goToBrod()">Go somewhere</b-button>
             </b-card>
           </div>
         </b-col>
@@ -58,6 +58,11 @@ export default {
     return {
       cards: cards,
     };
+  },
+    methods:{
+   goToBrod(){
+   this.$router.push('/brod'); 
+      }
   },
   //   Dodaj sutra da vuce sa BE kad sredis bazu oko slika
 };
