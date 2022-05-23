@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Registration from '../views/Registration.vue'
 import Brod from '../views/Brod.vue'
+import Vikendica from '../views/Vikendica.vue'
 
 Vue.use(VueRouter)
 
@@ -35,7 +36,13 @@ const routes = [
     path: '/brod',
     name: 'Brod',
     component: Brod
+  },
+  {
+   path: '/vikendica',
+   name: 'Vikendica',
+   component: Vikendica
   }
+
 ]
 
 const router = new VueRouter({
