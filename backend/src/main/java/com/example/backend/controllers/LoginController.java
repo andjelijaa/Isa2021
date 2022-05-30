@@ -1,18 +1,19 @@
 package com.example.backend.controllers;
 
 
+import com.example.backend.models.Role;
 import com.example.backend.models.User;
 import com.example.backend.models.request.RequestUser;
 import com.example.backend.models.request.RequestVlasnikUser;
 import com.example.backend.repository.UserRepository;
+import com.example.backend.services.AdminService;
+import com.example.backend.services.EmailService;
+import com.example.backend.services.UserService;
 import com.example.backend.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -27,6 +28,17 @@ public class LoginController {
 
     @Autowired
     private UserRepository userRepository;
+
+
+    private final UserService userService;
+    private final AdminService adminService;
+
+
+    public LoginController(UserService userService,
+                           AdminService adminService) {
+        this.userService = userService;
+        this.adminService = adminService;
+    }
 
     @PostMapping("/signIn")
     public String genToken(@RequestBody RequestUser requestUser) throws Exception {
@@ -43,30 +55,45 @@ public class LoginController {
     }
 
     @PostMapping("/signUp")
-    public String signUp(@RequestBody User user){
+    public boolean signUp(@RequestBody User user){
+        System.out.println("user");
+        System.out.println(user);
         User u = userRepository.findByUsername(user.getUsername());
 //        System.out.println("user");
 //        System.out.println(u);
         if(u == null){
-//            Ovde dodati validatore
+            user.setRole(Role.ROLE_KLIJENT);
+            String activationCode = EmailService.generateActivationCode();
+            String link = "http://localhost:8083/api/potvrdiEmail/" + activationCode;
+            user.setActivation(activationCode);
+            EmailService.sendEmailToUser(user.getUsername(), link);
             userRepository.save(user);
-            return "User successfully Sign Up";
-        }else{
-            return "User with this username already exists";
+            return true;
         }
+        return false;
+    }
+
+    @GetMapping("/potvrdiEmail/{code}")
+    public void optvrdiEmail(@PathVariable("code") String code){
+        User user = userService.checkActivationCode(code);
+        user.setActivation(null);
+        userRepository.save(user);
     }
 
     @PostMapping("/signUpVlasnik")
-    public RequestVlasnikUser signUpVlasnik(@RequestBody RequestVlasnikUser requestVlasnikUser){
+    public boolean signUpVlasnik(@RequestBody RequestVlasnikUser user){
         System.out.println("requestVlasnikUser");
-        System.out.println(requestVlasnikUser);
-
-        if(requestVlasnikUser.getLozinka().equals(requestVlasnikUser.getLozinkaPonovljena())){
-//            ovde ce mo pretvoriti u pravog usera i validirati samo da vidimo sta sve treba njemu
-
+        User u = userRepository.findByUsername(user.getUser().getUsername());
+        if(u == null){
+            String activationCode = EmailService.generateActivationCode();
+            String link = "http://localhost:8083/api/potvrdiEmail/" + activationCode;
+            user.getUser().setActivation(activationCode);
+            User newUser = userRepository.saveAndFlush(user.getUser());
+            adminService.notifyAdmin(newUser, link, user.getObrazlozenje());
+            return true;
         }
-//        poslati adminu sistema treba videti da li preko email-a ili message queue-a
-        return requestVlasnikUser;
+        return false;
     }
-
 }
+
+

@@ -1,7 +1,6 @@
 
 package com.example.backend.models.response;
 
-import com.example.backend.models.Cenovnik;
 import com.example.backend.models.Vikendica;
 import com.example.backend.models.Vlasnik;
 
@@ -17,7 +16,6 @@ public class VikendicaDto {
     private int broj_soba;
     private int broj_kreveta;
     private String pravila_ponasanja;
-    private Cenovnik cenovnik;
     private Vlasnik vlasnik;
 
     public VikendicaDto(Vikendica dto) {
@@ -106,19 +104,4 @@ public class VikendicaDto {
         this.pravila_ponasanja = pravila_ponasanja;
     }
 
-    public Cenovnik getCenovnik() {
-        return cenovnik;
-    }
-
-    public void setCenovnik(Cenovnik cenovnik) {
-        this.cenovnik = cenovnik;
-    }
-
-    public Vlasnik getVlasnik() {
-        return vlasnik;
-    }
-
-    public void setVlasnik(Vlasnik vlasnik) {
-        this.vlasnik = vlasnik;
-    }
 }
