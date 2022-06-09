@@ -4,7 +4,6 @@ import com.example.backend.models.Brod;
 import com.example.backend.models.Role;
 import com.example.backend.models.User;
 import com.example.backend.models.response.GetBrodDTO;
-import com.example.backend.models.response.GetVikendicaDTO;
 import com.example.backend.repository.BrodRepository;
 import com.example.backend.services.UserService;
 import org.springframework.web.bind.annotation.GetMapping;

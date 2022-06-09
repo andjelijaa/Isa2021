@@ -51,7 +51,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/signIn",
                         "/api/signUp",
                         "/api/signUpVlasnik",
-                        "/api/index")
+                        "/api/index",
+                        "/api/brod/getAll",
+                        "/api/vikendica/getAll")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
