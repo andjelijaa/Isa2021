@@ -14,6 +14,7 @@ public class Brod{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String naziv;
     private String adresa;
     private String promoOpis;
@@ -35,6 +36,7 @@ public class Brod{
     @ManyToOne
     @JoinColumn(name = "vlasnik_id")
     private User vlasnik;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "brod")
     private List<Rezervacija> rezervacije;
 }

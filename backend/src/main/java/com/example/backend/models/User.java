@@ -19,6 +19,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String username;
     private String password;
     private String address;
@@ -32,11 +33,11 @@ public class User {
     private String activation;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vlasnik")
     private List<Vikendica> vikendice;
-  /*  @OneToMany(cascade = CascadeType.ALL, mappedBy = "vlasnik")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vlasnik")
     private List<Cas> casovi;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "vlasnik")
     private List<Brod> brodovi;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "klijent")
     private List<Rezervacija> rezervacije;
-*/
+
 }
