@@ -18,41 +18,25 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     private String username;
     private String password;
     private String address;
+    private String ime;
+    private String prezime;
+    private String grad;
+    private String drzava;
+    private String phone;
 
- //   @ManyToMany
-  //  @JoinColumn(name = "id")
-   // private List<Rezervacije> rezervacije;
-
-    @ManyToMany
-    @JoinTable(
-            name = "users_roles",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
-    private List<Role> roles;
-
-
-    public User(int id, String username, String password, String address) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.address = address;
-    }
-
-
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
-                '}';
-    }
+    private Role role;
+    private String activation;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vlasnik")
+    private List<Vikendica> vikendice;
+  /*  @OneToMany(cascade = CascadeType.ALL, mappedBy = "vlasnik")
+    private List<Cas> casovi;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vlasnik")
+    private List<Brod> brodovi;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "klijent")
+    private List<Rezervacija> rezervacije;
+*/
 }

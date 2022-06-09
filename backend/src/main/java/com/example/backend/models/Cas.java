@@ -1,4 +1,6 @@
 package com.example.backend.models;
+
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,10 +12,11 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Brod{
+public class Cas{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String naziv;
     private String adresa;
     private String promoOpis;
@@ -24,17 +27,13 @@ public class Brod{
     private String opremaUzRezervaciju;
     private String cenovnikInfo;
     private String usloviOtkaza;
-    private String tip;
-    private int duzina;
-    private String brojMorora;
-    private String snagaMotora;
-    private int maxSpreed;
-    private String navigacionaOprema;
 
+    private String kratkaBiografijaInstruktora;
 
     @ManyToOne
     @JoinColumn(name = "vlasnik_id")
     private User vlasnik;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "brod")
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cas")
     private List<Rezervacija> rezervacije;
 }

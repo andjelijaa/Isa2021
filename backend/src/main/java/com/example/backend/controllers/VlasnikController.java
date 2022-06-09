@@ -1,6 +1,5 @@
 package com.example.backend.controllers;
 
-import com.example.backend.models.Rezervacije;
 import com.example.backend.models.Vikendica;
 import com.example.backend.models.Vlasnik;
 import com.example.backend.repository.RezervacijeRepository;
@@ -80,7 +79,7 @@ public class VlasnikController {
             }
         }
     }
-    @PostMapping("/definisi")
+  /*  @PostMapping("/definisi")
     public void definisi(@CookieValue(value = "userId", defaultValue = "") String vlasnikId,
                          @RequestBody Rezervacije rezervacije){
         if(!vlasnikId.equals("")){
@@ -89,9 +88,9 @@ public class VlasnikController {
                 rezervacijeRepository.save(rezervacije);
             }
         }
-    }
+    }*/
 
-    @GetMapping("/istorija")
+  /*  @GetMapping("/istorija")
     public List<Rezervacije> istorija(@CookieValue(value = "userId", defaultValue = "") String vlasnikId,
                                       @RequestBody Rezervacije rezervacije){
         if(!vlasnikId.equals("")){
@@ -102,5 +101,5 @@ public class VlasnikController {
                 return rezervacijeRepository.findByVlasnikId(vlasnik.get().getVlasnikId());}
         }
         return null;
-    }
+    }*/
 }
