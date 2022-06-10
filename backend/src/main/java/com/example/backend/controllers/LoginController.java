@@ -65,8 +65,11 @@ public class LoginController {
             user.setRole(Role.ROLE_KLIJENT);
             String activationCode = EmailService.generateActivationCode();
             String link = "http://localhost:8083/api/potvrdiEmail/" + activationCode;
+            System.out.println("link");
+            System.out.println(link);
             user.setActivation(activationCode);
             EmailService.sendEmailToUser(user.getUsername(), link);
+            user.setActivation(null);
             userRepository.save(user);
             return true;
         }

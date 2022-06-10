@@ -2,12 +2,15 @@ package com.example.backend.models;
 
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 public class Rezervacija {
 
     @Id
@@ -19,18 +22,20 @@ public class Rezervacija {
     private String dodatneUsluge;
     private int cena;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "klijent_id")
     private User klijent;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "brod_id")
     private Brod brod;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vikendica_id")
     private Vikendica vikendica;
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cas_id")
     private Cas cas;
 

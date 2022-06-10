@@ -1,13 +1,12 @@
 package com.example.backend.models;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Brod{
@@ -33,10 +32,10 @@ public class Brod{
     private String navigacionaOprema;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vlasnik_id")
     private User vlasnik;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "brod")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "brod")
     private List<Rezervacija> rezervacije;
 }
