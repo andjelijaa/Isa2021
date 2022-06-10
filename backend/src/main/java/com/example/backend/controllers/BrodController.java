@@ -6,9 +6,7 @@ import com.example.backend.models.User;
 import com.example.backend.models.response.GetBrodDTO;
 import com.example.backend.repository.BrodRepository;
 import com.example.backend.services.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -24,7 +22,7 @@ public class BrodController {
         this.userService = userService;
     }
 
-    @GetMapping("/getAll")
+    @RequestMapping(value = "/getAllBrodovi", method = RequestMethod.GET)
     public List<Brod> getAll(Principal principal) throws Exception {
         User user = userService.getActivatedUserFromPrincipal(principal);
         if(user == null){

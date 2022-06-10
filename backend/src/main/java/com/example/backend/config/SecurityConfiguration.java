@@ -47,18 +47,20 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http
                 .csrf()
                 .disable()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers("/api/signIn",
                         "/api/signUp",
                         "/api/signUpVlasnik",
                         "/api/index",
                         "/api/brod/getAll",
-                        "/api/vikendica/getAll")
+                        "/api/vikendica/getAll",
+                        "/api/cas/getAll")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
-        http
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+    //    http
+      //          .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean

@@ -1,16 +1,15 @@
 package com.example.backend.models;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "user")
@@ -31,12 +30,16 @@ public class User {
 
     private Role role;
     private String activation;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vlasnik")
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "vlasnik")
     private List<Vikendica> vikendice;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vlasnik")
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "vlasnik")
     private List<Cas> casovi;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "vlasnik")
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "vlasnik")
     private List<Brod> brodovi;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "klijent")
     private List<Rezervacija> rezervacije;
 
