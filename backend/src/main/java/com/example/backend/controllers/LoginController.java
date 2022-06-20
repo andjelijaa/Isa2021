@@ -56,11 +56,7 @@ public class LoginController {
 
     @PostMapping("/signUp")
     public boolean signUp(@RequestBody User user){
-        System.out.println("user");
-        System.out.println(user);
         User u = userRepository.findByUsername(user.getUsername());
-//        System.out.println("user");
-//        System.out.println(u);
         if(u == null){
             user.setRole(Role.ROLE_KLIJENT);
             String activationCode = EmailService.generateActivationCode();
@@ -77,7 +73,7 @@ public class LoginController {
     }
 
     @GetMapping("/potvrdiEmail/{code}")
-    public void optvrdiEmail(@PathVariable("code") String code){
+    public void potvrdiEmail(@PathVariable("code") String code){
         User user = userService.checkActivationCode(code);
         user.setActivation(null);
         userRepository.save(user);

@@ -53,14 +53,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                         "/api/signUp",
                         "/api/signUpVlasnik",
                         "/api/index",
-                        "/api/brod/getAll",
+                        "/api/brod/getAllBrod",
                         "/api/vikendica/getAll",
-                        "/api/cas/getAll")
+                        "/api/cas/getAllCas")
                 .permitAll()
                 .anyRequest()
                 .authenticated();
-    //    http
-      //          .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
     }
 
     @Bean
@@ -75,7 +74,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedMethods(Arrays.asList("HEAD", "GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
         configuration.setMaxAge(3600L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -89,14 +88,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         builder.eraseCredentials(true);
     }
 
-    /*
-    @Bean
-    public CookieSerializer cookieSerializer() {
-        DefaultCookieSerializer serializer = new DefaultCookieSerializer();
-        serializer.setSameSite("strict");
-        serializer.setCookieMaxAge(2592000);
-        serializer.setUseSecureCookie(true);
-        return serializer;
-    }
-*/
+
 }

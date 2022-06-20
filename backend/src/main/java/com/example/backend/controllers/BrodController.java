@@ -41,7 +41,7 @@ public class BrodController {
         }
         Optional<Brod> brod = brodRepository.findById(brodId);
         if(brod.isEmpty()){
-            throw new Exception("Vikendica not found");
+            throw new Exception("Brod not found");
         }
         GetBrodDTO response = null;
         if(Role.ROLE_VLASNIK_BRODA == user.getRole() && brod.get().getVlasnik().getUsername().equals(user.getUsername())){
