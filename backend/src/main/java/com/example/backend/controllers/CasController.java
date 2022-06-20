@@ -45,7 +45,7 @@ public class CasController {
         }
         Optional<Cas> cas = casRepository.findById(casId);
         if (cas.isEmpty()) {
-            throw new Exception("Vikendica not found");
+            throw new Exception("Cas not found");
         }
         GetCasDTO response = null;
         if (Role.ROLE_INSTRUKTOR_PECANJA == user.getRole() && cas.get().getVlasnik().getUsername().equals(user.getUsername())) {
