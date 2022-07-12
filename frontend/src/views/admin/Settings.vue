@@ -9,8 +9,8 @@
   </div>
 </template>
 <script>
-import CardSettings from "@/components/Cards/CardSettings.vue";
-import CardProfile from "@/components/Cards/CardProfile.vue";
+import CardSettings from "@/components/Kartice/Cards/CardSettings.vue";
+import CardProfile from "@/components/Kartice/Cards/CardProfile.vue";
 
 export default {
   components: {

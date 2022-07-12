@@ -76,13 +76,14 @@ import axios from 'axios';
 const api = 'http://localhost:8083'
 
 const vikendice = '/api/vikendica/getAll'
-// const brodovi = '/api/brod/getAllBrodovi'
-// const instruktori = '/api/cas/getAllCas'
+const brodovi = '/api/brod/getAllBrodovi'
+const instruktori = '/api/cas/getAllCas'
 
 const config = {
         headers: {
-          "Authorization": localStorage.auth
-        },
+          "Authorization": localStorage.auth,
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",        },
       };
 export default {
   data() {
@@ -108,16 +109,36 @@ export default {
       axios.get(api + vikendice, config)
       .then(res => {
         console.log(JSON.stringify(res))
+        this.items = JSON.stringify(res)
       })
       .catch(err => {
-        console.log(err)
+        console.log(err.response)
       })
     },
     getBrodovi(){
+      console.log(config)
+      console.log('link: ', api + brodovi)
+      axios.get(api + brodovi, config)
+      .then(res => {
+        console.log(JSON.stringify(res))
+        this.items = JSON.stringify(res)
+      })
+      .catch(err => {
+        console.log(err.response)
+      })
 
     },
     getInstruktori(){
-
+       console.log(config)
+      console.log('link: ', api + instruktori)
+      axios.get(api + instruktori, config)
+      .then(res => {
+        console.log(JSON.stringify(res))
+        this.items = JSON.stringify(res)
+      })
+      .catch(err => {
+        console.log(err.response)
+      })
     }
   },
   components: {
