@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
-
+import javax.mail.MessagingException;
 
 @RestController
 @RequestMapping("/api")
@@ -29,6 +29,8 @@ public class LoginController {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EmailService emailService;
 
     private final UserService userService;
     private final AdminService adminService;
@@ -55,7 +57,7 @@ public class LoginController {
     }
 
     @PostMapping("/signUp")
-    public boolean signUp(@RequestBody User user){
+    public boolean signUp(@RequestBody User user) throws MessagingException {
         User u = userRepository.findByUsername(user.getUsername());
         if(u == null){
             user.setRole(Role.ROLE_KLIJENT);
@@ -64,8 +66,8 @@ public class LoginController {
             System.out.println("link");
             System.out.println(link);
             user.setActivation(activationCode);
-            EmailService.sendEmailToUser(user.getUsername(), link);
-            user.setActivation(null);
+            emailService.sendEmailActivationLinkToUser(user.getUsername(),link);
+            user.setActivation(null); //TODO:Promeni kad proveris da li menja sigurno i u bazi            userRepository.save(user);
             userRepository.save(user);
             return true;
         }
