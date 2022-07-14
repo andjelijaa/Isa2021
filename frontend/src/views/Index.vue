@@ -51,13 +51,17 @@
         </div>
       </div>
     </section>
-
+    <div v-for="item in items" :key="item.id">
+        {{ item }}
+        <kartica-za-prikaz-ponude :name='item.name' :id="item.id" />
+      </div>
     <section class="mt-48 md:mt-40 pb-40 relative bg-blueGray-100"></section>
   </div>
 </template>
 
 <script>
 import IndexNavbar from "@/components/Navbars/IndexNavbar.vue";
+import KarticaZaPrikazPonude from "@/components/Kartice/KarticaZaPrikazPonude.vue";
 // import FooterComponent from "@/components/Footers/Footer.vue";
 
 import patternVue from "@/assets/img/pattern_vue.png";
@@ -71,17 +75,17 @@ import documentation from "@/assets/img/documentation.png";
 import login from "@/assets/img/login.jpg";
 import profile from "@/assets/img/profile.jpg";
 import landing from "@/assets/img/landing.jpg";
-import axios from 'axios';
+import axios from "axios";
 
-const api = 'http://localhost:8083'
+const api = "http://localhost:8083";
 
-const vikendice = '/api/vikendica/getAll'
-const brodovi = '/api/brod/getAllBrodovi'
-const instruktori = '/api/cas/getAllCas'
+const vikendice = "/api/vikendica/getAll";
+const brodovi = "/api/brod/getAllBrodovi";
+const instruktori = "/api/cas/getAllCas";
 
 const config = {
         headers: {
-          "Authorization": localStorage.auth,
+          Authorization: localStorage.auth,
           "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",        },
       };
@@ -99,7 +103,7 @@ export default {
       login,
       profile,
       landing,
-      items:[]
+      items:[],
     };
   },
   methods:{
@@ -107,43 +111,46 @@ export default {
       console.log(config)
       console.log('link: ', api + vikendice)
       axios.get(api + vikendice, config)
-      .then(res => {
+      .then((res) => {
         console.log(JSON.stringify(res))
         this.items = JSON.stringify(res)
       })
       .catch(err => {
         console.log(err.response)
-      })
+      });
     },
     getBrodovi(){
       console.log(config)
       console.log('link: ', api + brodovi)
-      axios.get(api + brodovi, config)
-      .then(res => {
+      axios
+      .get(api + brodovi, config)
+      .then((res) => {
         console.log(JSON.stringify(res))
         this.items = JSON.stringify(res)
       })
       .catch(err => {
         console.log(err.response)
-      })
+      });
 
     },
     getInstruktori(){
-       console.log(config)
+      console.log(config)
       console.log('link: ', api + instruktori)
-      axios.get(api + instruktori, config)
-      .then(res => {
+      axios
+      .get(api + instruktori, config)
+      .then((res) => {
         console.log(JSON.stringify(res))
         this.items = JSON.stringify(res)
       })
       .catch(err => {
         console.log(err.response)
-      })
-    }
+      });
+    },
   },
   components: {
     IndexNavbar,
-    // FooterComponent,
+    KarticaZaPrikazPonude
+ // FooterComponent,
   },
 };
 </script>
