@@ -1,6 +1,5 @@
 import { createApp } from "vue";
 import { createWebHistory, createRouter } from "vue-router";
-
 // styles
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -32,7 +31,7 @@ import Register from "@/views/auth/Register.vue";
 import Landing from "@/views/Landing.vue";
 import Profile from "@/views/Profile.vue";
 import Index from "@/views/Index.vue";
-
+import PrikazPonude from "@/views/PrikazPonude.vue";
 
 // routes
 
@@ -87,6 +86,10 @@ const routes = [
     path: "/",
     component: Index,
   },
+  {
+    path: "/prikaz-ponude",
+    component: PrikazPonude,
+  },
   { path: "/:pathMatch(.*)*", redirect: "/" },
 ];
 
@@ -94,5 +97,8 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+// const vueBoot = BootstrapVue();
+// const icon = IconsPlugin();
 
 createApp(App).use(router).mount("#app");
