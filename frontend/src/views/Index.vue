@@ -52,10 +52,15 @@
       </div>
     </section>
     <div v-for="item in items" :key="item.id">
-        {{ item }}
-        <kartica-za-prikaz-ponude :name='item.name' :id="item.id" />
+       <div class="float-left">
+        <kartica-za-prikaz-ponude
+          :name="item.name"
+          :id="item.id"
+          :text="item.text"
+        />
       </div>
-    <section class="mt-48 md:mt-40 pb-40 relative bg-blueGray-100"></section>
+    </div><br/>
+    <!-- <section class="mt-48 md:mt-40 pb-40 relative bg-blueGray-100"></section> -->
   </div>
 </template>
 
@@ -103,7 +108,74 @@ export default {
       login,
       profile,
       landing,
-      items:[],
+      items:[
+         {
+          name: "ime",
+          id: 1,
+          text: "text1",
+          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
+        },
+        {
+          name: "ime2",
+          id: 2,
+          text: "text2",
+          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
+        },
+        {
+          name: "ime2",
+          id: 2,
+          text: "text2",
+          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
+        },
+        {
+          name: "ime2",
+          id: 2,
+          text: "text2",
+          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
+        },
+        {
+          name: "ime2",
+          id: 2,
+          text: "text2",
+          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
+        },
+        {
+          name: "ime2",
+          id: 2,
+          text: "text2",
+          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
+        },
+        {
+          name: "ime2",
+          id: 2,
+          text: "text2",
+          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
+        },
+        {
+          name: "ime2",
+          id: 2,
+          text: "text2",
+          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
+        },
+        {
+          name: "ime2",
+          id: 2,
+          text: "text2",
+          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
+        },
+        {
+          name: "ime2",
+          id: 2,
+          text: "text2",
+          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
+        },
+        {
+          name: "ime22222",
+          id: 222222,
+          text: "text2",
+          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
+        },
+      ],
     };
   },
   methods:{
