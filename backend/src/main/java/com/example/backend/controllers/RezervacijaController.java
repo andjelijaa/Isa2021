@@ -17,7 +17,7 @@ public class RezervacijaController {
         this.rezervacijaRepository = rezervacijaRepository;
     }
 
-    @GetMapping("/brod/{brodId}/rezervacija/{id}")
+    @GetMapping("/{id}/brod/{brodId}")
     public Brod getBrod(@PathVariable(name = "brodId")Long brodId,
                         @PathVariable(name = "id")Long id){
         Rezervacija rezervacija = rezervacijaRepository.findByIdAndBrodId(id, brodId);
@@ -25,7 +25,7 @@ public class RezervacijaController {
         return rezervacija.getBrod();
     }
 
-    @GetMapping("/cas/{casId}/rezervacija/{id}")
+    @GetMapping("/{id}/cas/{casId}")
     public Cas getCas(@PathVariable(name = "casId")Long casId,
                       @PathVariable(name = "id")Long id){
         Rezervacija rezervacija = rezervacijaRepository.findByIdAndCasId(id, casId);
@@ -34,7 +34,7 @@ public class RezervacijaController {
     }
 
 
-    @GetMapping("/vikendica/{vikendicaId}/rezervacija/{id}")
+    @GetMapping("/{id}/vikendica/{vikendicaId}")
     public Vikendica getVikendica(@PathVariable(name = "vikendicaId")Long vikendicaId,
                                   @PathVariable(name = "id")Long id){
         Rezervacija rezervacija = rezervacijaRepository.findByIdAndVikendicaId(id, vikendicaId);
