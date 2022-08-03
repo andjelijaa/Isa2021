@@ -36,4 +36,7 @@ public class Cas{
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cas")
     private List<Rezervacija> rezervacije;
+
+    @ManyToOne
+    private Akcija akcija;
 }

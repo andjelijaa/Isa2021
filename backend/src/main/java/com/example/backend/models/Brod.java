@@ -32,10 +32,14 @@ public class Brod{
     private String navigacionaOprema;
 
 
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "vlasnik_id")
     private User vlasnik;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "brod")
     private List<Rezervacija> rezervacije;
+
+    @ManyToOne
+    private Akcija akcija;
 }
