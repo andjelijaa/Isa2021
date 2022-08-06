@@ -1,5 +1,6 @@
 package com.example.backend.models;
 
+import com.example.backend.models.request.AkcijaRequestDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,4 +25,10 @@ public class Akcija {
     private Date datumDo;
     private String tipAkcije;
 
+    public Akcija(AkcijaRequestDTO akcijaRequestDTO) {
+        this.id = akcijaRequestDTO.getId();
+        this.datumOd = akcijaRequestDTO.getDatumOd();
+        this.datumDo = akcijaRequestDTO.getDatumDo();
+        this.tipAkcije = akcijaRequestDTO.getTipAkcije();
+    }
 }
