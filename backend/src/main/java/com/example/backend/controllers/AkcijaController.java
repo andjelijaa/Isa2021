@@ -1,6 +1,8 @@
 package com.example.backend.controllers;
 
 import com.example.backend.models.Brod;
+import com.example.backend.models.Cas;
+import com.example.backend.models.Vikendica;
 import com.example.backend.models.request.AkcijaRequestDTO;
 import com.example.backend.services.AkcijaService;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,5 +23,17 @@ public class AkcijaController {
     public Brod addAkcijaToBrod(@RequestBody AkcijaRequestDTO akcijaRequestDTO,
                                 @PathVariable(name = "brodId") Long brodId) throws Exception {
         return akcijaService.addAkcijaToBrod(brodId, akcijaRequestDTO);
+    }
+
+    @PostMapping("/cas/{casId}")
+    public Cas addAkcijaToCas(@RequestBody AkcijaRequestDTO akcijaRequestDTO,
+                              @PathVariable(name = "casId") Long casId) throws Exception {
+        return akcijaService.addAkcijaToCas(casId, akcijaRequestDTO);
+    }
+
+    @PostMapping("/vikendica/{vikendicaId}")
+    public Vikendica addAkcijaToVikendica(@RequestBody AkcijaRequestDTO akcijaRequestDTO,
+                                          @PathVariable(name = "vikendicaId") Long vikendicaId) throws Exception {
+        return akcijaService.addAkcijaToVikendica(vikendicaId, akcijaRequestDTO);
     }
 }
