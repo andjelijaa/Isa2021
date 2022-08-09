@@ -5,10 +5,7 @@ import com.example.backend.models.Cas;
 import com.example.backend.models.Vikendica;
 import com.example.backend.models.request.AkcijaRequestDTO;
 import com.example.backend.services.AkcijaService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController("/api/akcija")
 public class AkcijaController {
@@ -35,5 +32,11 @@ public class AkcijaController {
     public Vikendica addAkcijaToVikendica(@RequestBody AkcijaRequestDTO akcijaRequestDTO,
                                           @PathVariable(name = "vikendicaId") Long vikendicaId) throws Exception {
         return akcijaService.addAkcijaToVikendica(vikendicaId, akcijaRequestDTO);
+    }
+
+    @DeleteMapping("/brod/{brodId}")
+    public Brod deleteAkcijuBrod(@PathVariable(name = "brodId") Long brodId) throws Exception {
+
+        return akcijaService.deleteAkcijuBrod(brodId);
     }
 }
