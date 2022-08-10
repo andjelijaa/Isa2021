@@ -4,6 +4,7 @@ import com.example.backend.models.Brod;
 import com.example.backend.models.Cas;
 import com.example.backend.models.Vikendica;
 import com.example.backend.models.request.AkcijaRequestDTO;
+import com.example.backend.models.request.UpdateAkcijaDTO;
 import com.example.backend.services.AkcijaService;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,5 +39,23 @@ public class AkcijaController {
     public Brod deleteAkcijuBrod(@PathVariable(name = "brodId") Long brodId) throws Exception {
 
         return akcijaService.deleteAkcijuBrod(brodId);
+    }
+
+    @DeleteMapping("/vikendica/{vikendicaId}")
+    public Vikendica deleteAkcijaVikendica(@PathVariable(name = "brodId") Long vikendicaId) throws Exception {
+
+        return akcijaService.deleteAkcijuVikendica(vikendicaId);
+    }
+
+    @PutMapping("/brod/{brodId}")
+    public Brod updateAkcijaBrod(@PathVariable(name = "brodId") Long brodId,
+                                 @RequestBody UpdateAkcijaDTO updateAkcijaDTO) throws Exception {
+        return akcijaService.updateAkcijaBrod(brodId, updateAkcijaDTO);
+    }
+
+    @PutMapping("/vikendica/{vikendicaId}")
+    public Vikendica updateAkcijaVikendica(@PathVariable(name = "vikendicaId") Long vikendicaId,
+                                           @RequestBody UpdateAkcijaDTO updateAkcijaDTO) throws Exception {
+        return akcijaService.updateAkcijaVikendica(vikendicaId, updateAkcijaDTO);
     }
 }
