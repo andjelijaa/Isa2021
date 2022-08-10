@@ -63,12 +63,22 @@ public class AkcijaService {
 
     public Vikendica deleteAkcijuVikendica(Long vikendicaId) throws Exception {
         Vikendica vikendica = vikendicaRepository.findById(vikendicaId)
-                .orElseThrow(() -> new Exception("Brod not found"));
+                .orElseThrow(() -> new Exception("Vikendica not found"));
         Akcija akcija = vikendica.getAkcija();
         akcijaRepository.delete(akcija);
         vikendica.setAkcija(null);
 
         return vikendicaRepository.save(vikendica);
+    }
+
+    public Cas deleteAkcijuCas(Long casId) throws Exception {
+        Cas cas = casRepository.findById(casId)
+                .orElseThrow(() -> new Exception("Cas not found"));
+        Akcija akcija = cas.getAkcija();
+        akcijaRepository.delete(akcija);
+        cas.setAkcija(null);
+
+        return casRepository.save(cas);
     }
 
     public Brod updateAkcijaBrod(Long brodId,
@@ -103,6 +113,20 @@ public class AkcijaService {
         return vikendicaRepository.save(vikendica);
     }
 
+    public Cas updateAkcijaCas(Long casId,
+                               UpdateAkcijaDTO updateAkcijaDTO) throws Exception {
+        Cas cas = casRepository.findById(casId)
+                .orElseThrow(() -> new Exception("Cas not found"));
+        Akcija akcija = cas.getAkcija();
+        if(updateAkcijaDTO.getDatumOd() != null){
+            akcija.setDatumOd(updateAkcijaDTO.getDatumOd());
+        }
+        if(updateAkcijaDTO.getDatumDo() != null){
+            akcija.setDatumDo(updateAkcijaDTO.getDatumDo());
+        }
+        cas.setAkcija(akcija);
 
+        return casRepository.save(cas);
+    }
 
 }
