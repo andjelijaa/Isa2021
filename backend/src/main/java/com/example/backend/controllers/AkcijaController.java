@@ -42,9 +42,15 @@ public class AkcijaController {
     }
 
     @DeleteMapping("/vikendica/{vikendicaId}")
-    public Vikendica deleteAkcijaVikendica(@PathVariable(name = "brodId") Long vikendicaId) throws Exception {
+    public Vikendica deleteAkcijaVikendica(@PathVariable(name = "vikendicaId") Long vikendicaId) throws Exception {
 
         return akcijaService.deleteAkcijuVikendica(vikendicaId);
+    }
+
+    @DeleteMapping("/cas/{casId}")
+    public Cas deleteAkcijaCas(@PathVariable(name = "casId") Long casId) throws Exception {
+
+        return akcijaService.deleteAkcijuCas(casId);
     }
 
     @PutMapping("/brod/{brodId}")
@@ -57,5 +63,11 @@ public class AkcijaController {
     public Vikendica updateAkcijaVikendica(@PathVariable(name = "vikendicaId") Long vikendicaId,
                                            @RequestBody UpdateAkcijaDTO updateAkcijaDTO) throws Exception {
         return akcijaService.updateAkcijaVikendica(vikendicaId, updateAkcijaDTO);
+    }
+
+    @PutMapping("/cas/{casId}")
+    public Cas updateAkcijaCas(@PathVariable(name = "casId") Long casId,
+                               @RequestBody UpdateAkcijaDTO updateAkcijaDTO) throws Exception {
+        return akcijaService.updateAkcijaCas(casId, updateAkcijaDTO);
     }
 }
