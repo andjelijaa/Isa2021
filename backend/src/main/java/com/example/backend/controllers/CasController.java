@@ -1,12 +1,9 @@
 package com.example.backend.controllers;
 
 import com.example.backend.models.Cas;
-import com.example.backend.models.Role;
-import com.example.backend.models.User;
+
 import com.example.backend.models.response.GetCasDTO;
-import com.example.backend.repository.CasRepository;
 import com.example.backend.services.CasService;
-import com.example.backend.services.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
