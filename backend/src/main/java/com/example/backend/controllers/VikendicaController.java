@@ -1,11 +1,9 @@
 package com.example.backend.controllers;
 
-import com.example.backend.models.Role;
-import com.example.backend.models.User;
 import com.example.backend.models.Vikendica;
 import com.example.backend.models.response.GetVikendicaDTO;
-import com.example.backend.repository.VikendicaRepository;
-import com.example.backend.services.UserService;
+
+import com.example.backend.services.VikendicaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -15,64 +13,26 @@ import java.util.Optional;
 @RestController("/api/vikendica")
 public class VikendicaController {
 
-    public final VikendicaRepository vikendicaRepository;
-    public final UserService userService;
+    private final VikendicaService vikendicaService;
 
-
-    public VikendicaController(VikendicaRepository vikendicaRepository,
-                               UserService userService) {
-        this.vikendicaRepository = vikendicaRepository;
-        this.userService = userService;
+    public VikendicaController(VikendicaService vikendicaService) {
+        this.vikendicaService = vikendicaService;
     }
 
     @GetMapping("/getAll")
     public List<Vikendica> getAll(Principal principal) throws Exception {
-        User user = userService.getActivatedUserFromPrincipal(principal);
-        if (user == null) {
-            throw new Exception("User not found");
-        }
-        List<Vikendica> vikendice = vikendicaRepository.findAll();
-        return vikendice;
+        return vikendicaService.getAllVikendice(principal);
     }
 
     @GetMapping("/{vikendicaId}")
     public GetVikendicaDTO getVikendica(Principal principal,
                                         @PathVariable(name = "vikendicaId") Long vikendicaId) throws Exception {
-        User user = userService.getActivatedUserFromPrincipal(principal);
-        if (user == null) {
-            throw new Exception("User not found");
-        }
-        Optional<Vikendica> vikendica = vikendicaRepository.findById(vikendicaId);
-        if (vikendica.isEmpty()) {
-            throw new Exception("Vikendica not found");
-        }
-        GetVikendicaDTO response = null;
-        if (Role.ROLE_VLASNIK_VIKENDICE == user.getRole() && vikendica.get().getVlasnik().getUsername().equals(user.getUsername())) {
-            response = new GetVikendicaDTO(
-                    vikendica.get(),
-                    true
-            );
-            return response;
-        }
-        response = new GetVikendicaDTO(
-                vikendica.get(),
-                false
-        );
-        return response;
+        return vikendicaService.getVikendicaByVikendicaId(principal, vikendicaId);
     }
 
     @PostMapping("/create")
     public Vikendica create(Principal principal,
                             @RequestBody Vikendica vikendica) throws Exception {
-        User user = userService.getActivatedUserFromPrincipal(principal);
-        if (user == null) {
-            throw new Exception("User not found");
-        }
-
-        if (Role.ROLE_VLASNIK_VIKENDICE == user.getRole()) {
-            vikendica.setVlasnik(user);
-            return vikendicaRepository.save(vikendica);
-        }
-        return null;
+        return vikendicaService.createVikendica(principal, vikendica);
     }
 }
