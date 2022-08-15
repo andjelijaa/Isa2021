@@ -29,4 +29,10 @@ public class BrodController {
                               @PathVariable(name = "brodId") Long brodId) throws Exception {
         return brodService.getBrodByBrodId(principal, brodId);
     }
+
+    @PostMapping("/create")
+    public Brod createBrod(Principal principal,
+                           @RequestBody Brod brod) throws Exception {
+        return brodService.createBrod(principal, brod);
+    }
 }
