@@ -53,4 +53,17 @@ public class CasService {
         );
         return response;
     }
+
+    public Cas createCas(Principal principal, Cas cas) throws Exception {
+        User user = userService.getActivatedUserFromPrincipal(principal);
+        if (user == null) {
+            throw new Exception("User not found");
+        }
+
+        if (Role.ROLE_INSTRUKTOR_PECANJA == user.getRole()) {
+            cas.setVlasnik(user);
+            return casRepository.save(cas);
+        }
+        return null;
+    }
 }

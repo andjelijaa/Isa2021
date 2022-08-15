@@ -54,4 +54,17 @@ public class BrodService {
         );
         return response;
     }
+
+    public Brod createBrod(Principal principal, Brod brod) throws Exception {
+        User user = userService.getActivatedUserFromPrincipal(principal);
+        if (user == null) {
+            throw new Exception("User not found");
+        }
+
+        if (Role.ROLE_VLASNIK_BRODA == user.getRole()) {
+            brod.setVlasnik(user);
+            return brodRepository.save(brod);
+        }
+        return null;
+    }
 }
