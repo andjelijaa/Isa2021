@@ -13,8 +13,6 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Akcija {
@@ -30,5 +28,37 @@ public class Akcija {
         this.datumOd = akcijaRequestDTO.getDatumOd();
         this.datumDo = akcijaRequestDTO.getDatumDo();
         this.tipAkcije = akcijaRequestDTO.getTipAkcije();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDatumOd() {
+        return datumOd;
+    }
+
+    public void setDatumOd(Date datumOd) {
+        this.datumOd = datumOd;
+    }
+
+    public Date getDatumDo() {
+        return datumDo;
+    }
+
+    public void setDatumDo(Date datumDo) {
+        this.datumDo = datumDo;
+    }
+
+    public String getTipAkcije() {
+        return tipAkcije;
+    }
+
+    public void setTipAkcije(String tipAkcije) {
+        this.tipAkcije = tipAkcije;
     }
 }

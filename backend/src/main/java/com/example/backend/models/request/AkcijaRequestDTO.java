@@ -7,8 +7,7 @@ import lombok.Setter;
 
 import java.util.Date;
 
-@Getter
-@Setter
+
 @AllArgsConstructor
 @NoArgsConstructor
 public class AkcijaRequestDTO {
@@ -16,4 +15,36 @@ public class AkcijaRequestDTO {
     private Date datumOd;
     private Date datumDo;
     private String tipAkcije;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getDatumOd() {
+        return datumOd;
+    }
+
+    public void setDatumOd(Date datumOd) {
+        this.datumOd = datumOd;
+    }
+
+    public Date getDatumDo() {
+        return datumDo;
+    }
+
+    public void setDatumDo(Date datumDo) {
+        this.datumDo = datumDo;
+    }
+
+    public String getTipAkcije() {
+        return tipAkcije;
+    }
+
+    public void setTipAkcije(String tipAkcije) {
+        this.tipAkcije = tipAkcije;
+    }
 }

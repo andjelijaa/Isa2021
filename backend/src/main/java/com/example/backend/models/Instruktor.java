@@ -8,8 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(	name = "instruktori" )
@@ -28,5 +26,43 @@ public class Instruktor {
         @Column(name = "prosecna_ocena")
         private float prosecna_ocena;
 
+        public int getInstruktorId() {
+                return instruktorId;
+        }
 
+        public void setInstruktorId(int instruktorId) {
+                this.instruktorId = instruktorId;
+        }
+
+        public String getNaziv() {
+                return naziv;
+        }
+
+        public void setNaziv(String naziv) {
+                this.naziv = naziv;
+        }
+
+        public String getAdresa() {
+                return adresa;
+        }
+
+        public void setAdresa(String adresa) {
+                this.adresa = adresa;
+        }
+
+        public String getOpis() {
+                return opis;
+        }
+
+        public void setOpis(String opis) {
+                this.opis = opis;
+        }
+
+        public float getProsecna_ocena() {
+                return prosecna_ocena;
+        }
+
+        public void setProsecna_ocena(float prosecna_ocena) {
+                this.prosecna_ocena = prosecna_ocena;
+        }
 }
