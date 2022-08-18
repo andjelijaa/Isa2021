@@ -2,6 +2,8 @@ package com.example.backend.controllers;
 
 import com.example.backend.models.Cas;
 
+import com.example.backend.models.mappers.CasMapper;
+import com.example.backend.models.response.CasDTO;
 import com.example.backend.models.response.GetCasDTO;
 import com.example.backend.services.CasService;
 
@@ -20,8 +22,8 @@ public class CasController {
     }
 
     @GetMapping("/getAllCas")
-    public List<Cas> getAll(Principal principal) throws Exception {
-        return casService.getAllCasovi(principal);
+    public List<CasDTO> getAll(Principal principal) throws Exception {
+        return CasMapper.toDto(casService.getAllCasovi(principal));
     }
 
     @GetMapping("/{casId}")
@@ -30,9 +32,9 @@ public class CasController {
         return casService.getCasByCasId(principal, casId);
     }
 
-    @PostMapping("/create")
-    public Cas createCas(Principal principal,
+    @PostMapping("/createCas")
+    public CasDTO createCas(Principal principal,
                           @RequestBody Cas cas) throws Exception {
-        return casService.createCas(principal, cas);
+        return CasMapper.INSTANCE.toDto(casService.createCas(principal, cas));
     }
 }

@@ -1,8 +1,10 @@
 package com.example.backend.controllers;
 
 import com.example.backend.models.Vikendica;
+import com.example.backend.models.mappers.VikendicaMapper;
 import com.example.backend.models.response.GetVikendicaDTO;
 
+import com.example.backend.models.response.VikendicaDTO;
 import com.example.backend.services.VikendicaService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,8 +22,8 @@ public class VikendicaController {
     }
 
     @GetMapping("/getAll")
-    public List<Vikendica> getAll(Principal principal) throws Exception {
-        return vikendicaService.getAllVikendice(principal);
+    public List<VikendicaDTO> getAll(Principal principal) throws Exception {
+        return VikendicaMapper.toDto(vikendicaService.getAllVikendice(principal));
     }
 
     @GetMapping("/{vikendicaId}")
@@ -30,9 +32,9 @@ public class VikendicaController {
         return vikendicaService.getVikendicaByVikendicaId(principal, vikendicaId);
     }
 
-    @PostMapping("/create")
-    public Vikendica create(Principal principal,
+    @PostMapping("/createVikendica")
+    public VikendicaDTO create(Principal principal,
                             @RequestBody Vikendica vikendica) throws Exception {
-        return vikendicaService.createVikendica(principal, vikendica);
+        return VikendicaMapper.INSTANCE.toDto(vikendicaService.createVikendica(principal, vikendica));
     }
 }
