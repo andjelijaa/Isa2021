@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-		<div class="card">
+	<!--	<div class="card">
 			<div class="container-fliud">
 				<div class="wrapper row">
 					<div class="preview col-md-6">
@@ -55,11 +55,42 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </template>
 
 <script>
+import axios from "axios";
+const api = "http://localhost:8083";
+const brod = "/api/brod/";
+const config = {
+  headers: {
+    Authorization: localStorage.auth,
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+  },
+};
 export default defineComponent({
-    props: ["id"]
+ props: ["id", "category"],
+	data(){
+		return {
+			item: []
+		}
+	},
+	methods: {
+		getBrod() {
+			console.log(config);
+			console.log("link: ", api + brod + this.id);
+			axios
+				.get(api + brodovi, config)
+				.then((res) => {
+				console.log(JSON.stringify(res));
+				this.item = JSON.stringify(res);
+				})
+				.catch((err) => {
+				console.log(err.response);
+			});
+   		},
+	}
+	
 })
 </script>
