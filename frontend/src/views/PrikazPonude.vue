@@ -62,6 +62,8 @@
 import axios from "axios";
 const api = "http://localhost:8083";
 const brod = "/api/brod/";
+const instruktor = "/api/cas/";
+
 const config = {
   headers: {
     Authorization: localStorage.auth,
@@ -80,6 +82,19 @@ export default defineComponent({
 		getBrod() {
 			console.log(config);
 			console.log("link: ", api + brod + this.id);
+			axios
+				.get(api + brodovi, config)
+				.then((res) => {
+				console.log(JSON.stringify(res));
+				this.item = JSON.stringify(res);
+				})
+				.catch((err) => {
+				console.log(err.response);
+			});
+   		},
+		getInstruktor() {
+			console.log(config);
+			console.log("link: ", api + instruktor + this.id);
 			axios
 				.get(api + brodovi, config)
 				.then((res) => {
