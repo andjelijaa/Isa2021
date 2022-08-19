@@ -54,8 +54,8 @@
 					</div>
 				</div>
 			</div>
-		</div>
-	</div> -->
+		</div>-->
+	</div> 
 </template>
 
 <script>
@@ -63,6 +63,7 @@ import axios from "axios";
 const api = "http://localhost:8083";
 const brod = "/api/brod/";
 const instruktor = "/api/cas/";
+const vikendica = "/api/vikendica/";
 
 const config = {
   headers: {
@@ -83,7 +84,7 @@ export default defineComponent({
 			console.log(config);
 			console.log("link: ", api + brod + this.id);
 			axios
-				.get(api + brodovi, config)
+				.get(api + brodovi+ this.id, config)
 				.then((res) => {
 				console.log(JSON.stringify(res));
 				this.item = JSON.stringify(res);
@@ -96,7 +97,20 @@ export default defineComponent({
 			console.log(config);
 			console.log("link: ", api + instruktor + this.id);
 			axios
-				.get(api + brodovi, config)
+				.get(api + instruktor + this.id, config)
+				.then((res) => {
+				console.log(JSON.stringify(res));
+				this.item = JSON.stringify(res);
+				})
+				.catch((err) => {
+				console.log(err.response);
+			});
+   		},
+		getVikendica() {
+			console.log(config);
+			console.log("link: ", api + vikendica + this.id);
+			axios
+				.get(api + vikendica + this.id, config)
 				.then((res) => {
 				console.log(JSON.stringify(res));
 				this.item = JSON.stringify(res);
