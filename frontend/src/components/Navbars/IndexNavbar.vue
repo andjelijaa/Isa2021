@@ -120,13 +120,14 @@
                 bg-transparent
                 text-blueGray-700
               "
+              @click="logOut"
             >
               Logout
             </button>
           </li>
           <li class="flex items-center" v-if="isUserAuth">
             <router-link
-              to="/auth/register"
+              to="/profile"
               class="
                 text-sm
                 py-2
@@ -161,20 +162,22 @@ export default {
       isUserAuth: false
     };
   },
-  created() {
+  beforeMount() {
     const isAuth = localStorage.auth;
     if(isAuth !== undefined){
       this.isUserAuth = true;
-      alert("BOBANEEEEE ", this.isUserAuth)
     }else{
       this.isUserAuth = false;
-      alert("STEVANEEEEE ", this.isUserAuth)
     }
   },
   methods: {
     setNavbarOpen: function () {
       this.navbarOpen = !this.navbarOpen;
     },
+  logOut(){
+      localStorage.removeItem('auth');
+      this.$router.push('/')
+    }
   },
   components: {
     IndexDropdown,
