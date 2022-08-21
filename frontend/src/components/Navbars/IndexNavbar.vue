@@ -71,7 +71,7 @@
         id="example-navbar-warning"
       >
         <ul class="flex flex-col lg:flex-row list-none lg:ml-auto">
-          <li class="flex items-center">
+          <li class="flex items-center" v-if="!isUserAuth">
             <router-link
               to="/auth/login"
               class="
@@ -89,7 +89,7 @@
               Login
             </router-link>
           </li>
-          <li class="flex items-center">
+          <li class="flex items-center" v-if="!isUserAuth">
             <router-link
               to="/auth/register"
               class="
@@ -105,6 +105,41 @@
               "
             >
               Register
+            </router-link>
+          </li>
+           <li class="flex items-center" v-if="isUserAuth">
+            <button
+              class="
+                text-sm
+                py-2
+                px-4
+                font-normal
+                block
+                w-full
+                whitespace-nowrap
+                bg-transparent
+                text-blueGray-700
+              "
+            >
+              Logout
+            </button>
+          </li>
+          <li class="flex items-center" v-if="isUserAuth">
+            <router-link
+              to="/auth/register"
+              class="
+                text-sm
+                py-2
+                px-4
+                font-normal
+                block
+                w-full
+                whitespace-nowrap
+                bg-transparent
+                text-blueGray-700
+              "
+            >
+              Profile
             </router-link>
           </li>
           <li class="flex items-center">
@@ -123,7 +158,18 @@ export default {
   data() {
     return {
       navbarOpen: false,
+      isUserAuth: false
     };
+  },
+  created() {
+    const isAuth = localStorage.auth;
+    if(isAuth !== undefined){
+      this.isUserAuth = true;
+      alert("BOBANEEEEE ", this.isUserAuth)
+    }else{
+      this.isUserAuth = false;
+      alert("STEVANEEEEE ", this.isUserAuth)
+    }
   },
   methods: {
     setNavbarOpen: function () {
