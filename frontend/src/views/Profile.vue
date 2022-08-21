@@ -70,7 +70,7 @@
                       <span
                         class="text-xl font-bold block uppercase tracking-wide text-blueGray-600"
                       >
-                        22
+                        33
                       </span>
                       <span class="text-sm text-blueGray-400">Friends</span>
                     </div>
