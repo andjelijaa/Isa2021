@@ -44,13 +44,6 @@
                 <div
                   class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center"
                 >
-                  <div class="relative">
-                    <img
-                      alt="..."
-                      :src="team2"
-                      class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px"
-                    />
-                  </div>
                 </div>
                 <div
                   class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center"
@@ -97,7 +90,12 @@
                 <h3
                   class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2"
                 >
-                  Jenna Stones
+                   ime: {{user.ime}}
+                </h3>
+                <h3
+                  class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2"
+                >
+                  prezime: {{user.prezime }}
                 </h3>
                 <div
                   class="text-sm leading-normal mt-0 mb-2 text-blueGray-400 font-bold uppercase"
@@ -120,25 +118,7 @@
                   University of Computer Science
                 </div>
               </div>
-              <div class="mt-10 py-10 border-t border-blueGray-200 text-center">
-                <div class="flex flex-wrap justify-center">
-                  <div class="w-full lg:w-9/12 px-4">
-                    <p class="mb-4 text-lg leading-relaxed text-blueGray-700">
-                      An artist of considerable range, Jenna the name taken by
-                      Melbourne-raised, Brooklyn-based Nick Murphy writes,
-                      performs and records all of his own music, giving it a
-                      warm, intimate feel with a solid groove structure. An
-                      artist of considerable range.
-                    </p>
-                    <a
-                      href="javascript:void(0)"
-                      class="font-normal text-emerald-500"
-                    >
-                      Show more
-                    </a>
-                  </div>
-                </div>
-              </div>
+            
             </div>
           </div>
         </div>
@@ -149,19 +129,44 @@
 </template>
 <script>
 import Navbar from "@/components/Navbars/AuthNavbar.vue";
-import FooterComponent from "@/components/Footers/Footer.vue";
-
 import team2 from "@/assets/img/team-2-800x800.jpg";
-
+import axios from "axios";
+const apiUser = "http://localhost:8083/api/user";
+const config = {
+  headers: {
+    Authorization: localStorage.auth,
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
+  },
+};
 export default {
   data() {
     return {
       team2,
+        user : {
+        "ime" : "Andjelija",
+        "prezime": "Djordjevic"
+      }
     };
   },
+  beforeMount(){
+      axios
+        .get(apiUser, config)
+        .then((res) => {
+          console.log(JSON.stringify(res));
+          this.item = JSON.stringify(res);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+  },
+  methods: {
+    edit(){
+      //  funkcija za update
+    }
+  },
   components: {
-    Navbar,
-    FooterComponent,
+    Navbar
   },
 };
 </script>
