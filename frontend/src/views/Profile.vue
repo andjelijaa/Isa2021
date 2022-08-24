@@ -151,44 +151,81 @@
                 <h3
                   class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2"
                 >
-                   email: {{user.email}}
+                   email: {{email}}
                 </h3>
                                <div class="mb-2 text-blueGray-600">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">username</span>
-                    </div>
+                        <span class="input-group-text" id="basic-addon1">username</span
+                      >                    </div>
                     <input
                       type="text"
                       class="form-control"
                       placeholder="Username"
                       aria-describedby="basic-addon1"
+                      v-model="username"
+                      readonly="readonly"
                     />
                   </div>
                 </div>
                 <div class="mb-2 text-blueGray-600">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">password</span>
-                    </div>
+                        <span class="input-group-text" id="basic-addon1">password</span
+                      >                    </div>
                     <input
                       type="text"
                       class="form-control"
                       placeholder="Password"
                       aria-describedby="basic-addon1"
+                      v-model="password"
+                    />
+                  </div>
+                </div>
+                                <div class="mb-2 text-blueGray-600">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1"
+                        >ime</span
+                      >
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Ime"
+                      aria-describedby="basic-addon1"
+                      v-model="ime"
+                    />
+                  </div>
+                </div>
+                <div class="mb-2 text-blueGray-600">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1"
+                        >prezime</span
+                      >
+                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Prezime"
+                      aria-describedby="basic-addon1"
+                      v-model="prezime"
                     />
                   </div>
                 </div>
                 <div class="mb-2 text-blueGray-600">
                        <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">grad</span>
+                        <span class="input-group-text" id="basic-addon1"
+                        >grad</span>
                     </div>
                     <input
                       type="text"
                       class="form-control"
                       placeholder="Grad"
                       aria-describedby="basic-addon1"
+                      v-model="grad"
                     />
                   </div>
                 </div>
@@ -198,29 +235,47 @@
                 <div class="mb-2 text-blueGray-600">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">drzava</span>
+                        <span class="input-group-text" id="basic-addon1"
+                        >drzava</span
+                      >                    </div>
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Drzava"
+                      aria-describedby="basic-addon1"
+                      v-model="drzava"
+                    />
+                  </div>
+                </div>
+                 <div class="mb-2 text-blueGray-600">
+                  <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                      <span class="input-group-text" id="basic-addon1"
+                        >adresa</span
+                      >
                     </div>
                     <input
                       type="text"
                       class="form-control"
                       placeholder="Drzava"
                       aria-describedby="basic-addon1"
+                      v-model="adresa"
                     />
                   </div>
                 </div>
 
-
-
                 <div class="mb-2 text-blueGray-600">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                      <span class="input-group-text" id="basic-addon1">telefon</span>
+                       <span class="input-group-text" id="basic-addon1"
+                        >telefon</span>
                     </div>
                     <input
                       type="text"
                       class="form-control"
                       placeholder="Telefon"
                       aria-describedby="basic-addon1"
+                      v-model="broj_telefona"
                     />
                   </div>
                 </div>
@@ -236,7 +291,6 @@
 </template>
 <script>
 import Navbar from "@/components/Navbars/AuthNavbar.vue";
-import team2 from "@/assets/img/team-2-800x800.jpg";
 import axios from "axios";
 const apiUser = "http://localhost:8083/api/user";
 const config = {
@@ -249,11 +303,14 @@ const config = {
 export default {
   data() {
     return {
-      team2,
-        user : {
-        ime : "Andjelija",
-        prezime: "Djordjevic"
-      }
+      username: "",
+      pass: "",
+      ime: "",
+      prezime: "",
+      adresa: "",
+      grad: "",
+      drzava: "",
+      broj_telefona: "",
     };
   },
   beforeMount() {
@@ -261,8 +318,15 @@ export default {
       .get(apiUser, config)
       .then((res) => {
         console.log(JSON.stringify(res));
-        this.user = JSON.stringify(res);
-      })
+        const user = JSON.stringify(res);
+        this.username = user.username;
+        this.pass = user.password;
+        this.ime = user.ime;
+        this.prezime = user.prezime;
+        this.adresa = user.adresa;
+        this.grad = user.grad;
+        this.drzava = user.drzava;
+        this.broj_telefona = user.phone;      })
       .catch((err) => {
         console.log(err.response);
       });
