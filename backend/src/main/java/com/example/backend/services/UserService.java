@@ -1,6 +1,7 @@
 package com.example.backend.services;
 
 import com.example.backend.models.User;
+import com.example.backend.models.request.UpdateUserDTO;
 import com.example.backend.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +43,35 @@ public class UserService implements UserServiceInterface {
     @Override
     public void save(User user) {
         userRepository.save(user);
+    }
+
+    public User updateUser(Principal principal, UpdateUserDTO updateUserDTO) throws Exception {
+        User user = getActivatedUserFromPrincipal(principal);
+        if(user == null){
+            throw new Exception("User not found");
+        }
+
+        if(updateUserDTO.getDrzava() != null){
+            user.setDrzava(updateUserDTO.getDrzava());
+        }
+        if(updateUserDTO.getGrad() != null){
+            user.setGrad(updateUserDTO.getGrad());
+        }
+        if(updateUserDTO.getPassword() != null){
+            user.setPassword(updateUserDTO.getPassword());
+        }
+        if(updateUserDTO.getIme() != null){
+            user.setIme(updateUserDTO.getIme());
+        }
+        if(updateUserDTO.getPrezime() != null){
+            user.setPrezime(updateUserDTO.getPrezime());
+        }
+        if(updateUserDTO.getPhone() != null){
+            user.setPhone(updateUserDTO.getPhone());
+        }
+        if (updateUserDTO.getAdresa() != null){
+            user.setAddress(updateUserDTO.getAdresa());
+        }
+        return userRepository.save(user);
     }
 }

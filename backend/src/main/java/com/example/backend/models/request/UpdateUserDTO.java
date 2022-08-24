@@ -11,6 +11,7 @@ public class UpdateUserDTO {
     private String ime;
     private String prezime;
     private String grad;
+    private String adresa;
     private String drzava;
     private String phone;
 
@@ -68,5 +69,13 @@ public class UpdateUserDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAdresa() {
+        return adresa;
+    }
+
+    public void setAdresa(String adresa) {
+        this.adresa = adresa;
     }
 }

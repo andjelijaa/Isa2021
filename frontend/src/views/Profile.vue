@@ -148,15 +148,11 @@
                 </div>
               </div>
               <div class="text-center mt-12">
-                <h3
-                  class="text-4xl font-semibold leading-normal mb-2 text-blueGray-700 mb-2"
-                >
-                   email: {{email}}
-                </h3>
-                               <div class="mb-2 text-blueGray-600">
+               
+              <div class="mb-2 text-blueGray-600">
                   <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1">username</span
+                        <span class="input-group-text" id="basic-addon1">email</span
                       >                    </div>
                     <input
                       type="text"
@@ -292,7 +288,7 @@
 <script>
 import Navbar from "@/components/Navbars/AuthNavbar.vue";
 import axios from "axios";
-const apiUser = "http://localhost:8083/api/user";
+const api = "http://localhost:8083/api/users/updateUser";
 const config = {
   headers: {
     Authorization: localStorage.auth,
@@ -315,7 +311,7 @@ export default {
   },
   beforeMount() {
     axios
-      .get(apiUser, config)
+      .get(api, config)
       .then((res) => {
         console.log(JSON.stringify(res));
         const user = JSON.stringify(res);
@@ -333,8 +329,22 @@ export default {
   },
   methods: {
     edit(){
-      //  funkcija za update
-    }
+      const updateUser = {
+          ime: this.ime,
+          prezime: this.prezime,
+          adresa: this.adresa,
+          grad: this.grad,
+          drzava: this.drzava,
+          phone: this.broj_telefona,
+          password: this.pass,
+        };
+      axios
+        .put(api, updateUser, config)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => console.log(err));
+    },
   },
   components: {
     Navbar
