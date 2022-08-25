@@ -1,95 +1,89 @@
 <template>
+<div>
+    <index-navbar />
+    <br />
     <div class="container">
-	<!--	<div class="card">
-			<div class="container-fliud">
-				<div class="wrapper row">
-					<div class="preview col-md-6">
-
-						<div class="preview-pic tab-content">
-							<div class="tab-pane active" id="pic-1">
-								<img src="http://placekitten.com/400/252"/>
-							</div>
-							<div class="tab-pane" id="pic-2">
-								<img src="http://placekitten.com/400/252"/>
-							</div>
-							<div class="tab-pane" id="pic-3">
-								<img src="http://placekitten.com/400/252"/>
-							</div>
-							<div class="tab-pane" id="pic-4">
-								<img src="http://placekitten.com/400/252"/>
-							</div>
-							<div class="tab-pane" id="pic-5">
-								<img src="http://placekitten.com/400/252"/>
-							</div>
-						</div>
-						<ul class="preview-thumbnail nav nav-tabs">
-							<li class="active">
-								<a data-target="#pic-1" data-toggle="tab">
-									<img src="http://placekitten.com/200/126"/>
-								</a>
-							</li>
-							<li>
-								<a data-target="#pic-2" data-toggle="tab">
-									<img src="http://placekitten.com/200/126"/>
-								</a>
-							</li>
-							<li>
-								<a data-target="#pic-3" data-toggle="tab">
-									<img src="http://placekitten.com/200/126" />
-								</a>
-							</li>
-							<li>
-								<a data-target="#pic-4" data-toggle="tab">
-									<img src="http://placekitten.com/200/126"/>
-								</a>
-							</li>
-							<li>
-								<a data-target="#pic-5" data-toggle="tab">
-									<img src="http://placekitten.com/200/126"/>
-								</a>
-							</li>
-						</ul>
-
-					</div>
-					<div class="details col-md-6">
-						<h3 class="product-title">men's shoes fashion</h3>
-						<div class="rating">
-							<div class="stars">
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star checked"></span>
-								<span class="fa fa-star"></span>
-								<span class="fa fa-star"></span>
-							</div>
-							<span class="review-no">41 reviews</span>
-						</div>
-						<p class="product-description">Suspendisse quos? Tempus cras iure temporibus? Eu laudantium cubilia sem sem! Repudiandae et! Massa senectus enim minim sociosqu delectus posuere.</p>
-						<h4 class="price">current price: <span>$180</span></h4>
-						<p class="vote"><strong>91%</strong> of buyers enjoyed this product! <strong>(87 votes)</strong></p>
-						<h5 class="sizes">sizes:
-							<span class="size" data-toggle="tooltip" title="small">s</span>
-							<span class="size" data-toggle="tooltip" title="medium">m</span>
-							<span class="size" data-toggle="tooltip" title="large">l</span>
-							<span class="size" data-toggle="tooltip" title="xtra large">xl</span>
-						</h5>
-						<h5 class="colors">colors:
-							<span class="color orange not-available" data-toggle="tooltip" title="Not In store"></span>
-							<span class="color green"></span>
-							<span class="color blue"></span>
-						</h5>
-						<div class="action">
-							<button class="add-to-cart btn btn-default" type="button">add to cart</button>
-							<button class="like btn btn-default" type="button"><span class="fa fa-heart"></span></button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>-->
+      <div class="col-lg-8 border p-3 main-section bg-white">
+        <div class="row hedding m-0 pl-3 pt-0 pb-3">Ime kategorije</div>
+        <div class="row m-0">
+          <div class="col-lg-4 left-side-product-box pb-3">
+            <img
+              src="https://thumbs.dreamstime.com/z/demo-seal-watermark-distress-texture-red-vector-rubber-print-demo-text-dust-texture-text-tag-placed-double-135335018.jpg"
+              class="border p-3"
+            />
+            <span class="sub-img">
+              <img
+                src="https://thumbs.dreamstime.com/z/demo-seal-watermark-distress-texture-red-vector-rubber-print-demo-text-dust-texture-text-tag-placed-double-135335018.jpg"
+                class="border p-2"
+              />
+              <img
+                src="https://thumbs.dreamstime.com/z/demo-seal-watermark-distress-texture-red-vector-rubber-print-demo-text-dust-texture-text-tag-placed-double-135335018.jpg"
+                class="border p-2"
+              />
+              <img
+                src="https://thumbs.dreamstime.com/z/demo-seal-watermark-distress-texture-red-vector-rubber-print-demo-text-dust-texture-text-tag-placed-double-135335018.jpg"
+                class="border p-2"
+              />
+            </span>
+          </div>
+          <div class="col-lg-8">
+            <div class="right-side-pro-detail border p-3 m-0">
+              <div class="row">
+                <div class="col-lg-12">
+                  <span>Ime</span>
+                  <p class="m-0 p-0">Mesto</p>
+                </div>
+                <div class="col-lg-12">
+                  <p class="m-0 p-0 price-pro">$30</p>
+                  <hr class="p-0 m-0" />
+                </div>
+                <div class="col-lg-12 pt-2">
+                  <h5>Product Detail</h5>
+                  <span
+                    >Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna
+                    aliqua. Ut enim ad minim veniam, quis nostrud exercitation
+                    ullamco laboris.</span
+                  >
+                  <hr class="m-0 pt-2 mt-2" />
+                </div>
+                <div class="col-lg-12">
+                  <p class="tag-section">
+                    <strong>Tag : </strong><a href="">kategorija</a
+                    ><a href="">,Man</a>
+                  </p>
+                </div>
+                <div class="col-lg-12">
+                  <h1>Ovde ide datum</h1>
+                  <h6>Datum :</h6>
+                  <input
+                    type="number"
+                    class="form-control text-center w-100"
+                    value="1"
+                  />
+                </div>
+                <div class="col-lg-12 mt-3">
+                  <div class="row">
+                    <div class="col-lg-6 pb-2">
+                      <a href="#" class="btn btn-danger w-100">akcija</a>
+                    </div>
+                    <div class="col-lg-6">
+                      <a href="#" class="btn btn-success w-100">rezervisi</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 	</div> 
 </template>
 
 <script>
 import axios from "axios";
+import IndexNavbar from "@/components/Navbars/IndexNavbar.vue";
 const api = "http://localhost:8083";
 const brod = "/api/brod/";
 const instruktor = "/api/cas/";
@@ -103,44 +97,39 @@ const config = {
   },
 };
 const getBrod = () => {
-	console.log(config);
-    console.log("link: ", api + brod + this.id);
-    axios
-        .get(api + brod + this.id, config)
-        .then((res) => {
-          console.log(JSON.stringify(res));
-          this.item = JSON.stringify(res);
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-}
+ axios
+    .get(api + brod + this.id, config)
+    .then((res) => {
+      console.log(JSON.stringify(res));
+      this.item = JSON.stringify(res);
+    })
+    .catch((err) => {
+      console.log(err.response);
+    });
+};
 const getVikendica = () => {
-	console.log(config);
-    console.log("link: ", api + vikendica + this.id);
-    axios
-        .get(api + vikendica + this.id, config)
-        .then((res) => {
-          console.log(JSON.stringify(res));
-          this.item = JSON.stringify(res);
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-   }
+ axios
+    .get(api + vikendica + this.id, config)
+    .then((res) => {
+      console.log(JSON.stringify(res));
+      this.item = JSON.stringify(res);
+    })
+    .catch((err) => {
+      console.log(err.response);
+    });
+};
 const getInstruktor = () => {
-	console.log(config);
-    console.log("link: ", api + instruktor + this.id);
-	axios
+ axios
     .get(api + instruktor + this.id, config)
-        .then((res) => {
-          console.log(JSON.stringify(res));
-          this.item = JSON.stringify(res);
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
- }
+    .then((res) => {
+      console.log(JSON.stringify(res));
+      this.item = JSON.stringify(res);
+    })
+    .catch((err) => {
+      console.log(err.response);
+    });
+};
+
 export default {
   props: ["id", "category"],
   data() {
@@ -149,16 +138,18 @@ export default {
     };
  },
 beforeMount() {
-	if(this.category == 'brod'){
-		getBrod();
-	}
-	if(this.category == 'instruktor'){
-		getInstruktor();
-	}
-	if(this.category == 'vikendica'){
-		getVikendica();
-	}
-  }
-     
+	if (this.category == "brod") {
+      getBrod();
+    }
+    if (this.category == "instruktor") {
+      getInstruktor();
+    }
+    if (this.category == "vikendica") {
+      getVikendica();
+    }
+  },
+  components: {
+    IndexNavbar,
+  },
 };
 </script>
