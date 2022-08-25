@@ -289,7 +289,7 @@
 <script>
 import Navbar from "@/components/Navbars/AuthNavbar.vue";
 import axios from "axios";
-const api = "http://localhost:8083/api/users/updateUser";
+const apiUser = "http://localhost:8083/api/users/updateUser";
 const config = {
   headers: {
     Authorization: localStorage.auth,
@@ -312,7 +312,7 @@ export default {
   },
   beforeMount() {
     axios
-      .get(api, config)
+      .get(apiUser, config)
       .then((res) => {
         console.log(JSON.stringify(res));
         const user = JSON.stringify(res);
@@ -340,7 +340,7 @@ export default {
           password: this.pass,
         };
       axios
-        .put(api, updateUser, config)
+        .put(apiUser, updateUser, config)
         .then(res => {
           console.log(res)
         })
