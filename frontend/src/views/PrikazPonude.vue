@@ -102,18 +102,10 @@ const config = {
     "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
   },
 };
-export default {
-  props: ["id", "category"],
-  data() {
-    return {
-      item: [],
-    };
-  },
-  methods: {
-    getBrod() {
-      console.log(config);
-      console.log("link: ", api + brod + this.id);
-      axios
+const getBrod = () => {
+	console.log(config);
+    console.log("link: ", api + brod + this.id);
+    axios
         .get(api + brod + this.id, config)
         .then((res) => {
           console.log(JSON.stringify(res));
@@ -122,24 +114,11 @@ export default {
         .catch((err) => {
           console.log(err.response);
         });
-    },
-    getInstruktor() {
-      console.log(config);
-      console.log("link: ", api + instruktor + this.id);
-      axios
-        .get(api + instruktor + this.id, config)
-        .then((res) => {
-          console.log(JSON.stringify(res));
-          this.item = JSON.stringify(res);
-        })
-        .catch((err) => {
-          console.log(err.response);
-        });
-    },
-    getVikendica() {
-      console.log(config);
-      console.log("link: ", api + vikendica + this.id);
-      axios
+}
+const getVikendica = () => {
+	console.log(config);
+    console.log("link: ", api + vikendica + this.id);
+    axios
         .get(api + vikendica + this.id, config)
         .then((res) => {
           console.log(JSON.stringify(res));
@@ -148,7 +127,38 @@ export default {
         .catch((err) => {
           console.log(err.response);
         });
-    },
-  },
+   }
+const getInstruktor = () => {
+	console.log(config);
+    console.log("link: ", api + instruktor + this.id);
+	axios
+    .get(api + instruktor + this.id, config)
+        .then((res) => {
+          console.log(JSON.stringify(res));
+          this.item = JSON.stringify(res);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
+ }
+export default {
+  props: ["id", "category"],
+  data() {
+    return {
+      item: [],
+    };
+ },
+beforeMount() {
+	if(this.category == 'brod'){
+		getBrod();
+	}
+	if(this.category == 'instruktor'){
+		getInstruktor();
+	}
+	if(this.category == 'vikendica'){
+		getVikendica();
+	}
+  }
+     
 };
 </script>

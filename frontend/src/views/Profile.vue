@@ -95,8 +95,9 @@
                         duration-150
                       "
                       type="button"
+                     @click="edit"
                     >
-                      Connect
+                      Edit
                     </button>
                   </div>
                 </div>
