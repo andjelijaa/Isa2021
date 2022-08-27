@@ -55,12 +55,10 @@
                 </div>
                 <div class="col-lg-12">
                   <h1>Ovde ide datum</h1>
-                  <h6>Datum :</h6>
-                  <input
-                    type="number"
-                    class="form-control text-center w-100"
-                    value="1"
-                  />
+                  <h1>OD :</h1>
+                  <Kalendar />
+                  <h6>DO :</h6>
+                  <Kalendar />
                 </div>
                 <div class="col-lg-12 mt-3">
                   <div class="row">
@@ -84,6 +82,8 @@
 <script>
 import axios from "axios";
 import IndexNavbar from "@/components/Navbars/IndexNavbar.vue";
+import Kalendar from "@/components/Kalendar/Kalendar.vue";
+//import Kalendar from "../components/Kalendar/Kalendar.vue";
 const api = "http://localhost:8083";
 const brod = "/api/brod/";
 const instruktor = "/api/cas/";
@@ -150,6 +150,8 @@ beforeMount() {
   },
   components: {
     IndexNavbar,
-  },
+    Kalendar,
+    Kalendar
+},
 };
 </script>
