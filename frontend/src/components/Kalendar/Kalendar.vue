@@ -2,14 +2,14 @@
     <div class="container">
 	<div class="row">
         <div class="span12">
-    	    <table class="table-condensed table-bordered table-striped">
+    	<table class="table-condensed table-bordered table-striped">
                 <thead>
                     <tr>
                       <th col span="7">
                         <span class="btn-group">
                             <a class="btn"><i class="icon-chevron-left"></i></a>
                             <a class="btn active">February 2012</a>
-                        	<a class="btn"><i class="icon-chevron-right"></i></a>
+                        	   <a class="btn"><i class="icon-chevron-right"></i></a>
                         </span>
                       </th>
                     </tr>

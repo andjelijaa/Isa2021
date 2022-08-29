@@ -83,7 +83,6 @@
 import axios from "axios";
 import IndexNavbar from "@/components/Navbars/IndexNavbar.vue";
 import Kalendar from "@/components/Kalendar/Kalendar.vue";
-//import Kalendar from "../components/Kalendar/Kalendar.vue";
 const api = "http://localhost:8083";
 const brod = "/api/brod/";
 const instruktor = "/api/cas/";
@@ -150,7 +149,6 @@ beforeMount() {
   },
   components: {
     IndexNavbar,
-    Kalendar,
     Kalendar
 },
 };

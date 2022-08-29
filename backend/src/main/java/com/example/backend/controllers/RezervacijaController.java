@@ -5,16 +5,20 @@ import com.example.backend.models.Cas;
 import com.example.backend.models.Rezervacija;
 import com.example.backend.models.Vikendica;
 import com.example.backend.repository.RezervacijaRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.backend.services.EmailService;
+import org.springframework.web.bind.annotation.*;
+
+import javax.mail.MessagingException;
 
 @RestController("/api/rezervacije")
 public class RezervacijaController {
-    private final RezervacijaRepository rezervacijaRepository;
 
-    public RezervacijaController(RezervacijaRepository rezervacijaRepository) {
+    private final RezervacijaRepository rezervacijaRepository;
+    private final EmailService emailService;
+
+    public RezervacijaController(RezervacijaRepository rezervacijaRepository, EmailService emailService) {
         this.rezervacijaRepository = rezervacijaRepository;
+        this.emailService = emailService;
     }
 
     @GetMapping("/{id}/brod/{brodId}")
@@ -41,4 +45,16 @@ public class RezervacijaController {
 
         return rezervacija.getVikendica();
     }
+
+    @PostMapping("/{id}/brod/{brodId}")
+    public Brod postBrod(@PathVariable(name = "brodId")Long brodId,
+                         @PathVariable(name = "id")Long id,
+                         @RequestBody Rezervacija rezervacija) throws MessagingException {
+        rezervacijaRepository.save(rezervacija);
+        emailService.sendRezervacijaEmail(rezervacija.getKlijent().getUsername());
+
+
+        return rezervacija.getBrod();
+    }
+
 }

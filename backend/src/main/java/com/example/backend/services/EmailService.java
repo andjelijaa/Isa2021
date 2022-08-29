@@ -59,4 +59,23 @@ public class EmailService {
         Transport.send(msg);
     }
 
+    public void sendRezervacijaEmail(String email) throws MessagingException {
+        System.out.println("posalje se mejl");
+
+        Message msg = new MimeMessage(session);
+        msg.setFrom(new InternetAddress(username, false));
+
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
+        msg.setSubject("Rezervacija");
+        msg.setContent("Uspesno ste rezervisali uslugu", "text/html");
+        msg.setSentDate(new Date());
+
+        MimeBodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setContent("Uspesno ste rezervisali uslugu", "text/html");
+
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(messageBodyPart);
+
+        Transport.send(msg);
+    }
 }
