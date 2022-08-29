@@ -57,4 +57,25 @@ public class RezervacijaController {
         return rezervacija.getBrod();
     }
 
+    @PostMapping("/{id}/vikendica/{vikendicaId}")
+    public Vikendica postVikendica(@PathVariable(name = "vikendicaId")Long vikendicaId,
+                                   @PathVariable(name = "id")Long id,
+                                   @RequestBody Rezervacija rezervacija) throws MessagingException {
+        rezervacijaRepository.save(rezervacija);
+        emailService.sendRezervacijaEmail(rezervacija.getKlijent().getUsername());
+
+
+        return rezervacija.getVikendica();
+    }
+
+    @PostMapping("/{id}/cas/{casId}")
+    public Cas postCas(@PathVariable(name = "casId")Long casId,
+                       @PathVariable(name = "id")Long id,
+                       @RequestBody Rezervacija rezervacija) throws MessagingException {
+        rezervacijaRepository.save(rezervacija);
+        emailService.sendRezervacijaEmail(rezervacija.getKlijent().getUsername());
+
+
+        return rezervacija.getCas();
+    }
 }
