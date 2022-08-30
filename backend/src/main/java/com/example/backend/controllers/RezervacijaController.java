@@ -34,9 +34,7 @@ public class RezervacijaController {
     @GetMapping("/{id}/cas/{casId}")
     public Cas getCas(@PathVariable(name = "casId")Long casId,
                       @PathVariable(name = "id")Long id){
-        Rezervacija rezervacija = rezervacijaRepository.findByIdAndCasId(id, casId);
-
-        return rezervacija.getCas();
+        return rezervacijaService.getCasById(id, casId);
     }
 
 
@@ -70,11 +68,7 @@ public class RezervacijaController {
     @PostMapping("/{id}/cas/{casId}")
     public Cas postCas(@PathVariable(name = "casId")Long casId,
                        @PathVariable(name = "id")Long id,
-                       @RequestBody Rezervacija rezervacija) throws MessagingException {
-        rezervacijaRepository.save(rezervacija);
-        emailService.sendRezervacijaEmail(rezervacija.getKlijent().getUsername());
-
-
-        return rezervacija.getCas();
+                       @RequestBody Rezervacija rezervacija) throws Exception {
+        return rezervacijaService.createRezervacijuZaCas(casId, rezervacija);
     }
 }
