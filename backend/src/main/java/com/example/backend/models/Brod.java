@@ -5,9 +5,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-
-@NoArgsConstructor
-@AllArgsConstructor
 public class Brod{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +38,29 @@ public class Brod{
 
     @ManyToOne
     private Akcija akcija;
+
+    public Brod(Long id, String naziv, String adresa, String promoOpis, String slike, int maxBrojOsoba, String slobodniTermini, String pravilaPonasanja, String opremaUzRezervaciju, String cenovnikInfo, String usloviOtkaza, String tip, int duzina, String brojMorora, String snagaMotora, int maxSpreed, String navigacionaOprema, User vlasnik, List<Rezervacija> rezervacije, Akcija akcija) {
+        this.id = id;
+        this.naziv = naziv;
+        this.adresa = adresa;
+        this.promoOpis = promoOpis;
+        this.slike = slike;
+        this.maxBrojOsoba = maxBrojOsoba;
+        this.slobodniTermini = slobodniTermini;
+        this.pravilaPonasanja = pravilaPonasanja;
+        this.opremaUzRezervaciju = opremaUzRezervaciju;
+        this.cenovnikInfo = cenovnikInfo;
+        this.usloviOtkaza = usloviOtkaza;
+        this.tip = tip;
+        this.duzina = duzina;
+        this.brojMorora = brojMorora;
+        this.snagaMotora = snagaMotora;
+        this.maxSpreed = maxSpreed;
+        this.navigacionaOprema = navigacionaOprema;
+        this.vlasnik = vlasnik;
+        this.rezervacije = rezervacije;
+        this.akcija = akcija;
+    }
 
     public Long getId() {
         return id;
@@ -201,4 +221,6 @@ public class Brod{
     public void setAkcija(Akcija akcija) {
         this.akcija = akcija;
     }
+
+
 }
