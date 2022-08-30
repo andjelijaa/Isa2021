@@ -3,9 +3,11 @@ package com.example.backend.services;
 import com.example.backend.models.Brod;
 import com.example.backend.models.Cas;
 import com.example.backend.models.Rezervacija;
+import com.example.backend.models.Vikendica;
 import com.example.backend.repository.BrodRepository;
 import com.example.backend.repository.CasRepository;
 import com.example.backend.repository.RezervacijaRepository;
+import com.example.backend.repository.VikendicaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -18,15 +20,18 @@ public class RezervacijaService {
     private final EmailService emailService;
     private final BrodRepository brodRepository;
     private final CasRepository casRepository;
+    private final VikendicaRepository vikendicaRepository;
 
     public RezervacijaService(RezervacijaRepository rezervacijaRepository,
                               EmailService emailService,
                               BrodRepository brodRepository,
-                              CasRepository casRepository) {
+                              CasRepository casRepository,
+                              VikendicaRepository vikendicaRepository) {
         this.rezervacijaRepository = rezervacijaRepository;
         this.emailService = emailService;
         this.brodRepository = brodRepository;
         this.casRepository=casRepository;
+        this.vikendicaRepository=vikendicaRepository;
     }
 
     public Brod getBrodById(Long id, Long brodId) {
@@ -47,7 +52,7 @@ public class RezervacijaService {
         emailService.sendRezervacijaEmail(rezervacija.getKlijent().getUsername());
 
 
-        return rezervacija.getBrod();
+        return brod;
     }
 
     public Cas getCasById(Long id, Long casId) {
@@ -66,6 +71,26 @@ public class RezervacijaService {
         emailService.sendRezervacijaEmail(rezervacija.getKlijent().getUsername());
 
 
-        return rezervacija.getCas();
+        return cas;
+    }
+
+    public Vikendica getVikendicaById(Long id, Long vikendicaId) {
+        Rezervacija rezervacija = rezervacijaRepository.findByIdAndVikendicaId(id, vikendicaId);
+
+        return rezervacija.getVikendica();
+    }
+
+    public Vikendica createRezervacijuZaVikendicu(Long vikendicaId, Rezervacija rezervacija) throws Exception {
+        Vikendica vikendica = vikendicaRepository.findById(vikendicaId)
+                .orElseThrow(() -> new Exception("Vikendica not found"));
+        Rezervacija rez = rezervacijaRepository.saveAndFlush(rezervacija);
+        List<Rezervacija> rezervacije = vikendica.getRezervacije();
+        rezervacije.add(rez);
+        vikendica.setRezervacije(rezervacije);
+        vikendicaRepository.save(vikendica);
+        emailService.sendRezervacijaEmail(rezervacija.getKlijent().getUsername());
+
+
+        return vikendica;
     }
 }

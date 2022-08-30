@@ -41,9 +41,7 @@ public class RezervacijaController {
     @GetMapping("/{id}/vikendica/{vikendicaId}")
     public Vikendica getVikendica(@PathVariable(name = "vikendicaId")Long vikendicaId,
                                   @PathVariable(name = "id")Long id){
-        Rezervacija rezervacija = rezervacijaRepository.findByIdAndVikendicaId(id, vikendicaId);
-
-        return rezervacija.getVikendica();
+        return rezervacijaService.getVikendicaById(id, vikendicaId);
     }
 
     @PostMapping("/{id}/brod/{brodId}")
@@ -57,12 +55,8 @@ public class RezervacijaController {
     @PostMapping("/{id}/vikendica/{vikendicaId}")
     public Vikendica postVikendica(@PathVariable(name = "vikendicaId")Long vikendicaId,
                                    @PathVariable(name = "id")Long id,
-                                   @RequestBody Rezervacija rezervacija) throws MessagingException {
-        rezervacijaRepository.save(rezervacija);
-        emailService.sendRezervacijaEmail(rezervacija.getKlijent().getUsername());
-
-
-        return rezervacija.getVikendica();
+                                   @RequestBody Rezervacija rezervacija) throws Exception {
+        return rezervacijaService.createRezervacijuZaVikendicu(vikendicaId, rezervacija);
     }
 
     @PostMapping("/{id}/cas/{casId}")
