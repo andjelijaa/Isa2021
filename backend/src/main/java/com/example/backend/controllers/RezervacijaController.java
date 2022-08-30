@@ -6,6 +6,7 @@ import com.example.backend.models.Rezervacija;
 import com.example.backend.models.Vikendica;
 import com.example.backend.repository.RezervacijaRepository;
 import com.example.backend.services.EmailService;
+import com.example.backend.services.RezervacijaService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
@@ -15,18 +16,19 @@ public class RezervacijaController {
 
     private final RezervacijaRepository rezervacijaRepository;
     private final EmailService emailService;
+    private final RezervacijaService rezervacijaService;
 
-    public RezervacijaController(RezervacijaRepository rezervacijaRepository, EmailService emailService) {
+    public RezervacijaController(RezervacijaRepository rezervacijaRepository, EmailService emailService,RezervacijaService rezervacijaService) {
         this.rezervacijaRepository = rezervacijaRepository;
         this.emailService = emailService;
+        this.rezervacijaService=rezervacijaService;
     }
 
     @GetMapping("/{id}/brod/{brodId}")
     public Brod getBrod(@PathVariable(name = "brodId")Long brodId,
                         @PathVariable(name = "id")Long id){
-        Rezervacija rezervacija = rezervacijaRepository.findByIdAndBrodId(id, brodId);
 
-        return rezervacija.getBrod();
+        return rezervacijaService.getBrodById(id, brodId);
     }
 
     @GetMapping("/{id}/cas/{casId}")
@@ -49,12 +51,9 @@ public class RezervacijaController {
     @PostMapping("/{id}/brod/{brodId}")
     public Brod postBrod(@PathVariable(name = "brodId")Long brodId,
                          @PathVariable(name = "id")Long id,
-                         @RequestBody Rezervacija rezervacija) throws MessagingException {
-        rezervacijaRepository.save(rezervacija);
-        emailService.sendRezervacijaEmail(rezervacija.getKlijent().getUsername());
+                         @RequestBody Rezervacija rezervacija) throws Exception {
 
-
-        return rezervacija.getBrod();
+        return rezervacijaService.createRezervacijuZaBrod(brodId, rezervacija);
     }
 
     @PostMapping("/{id}/vikendica/{vikendicaId}")
