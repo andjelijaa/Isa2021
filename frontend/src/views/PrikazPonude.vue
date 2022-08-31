@@ -66,7 +66,7 @@
                       <a href="#" class="btn btn-danger w-100">akcija</a>
                     </div>
                     <div class="col-lg-6">
-                      <a href="#" class="btn btn-success w-100">rezervisi</a>
+                      <a href="#" @click="rezervisi" class="btn btn-success w-100">rezervisi</a>
                     </div>
                   </div>
                 </div>
@@ -134,6 +134,8 @@ export default {
   data() {
     return {
       item: [],
+        datumPocetka: '',
+        vremePocetka: ''
     };
  },
 beforeMount() {
@@ -145,6 +147,32 @@ beforeMount() {
     }
     if (this.category == "vikendica") {
       getVikendica();
+    }
+  }, 
+   methods: {
+    rezervisi(){
+      const rezervacija = {
+        datumPocetka: this.datumPocetka,
+        vremePocetka: this.vremePocetka,       
+      }
+      let postApi = api
+      if(this.category === 'vikendica'){
+        postApi += `/rezervacija/vikendica/${this.id}`
+      }
+      if(this.category === 'cas'){
+        postApi += `/rezervacija/cas/${this.id}`
+      }
+      if(this.category === 'brod'){
+        postApi += `/rezervacija/brod/${this.id}`
+      }
+      axios
+        .post(postApi, rezervacija, config)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   components: {
