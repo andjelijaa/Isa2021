@@ -63,11 +63,16 @@
                 <div class="col-lg-12 mt-3">
                   <div class="row">
                     <div class="col-lg-6 pb-2">
-                      <a href="#" class="btn btn-danger w-100" @click="akcija">akcija</a>
-                    </div>
+     <a href="#" class="btn btn-danger w-100" @click="akcija"
+                        >akcija</a
+                      >                    </div>
                     <div class="col-lg-6">
-                      <a href="#" @click="rezervisi" class="btn btn-success w-100">rezervisi</a>
-                    </div>
+    <a
+                        href="#"
+                        class="btn btn-success w-100"
+                        @click="rezervisi"
+                        >rezervisi</a
+                      >                    </div>
                   </div>
                 </div>
               </div>
@@ -149,52 +154,71 @@ beforeMount() {
     if (this.category == "vikendica") {
       getVikendica();
     }
+    let postApi = api;
+    if (this.category === "vikendica") {
+      postApi += `/api/akcija/vikendica/${this.id}`;
+    }
+    if (this.category === "cas") {
+      postApi += `/api/akcija/cas/${this.id}`;
+    }
+    if (this.category === "brod") {
+      postApi += `/api/akcija/brod/${this.id}`;
+    }
+    axios
+        .get(postApi, config)
+        .then((res) => {
+          console.log(res);
+          this.akcija = JSON.stringify(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
   }, 
    methods: {
     rezervisi(){
       const rezervacija = {
         datumPocetka: this.datumPocetka,
         vremePocetka: this.vremePocetka,       
-      }
-      let postApi = api
-      if(this.category === 'vikendica'){
+      };
+      let postApi = api;
+      if(this.category === "vikendica"){
         postApi += `/api/rezervacija/vikendica/${this.id}`
       }
-      if(this.category === 'cas'){
+      if(this.category === "cas"){
         postApi += `/api/rezervacija/cas/${this.id}`
       }
-      if(this.category === 'brod'){
+      if(this.category === "brod"){
         postApi += `/api/rezervacija/brod/${this.id}`
       }
       axios
         .post(postApi, rezervacija, config)
         .then((res) => {
-          console.log(res)
+          console.log(res);
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         })
       },
     akcija(){
       let postApi = api
       if(this.category === 'vikendica'){
-        postApi += `/api/akcija/vikendica/${this.id}`
+        postApi += `/api/akcija/vikendica/${this.id}`;
       }
       if(this.category === 'cas'){
-        postApi += `/api/akcija/cas/${this.id}`
+        postApi += `/api/akcija/cas/${this.id}`;
       }
       if(this.category === 'brod'){
-        postApi += `/api/akcija/brod/${this.id}`
+        postApi += `/api/akcija/brod/${this.id}`;
       }
       axios
-        .post(postApi, config)
+        .post(postApi,this.akcija, config)
         .then((res) => {
-          console.log(res)
+          console.log(res);
         })
         .catch((err) => {
-          console.log(err)
-        })
-    }
+          console.log(err);
+        });
+    },
   },
   components: {
     IndexNavbar,
