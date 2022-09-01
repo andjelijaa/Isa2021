@@ -63,7 +63,7 @@
                 <div class="col-lg-12 mt-3">
                   <div class="row">
                     <div class="col-lg-6 pb-2">
-                      <a href="#" class="btn btn-danger w-100">akcija</a>
+                      <a href="#" class="btn btn-danger w-100" @click="akcija">akcija</a>
                     </div>
                     <div class="col-lg-6">
                       <a href="#" @click="rezervisi" class="btn btn-success w-100">rezervisi</a>
@@ -158,16 +158,36 @@ beforeMount() {
       }
       let postApi = api
       if(this.category === 'vikendica'){
-        postApi += `/rezervacija/vikendica/${this.id}`
+        postApi += `/api/rezervacija/vikendica/${this.id}`
       }
       if(this.category === 'cas'){
-        postApi += `/rezervacija/cas/${this.id}`
+        postApi += `/api/rezervacija/cas/${this.id}`
       }
       if(this.category === 'brod'){
-        postApi += `/rezervacija/brod/${this.id}`
+        postApi += `/api/rezervacija/brod/${this.id}`
       }
       axios
         .post(postApi, rezervacija, config)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      },
+    akcija(){
+      let postApi = api
+      if(this.category === 'vikendica'){
+        postApi += `/api/akcija/vikendica/${this.id}`
+      }
+      if(this.category === 'cas'){
+        postApi += `/api/akcija/cas/${this.id}`
+      }
+      if(this.category === 'brod'){
+        postApi += `/api/akcija/brod/${this.id}`
+      }
+      axios
+        .post(postApi, config)
         .then((res) => {
           console.log(res)
         })
