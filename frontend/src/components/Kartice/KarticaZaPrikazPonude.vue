@@ -6,12 +6,17 @@
       <p class="card-text">
        {{text}}
       </p>
-      <a href="#" class="btn btn-primary">Pogledaj ponudu</a>
+      <a href="#" class="btn btn-primary" @click="goToPonuda">Pogledaj ponudu</a>
     </div>
     </div>
 </template>
 <script>
   export default {
-    props: ["name", "id", "text","src"]
+    props: ["name", "id", "text","src","category"],
+    methods: {
+    goToPonuda(){
+      this.$router.push({path: '/prikaz-ponude', params: { id: this.id, category: this.category}});
+    }
+  }
   };
   </script>

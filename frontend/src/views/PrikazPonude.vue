@@ -130,9 +130,10 @@ const getInstruktor = () => {
 };
 
 export default {
-  props: ["id", "category"],
   data() {
     return {
+      id: this.$router.params.id,
+      category: this.$router.params.category,
       item: [],
         datumPocetka: '',
         vremePocetka: ''
