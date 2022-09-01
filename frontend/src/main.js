@@ -87,7 +87,7 @@ const routes = [
     component: Index,
   },
   {
-    path: "/prikaz-ponude",
+    path: "/prikaz-ponude/:category/:id",
     component: PrikazPonude,
   },
   { path: "/:pathMatch(.*)*", redirect: "/" },
