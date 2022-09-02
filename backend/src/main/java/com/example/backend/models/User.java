@@ -40,6 +40,36 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "klijent")
     private List<Rezervacija> rezervacije;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "loyality")
+    private List<Loyalty> loyalties;
+
+    public List<Loyalty> getLoyalties() {
+        return loyalties;
+    }
+
+    public void setLoyalties(List<Loyalty> loyalties) {
+        this.loyalties = loyalties;
+    }
+
+    public User(Long id, String username, String password, String address, String ime, String prezime, String grad, String drzava, String phone, Role role, String activation, List<Vikendica> vikendice, List<Cas> casovi, List<Brod> brodovi, List<Rezervacija> rezervacije, List<Loyalty> loyalties) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.address = address;
+        this.ime = ime;
+        this.prezime = prezime;
+        this.grad = grad;
+        this.drzava = drzava;
+        this.phone = phone;
+        this.role = role;
+        this.activation = activation;
+        this.vikendice = vikendice;
+        this.casovi = casovi;
+        this.brodovi = brodovi;
+        this.rezervacije = rezervacije;
+        this.loyalties = loyalties;
+    }
+
     public Long getId() {
         return id;
     }
@@ -160,21 +190,4 @@ public class User {
         this.rezervacije = rezervacije;
     }
 
-    public User(Long id, String username, String password, String address, String ime, String prezime, String grad, String drzava, String phone, Role role, String activation, List<Vikendica> vikendice, List<Cas> casovi, List<Brod> brodovi, List<Rezervacija> rezervacije) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.address = address;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.grad = grad;
-        this.drzava = drzava;
-        this.phone = phone;
-        this.role = role;
-        this.activation = activation;
-        this.vikendice = vikendice;
-        this.casovi = casovi;
-        this.brodovi = brodovi;
-        this.rezervacije = rezervacije;
-    }
 }

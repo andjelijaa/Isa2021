@@ -63,7 +63,7 @@
                 <div class="col-lg-12 mt-3">
                   <div class="row">
                     <div class="col-lg-6 pb-2">
-     <a href="#" class="btn btn-danger w-100" @click="akcija"
+     <a href="#" class="btn btn-danger w-100" @click="akcijaPost"
                         >akcija</a
                       >                    </div>
                     <div class="col-lg-6">
@@ -199,7 +199,7 @@ beforeMount() {
           console.log(err);
         })
       },
-    akcija(){
+    akcijaPost(){
       let postApi = api
       if(this.category === 'vikendica'){
         postApi += `/api/akcija/vikendica/${this.id}`;
