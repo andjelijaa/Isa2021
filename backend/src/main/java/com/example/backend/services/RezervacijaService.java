@@ -1,6 +1,7 @@
 package com.example.backend.services;
 
 import com.example.backend.models.*;
+import com.example.backend.models.enums.LoyaltyPogodnost;
 import com.example.backend.repository.BrodRepository;
 import com.example.backend.repository.CasRepository;
 import com.example.backend.repository.RezervacijaRepository;
@@ -42,7 +43,15 @@ public class RezervacijaService {
     public Brod createRezervacijuZaBrod(Long brodId, Rezervacija rezervacija) throws Exception {
         Brod brod = brodRepository.findById(brodId).orElseThrow(() -> new Exception("Brod not found"));
         Rezervacija rez = rezervacijaRepository.saveAndFlush(rezervacija);
-        User user = rez.getKlijent();
+        User user = rezervacija.getKlijent();
+        LoyaltyPogodnost pogodnost = user.getLoyalties().get(0).getPogodnosti();
+        if(pogodnost == LoyaltyPogodnost.POPUST_20){
+            rezervacija.setCena(rezervacija.getCena() * 20/100);
+        }else if(pogodnost == LoyaltyPogodnost.POPUST_30){
+            rezervacija.setCena(rezervacija.getCena() * 30/100);
+        }else if(pogodnost == LoyaltyPogodnost.POPUST_50){
+            rezervacija.setCena(rezervacija.getCena() * 50/100);
+        }
         if(user.getPenali() >= 3){
             throw new Exception("Ne mozete rezervisati brod zbog penala");
         }
