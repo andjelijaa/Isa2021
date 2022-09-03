@@ -40,7 +40,7 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "klijent")
     private List<Rezervacija> rezervacije;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "loyality")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Loyalty> loyalties;
 
     private int penali;
@@ -205,3 +205,4 @@ public class User {
     }
 
 }
+

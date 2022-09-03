@@ -1,8 +1,9 @@
 package com.example.backend.models;
 
 
+import com.example.backend.models.enums.LoyaltyPogodnost;
+
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class Loyalty {
@@ -10,7 +11,7 @@ public class Loyalty {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String pogodnosti;
+    private LoyaltyPogodnost pogodnost;
     private int popust;
     private int bodovi;
 
@@ -22,16 +23,16 @@ public class Loyalty {
     public Loyalty() {
     }
 
-    public Loyalty(Long id, String pogodnosti, int popust, int bodovi) {
+    public Loyalty(Long id, LoyaltyPogodnost pogodnosti, int popust, int bodovi) {
         this.id = id;
-        this.pogodnosti = pogodnosti;
+        this.setPogodnost(pogodnosti);
         this.popust = popust;
         this.bodovi = bodovi;
     }
 
-    public Loyalty(Long id, String pogodnosti, int popust, int bodovi, User user) {
+    public Loyalty(Long id, LoyaltyPogodnost pogodnosti, int popust, int bodovi, User user) {
         this.id = id;
-        this.pogodnosti = pogodnosti;
+        this.setPogodnost(pogodnosti);
         this.popust = popust;
         this.bodovi = bodovi;
         this.user = user;
@@ -45,12 +46,19 @@ public class Loyalty {
         this.id = id;
     }
 
-    public String getPogodnosti() {
-        return pogodnosti;
+    public LoyaltyPogodnost getPogodnosti() {
+        return pogodnost;
     }
 
-    public void setPogodnosti(String pogodnosti) {
-        this.pogodnosti = pogodnosti;
+    public void setPogodnost(LoyaltyPogodnost pogodnost) {
+        this.pogodnost = pogodnost;
+        if(pogodnost == LoyaltyPogodnost.POPUST_20){
+            this.popust = 20;
+        }else if(pogodnost == LoyaltyPogodnost.POPUST_30){
+            this.popust = 30;
+        }else if(pogodnost == LoyaltyPogodnost.POPUST_50){
+            this.popust = 50;
+        }
     }
 
     public int getPopust() {
