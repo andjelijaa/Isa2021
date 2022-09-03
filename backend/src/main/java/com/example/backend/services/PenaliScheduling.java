@@ -8,7 +8,7 @@ public class PenaliScheduling {
 
     private UserService userService;
 
-    @Scheduled(cron="* * 1 * *")
+    @Scheduled(cron="* * * 1 * *")
     public void ScheduleRemovePenali(){
         userService.removePenaleForAllUsers();
     }

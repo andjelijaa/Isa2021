@@ -42,7 +42,6 @@ public class RezervacijaService {
 
     public Brod createRezervacijuZaBrod(Long brodId, Rezervacija rezervacija) throws Exception {
         Brod brod = brodRepository.findById(brodId).orElseThrow(() -> new Exception("Brod not found"));
-        Rezervacija rez = rezervacijaRepository.saveAndFlush(rezervacija);
         User user = rezervacija.getKlijent();
         LoyaltyPogodnost pogodnost = user.getLoyalties().get(0).getPogodnosti();
         if(pogodnost == LoyaltyPogodnost.POPUST_20){
@@ -52,6 +51,7 @@ public class RezervacijaService {
         }else if(pogodnost == LoyaltyPogodnost.POPUST_50){
             rezervacija.setCena(rezervacija.getCena() * 50/100);
         }
+        Rezervacija rez = rezervacijaRepository.saveAndFlush(rezervacija);
         if(user.getPenali() >= 3){
             throw new Exception("Ne mozete rezervisati brod zbog penala");
         }
@@ -73,8 +73,16 @@ public class RezervacijaService {
 
     public Cas createRezervacijuZaCas(Long casId, Rezervacija rezervacija) throws Exception {
         Cas cas = casRepository.findById(casId).orElseThrow(() -> new Exception("Cas not found"));
+        User user = rezervacija.getKlijent();
+        LoyaltyPogodnost pogodnost = user.getLoyalties().get(0).getPogodnosti();
+        if(pogodnost == LoyaltyPogodnost.POPUST_20){
+            rezervacija.setCena(rezervacija.getCena() * 20/100);
+        }else if(pogodnost == LoyaltyPogodnost.POPUST_30){
+            rezervacija.setCena(rezervacija.getCena() * 30/100);
+        }else if(pogodnost == LoyaltyPogodnost.POPUST_50){
+            rezervacija.setCena(rezervacija.getCena() * 50/100);
+        }
         Rezervacija rez = rezervacijaRepository.saveAndFlush(rezervacija);
-        User user = rez.getKlijent();
         if(user.getPenali() >= 3){
             throw new Exception("Ne mozete rezervisati cas zbog penala");
         }
@@ -97,8 +105,16 @@ public class RezervacijaService {
     public Vikendica createRezervacijuZaVikendicu(Long vikendicaId, Rezervacija rezervacija) throws Exception {
         Vikendica vikendica = vikendicaRepository.findById(vikendicaId)
                 .orElseThrow(() -> new Exception("Vikendica not found"));
+        User user = rezervacija.getKlijent();
+        LoyaltyPogodnost pogodnost = user.getLoyalties().get(0).getPogodnosti();
+        if(pogodnost == LoyaltyPogodnost.POPUST_20){
+            rezervacija.setCena(rezervacija.getCena() * 20/100);
+        }else if(pogodnost == LoyaltyPogodnost.POPUST_30){
+            rezervacija.setCena(rezervacija.getCena() * 30/100);
+        }else if(pogodnost == LoyaltyPogodnost.POPUST_50){
+            rezervacija.setCena(rezervacija.getCena() * 50/100);
+        }
         Rezervacija rez = rezervacijaRepository.saveAndFlush(rezervacija);
-        User user = rez.getKlijent();
         if(user.getPenali() >= 3){
             throw new Exception("Ne mozete rezervisati vikendicu zbog penala");
         }
