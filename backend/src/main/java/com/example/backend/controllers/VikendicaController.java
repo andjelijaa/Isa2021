@@ -37,4 +37,11 @@ public class VikendicaController {
                             @RequestBody Vikendica vikendica) throws Exception {
         return VikendicaMapper.INSTANCE.toDto(vikendicaService.createVikendica(principal, vikendica));
     }
+
+    @PostMapping("/oceni/{vikendicaId}")
+    public VikendicaDTO ocena(Principal principal,
+                              @PathVariable(name = "vikendicaId") Long vikendicaId,
+                              @RequestBody Long ocena) throws Exception {
+        return VikendicaMapper.INSTANCE.toDto(vikendicaService.oceniVikendic(principal, vikendicaId, ocena));
+    }
 }

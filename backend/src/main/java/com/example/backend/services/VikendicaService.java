@@ -16,10 +16,12 @@ public class VikendicaService {
 
     public final VikendicaRepository vikendicaRepository;
     public final UserService userService;
+    private final RezervacijaService rezervacijaService;
 
-    public VikendicaService(VikendicaRepository vikendicaRepository, UserService userService) {
+    public VikendicaService(VikendicaRepository vikendicaRepository, UserService userService, RezervacijaService rezervacijaService) {
         this.vikendicaRepository = vikendicaRepository;
         this.userService = userService;
+        this.rezervacijaService=rezervacijaService;
     }
 
     public List<Vikendica> getAllVikendice(Principal principal) throws Exception {
@@ -67,4 +69,21 @@ public class VikendicaService {
         }
         return null;
     }
+
+    public Vikendica oceniVikendic(Principal principal, Long vikendicaId, Long ocena) throws Exception {
+        User user = userService.getActivatedUserFromPrincipal(principal);
+        Vikendica vikendica = vikendicaRepository.findById(vikendicaId)
+                .orElseThrow(() -> new Exception("vikendica not found"));
+        if (user == null) {
+            throw new Exception("User not found");
+        }
+        if(rezervacijaService.isUserHaveRezervation(user, vikendica)){
+            vikendica.setBrojOcena(vikendica.getBrojOcena() + 2);
+            vikendica.setOcena((vikendica.getOcena() + ocena) / vikendica.getBrojOcena());
+            vikendicaRepository.save(vikendica);
+            return vikendica;
+        }
+        return null;
+    }
+
 }

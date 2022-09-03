@@ -6,8 +6,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 public class Vikendica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +33,25 @@ public class Vikendica {
 
     @ManyToOne
     private Akcija akcija;
+
+    private float ocena;
+    private int brojOcena;
+
+    public int getBrojOcena() {
+        return brojOcena;
+    }
+
+    public void setBrojOcena(int brojOcena) {
+        this.brojOcena = brojOcena;
+    }
+
+    public float getOcena() {
+        return ocena;
+    }
+
+    public void setOcena(float ocena) {
+        this.ocena = ocena;
+    }
 
     public long getId() {
         return id;
@@ -163,4 +180,27 @@ public class Vikendica {
     public void setAkcija(Akcija akcija) {
         this.akcija = akcija;
     }
+
+    public Vikendica(long id, String naziv, String adresa, String promoOpis, String slike, int maxBrojOsoba, String slobodniTermini, String pravilaPonasanja, String opremaUzRezervaciju, String cenovnikInfo, String usloviOtkaza, int brojSoba, int brojKreveta, User vlasnik, List<Rezervacija> rezervacije, Akcija akcija, float ocena, int brojOcena) {
+        this.id = id;
+        this.naziv = naziv;
+        this.adresa = adresa;
+        this.promoOpis = promoOpis;
+        this.slike = slike;
+        this.maxBrojOsoba = maxBrojOsoba;
+        this.slobodniTermini = slobodniTermini;
+        this.pravilaPonasanja = pravilaPonasanja;
+        this.opremaUzRezervaciju = opremaUzRezervaciju;
+        this.cenovnikInfo = cenovnikInfo;
+        this.usloviOtkaza = usloviOtkaza;
+        this.brojSoba = brojSoba;
+        this.brojKreveta = brojKreveta;
+        this.vlasnik = vlasnik;
+        this.rezervacije = rezervacije;
+        this.akcija = akcija;
+        this.ocena = ocena;
+        this.brojOcena = brojOcena;
+    }
+
+
 }
