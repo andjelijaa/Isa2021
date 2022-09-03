@@ -127,4 +127,12 @@ public class RezervacijaService {
 
         return vikendica;
     }
+
+    public boolean isUserHaveRezervation(User user, Vikendica vikendica) {
+        Rezervacija rezervacija = rezervacijaRepository.findByUserAndVikendica(user, vikendica);
+        if(rezervacija != null){
+            return true;
+        }
+        return false;
+    }
 }
