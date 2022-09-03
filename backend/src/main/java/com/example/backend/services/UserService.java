@@ -1,5 +1,6 @@
 package com.example.backend.services;
 
+import java.util.List;
 import com.example.backend.models.User;
 import com.example.backend.models.request.UpdateUserDTO;
 import com.example.backend.repository.UserRepository;
@@ -73,5 +74,16 @@ public class UserService implements UserServiceInterface {
             user.setAddress(updateUserDTO.getAdresa());
         }
         return userRepository.save(user);
+    }
+
+    public void removePenaleForAllUsers() {
+        List<User> users = userRepository.findAll();
+
+        users
+                .stream()
+                .forEach(user -> {
+                    user.setPenali(0);
+                    userRepository.save(user);
+                });
     }
 }
