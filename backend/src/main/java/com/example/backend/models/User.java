@@ -43,6 +43,19 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "loyality")
     private List<Loyalty> loyalties;
 
+    private int penali;
+
+    public int getPenali() {
+        return penali;
+    }
+
+    public void setPenali(int penali) {
+        this.penali = penali;
+    }
+
+    public User() {
+    }
+
     public List<Loyalty> getLoyalties() {
         return loyalties;
     }
@@ -68,6 +81,7 @@ public class User {
         this.brodovi = brodovi;
         this.rezervacije = rezervacije;
         this.loyalties = loyalties;
+        this.penali = 0;
     }
 
     public Long getId() {

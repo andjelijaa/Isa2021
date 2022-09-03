@@ -1,9 +1,6 @@
 package com.example.backend.services;
 
-import com.example.backend.models.Brod;
-import com.example.backend.models.Cas;
-import com.example.backend.models.Rezervacija;
-import com.example.backend.models.Vikendica;
+import com.example.backend.models.*;
 import com.example.backend.repository.BrodRepository;
 import com.example.backend.repository.CasRepository;
 import com.example.backend.repository.RezervacijaRepository;
@@ -45,6 +42,10 @@ public class RezervacijaService {
     public Brod createRezervacijuZaBrod(Long brodId, Rezervacija rezervacija) throws Exception {
         Brod brod = brodRepository.findById(brodId).orElseThrow(() -> new Exception("Brod not found"));
         Rezervacija rez = rezervacijaRepository.saveAndFlush(rezervacija);
+        User user = rez.getKlijent();
+        if(user.getPenali() >= 3){
+            throw new Exception("Ne mozete rezervisati brod zbog penala");
+        }
         List<Rezervacija> rezervacije = brod.getRezervacije();
         rezervacije.add(rez);
         brod.setRezervacije(rezervacije);
@@ -64,6 +65,10 @@ public class RezervacijaService {
     public Cas createRezervacijuZaCas(Long casId, Rezervacija rezervacija) throws Exception {
         Cas cas = casRepository.findById(casId).orElseThrow(() -> new Exception("Cas not found"));
         Rezervacija rez = rezervacijaRepository.saveAndFlush(rezervacija);
+        User user = rez.getKlijent();
+        if(user.getPenali() >= 3){
+            throw new Exception("Ne mozete rezervisati cas zbog penala");
+        }
         List<Rezervacija> rezervacije = cas.getRezervacije();
         rezervacije.add(rez);
         cas.setRezervacije(rezervacije);
@@ -84,6 +89,10 @@ public class RezervacijaService {
         Vikendica vikendica = vikendicaRepository.findById(vikendicaId)
                 .orElseThrow(() -> new Exception("Vikendica not found"));
         Rezervacija rez = rezervacijaRepository.saveAndFlush(rezervacija);
+        User user = rez.getKlijent();
+        if(user.getPenali() >= 3){
+            throw new Exception("Ne mozete rezervisati vikendicu zbog penala");
+        }
         List<Rezervacija> rezervacije = vikendica.getRezervacije();
         rezervacije.add(rez);
         vikendica.setRezervacije(rezervacije);
