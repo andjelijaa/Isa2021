@@ -19,4 +19,16 @@ public interface RezervacijaRepository extends JpaRepository<Rezervacija, Long> 
     List<Rezervacija> findByIdAndVikendicaIdOrderByCenaAsc(Long id, Long vikendicaId);
 
     List<Rezervacija> findByIdAndVikendicaIdOrderByTrajanjeAsc(Long id, Long vikendicaId);
+
+    List<Rezervacija> findByIdAndBrodIdOrderByDatumPocetkaAsc(Long id, Long vikendicaId);
+
+    List<Rezervacija> findByIdAndBrodIdOrderByCenaAsc(Long id, Long vikendicaId);
+
+    List<Rezervacija> findByIdAndBrodIdOrderByTrajanjeAsc(Long id, Long vikendicaId);
+
+    List<Rezervacija> findByIdAndCasIdOrderByCenaAsc(Long id, Long vikendicaId);
+
+    List<Rezervacija> findByIdAndCasIdOrderByDatumPocetkaAsc(Long id, Long vikendicaId);
+
+    List<Rezervacija> findByIdAndCasIdOrderByTrajanjeAsc(Long id, Long vikendicaId);
 }

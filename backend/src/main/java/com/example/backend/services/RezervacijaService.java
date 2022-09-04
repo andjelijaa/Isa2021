@@ -36,11 +36,11 @@ public class RezervacijaService {
         this.rezervacijaSortingHelper=rezervacijaSortingHelper;
     }
 
-    public Brod getBrodById(Long id, Long brodId) {
-        Rezervacija rezervacija = rezervacijaRepository.findByIdAndBrodId(id, brodId);
+    public Brod getBrodById(Long id, Long brodId, String sort) {
+       List<Rezervacija> rezervacija = rezervacijaSortingHelper.getRezervacijeSortBrodovi(id, brodId, sort);
 
 
-        return rezervacija.getBrod();
+        return rezervacija.get(0).getBrod();
 
     }
 
@@ -69,10 +69,10 @@ public class RezervacijaService {
         return brod;
     }
 
-    public Cas getCasById(Long id, Long casId) {
-        Rezervacija rezervacija = rezervacijaRepository.findByIdAndCasId(id, casId);
+    public Cas getCasById(Long id, Long casId, String sort) {
+        List<Rezervacija> rezervacija = rezervacijaSortingHelper.getRezervacijeSortCasovi(id,casId,sort);
 
-        return rezervacija.getCas();
+        return rezervacija.get(0).getCas();
     }
 
     public Cas createRezervacijuZaCas(Long casId, Rezervacija rezervacija) throws Exception {

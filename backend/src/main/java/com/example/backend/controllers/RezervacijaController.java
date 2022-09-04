@@ -26,22 +26,24 @@ public class RezervacijaController {
 
     @GetMapping("/{id}/brod/{brodId}")
     public Brod getBrod(@PathVariable(name = "brodId")Long brodId,
-                        @PathVariable(name = "id")Long id){
+                        @PathVariable(name = "id")Long id,
+                        @RequestParam(name = "sort", defaultValue = "datum") String sort){
 
-        return rezervacijaService.getBrodById(id, brodId);
+        return rezervacijaService.getBrodById(id, brodId,sort);
     }
 
     @GetMapping("/{id}/cas/{casId}")
     public Cas getCas(@PathVariable(name = "casId")Long casId,
-                      @PathVariable(name = "id")Long id){
-        return rezervacijaService.getCasById(id, casId);
+                      @PathVariable(name = "id")Long id,
+                      @RequestParam(name = "sort", defaultValue = "datum") String sort){
+        return rezervacijaService.getCasById(id, casId,sort);
     }
 
 
     @GetMapping("/{id}/vikendica/{vikendicaId}")
     public Vikendica getVikendica(@PathVariable(name = "vikendicaId")Long vikendicaId,
                                   @PathVariable(name = "id")Long id,
-                                  @RequestParam(name = "sort", defaultValue = "id") String sort){
+                                  @RequestParam(name = "sort", defaultValue = "datum") String sort){
         return rezervacijaService.getVikendicaById(id, vikendicaId, sort);
     }
 

@@ -27,8 +27,34 @@ public class RezervacijaSortingHelper {
                 return rezervacijaRepository.findByIdAndVikendicaIdOrderByCenaAsc(id, vikendicaId);
             case trajanje:
                 return rezervacijaRepository.findByIdAndVikendicaIdOrderByTrajanjeAsc(id, vikendicaId);
-        }
+                default:
+                return rezervacijaRepository.findAll();
+    }
+    }
 
-        return null;
+    public List<Rezervacija> getRezervacijeSortBrodovi(Long id, Long brodId, String sort){
+        switch (sort){
+            case datum:
+                return rezervacijaRepository.findByIdAndBrodIdOrderByDatumPocetkaAsc(id, brodId);
+            case cena:
+                return rezervacijaRepository.findByIdAndBrodIdOrderByCenaAsc(id, brodId);
+            case trajanje:
+                return rezervacijaRepository.findByIdAndBrodIdOrderByTrajanjeAsc(id, brodId);
+            default:
+                return rezervacijaRepository.findAll();
+        }
+    }
+
+    public List<Rezervacija> getRezervacijeSortCasovi(Long id, Long casId, String sort){
+        switch (sort){
+            case datum:
+                return rezervacijaRepository.findByIdAndCasIdOrderByDatumPocetkaAsc(id, casId);
+            case cena:
+                return rezervacijaRepository.findByIdAndCasIdOrderByCenaAsc(id, casId);
+            case trajanje:
+                return rezervacijaRepository.findByIdAndCasIdOrderByTrajanjeAsc(id, casId);
+            default:
+                return rezervacijaRepository.findAll();
+        }
     }
 }
