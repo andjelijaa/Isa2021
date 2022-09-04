@@ -4,6 +4,7 @@ import com.example.backend.models.Role;
 import com.example.backend.models.User;
 import com.example.backend.models.response.GetCasDTO;
 import com.example.backend.repository.CasRepository;
+import com.example.backend.utils.CasSortingHelper;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -15,18 +16,20 @@ public class CasService {
 
     private final CasRepository casRepository;
     private final UserService userService;
+    private final CasSortingHelper casSortingHelper;
 
-    public CasService(CasRepository casRepository, UserService userService) {
+    public CasService(CasRepository casRepository, UserService userService, CasSortingHelper casSortingHelper) {
         this.casRepository = casRepository;
         this.userService = userService;
+        this.casSortingHelper=casSortingHelper;
     }
 
-    public List<Cas> getAllCasovi(Principal principal) throws Exception {
+    public List<Cas> getAllCasovi(Principal principal,String sort, String value) throws Exception {
         User user = userService.getActivatedUserFromPrincipal(principal);
         if(user == null){
             throw new Exception("User not found");
         }
-        List<Cas> casovi = casRepository.findAll();
+        List<Cas> casovi = casSortingHelper.getSortedCasovi(sort, value);
         return casovi;
     }
 

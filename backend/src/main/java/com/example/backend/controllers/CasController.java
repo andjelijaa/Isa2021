@@ -22,8 +22,9 @@ public class CasController {
     }
 
     @GetMapping("/getAllCas")
-    public List<CasDTO> getAll(Principal principal) throws Exception {
-        return CasMapper.toDto(casService.getAllCasovi(principal));
+    public List<CasDTO> getAll(Principal principal,@RequestParam(name = "sort", defaultValue = "id") String sort,
+                               @RequestParam(name = "value") String value) throws Exception {
+        return CasMapper.toDto(casService.getAllCasovi(principal, sort, value));
     }
 
     @GetMapping("/{casId}")
