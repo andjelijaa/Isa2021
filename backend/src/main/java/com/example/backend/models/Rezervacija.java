@@ -16,6 +16,7 @@ public class Rezervacija {
     private Long id;
     private String datumPocetka;
     private String vremePocetka;
+    private int trajanje;
     private int maxBrojOsoba;
     private String dodatneUsluge;
     private int cena;
@@ -59,6 +60,14 @@ public class Rezervacija {
 
     public void setVremePocetka(String vremePocetka) {
         this.vremePocetka = vremePocetka;
+    }
+
+    public int getTrajanje() {
+        return trajanje;
+    }
+
+    public void setTrajanje(int trajanje) {
+        this.trajanje = trajanje;
     }
 
     public int getMaxBrojOsoba() {

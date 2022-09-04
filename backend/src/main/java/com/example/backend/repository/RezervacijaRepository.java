@@ -5,6 +5,7 @@ import com.example.backend.models.User;
 import com.example.backend.models.Vikendica;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import java.util.List;
 
 @Repository
 public interface RezervacijaRepository extends JpaRepository<Rezervacija, Long> {
@@ -12,4 +13,10 @@ public interface RezervacijaRepository extends JpaRepository<Rezervacija, Long> 
     public Rezervacija findByIdAndCasId(Long id, Long brodId);
     public Rezervacija findByIdAndVikendicaId(Long id, Long brodId);
     public Rezervacija findByUserAndVikendica(User user, Vikendica vikendica);
+
+    List<Rezervacija> findByIdAndVikendicaIdOrderByDatumPocetkaAsc(Long id, Long vikendicaId);
+
+    List<Rezervacija> findByIdAndVikendicaIdOrderByCenaAsc(Long id, Long vikendicaId);
+
+    List<Rezervacija> findByIdAndVikendicaIdOrderByTrajanjeAsc(Long id, Long vikendicaId);
 }

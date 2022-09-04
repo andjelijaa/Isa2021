@@ -40,8 +40,9 @@ public class RezervacijaController {
 
     @GetMapping("/{id}/vikendica/{vikendicaId}")
     public Vikendica getVikendica(@PathVariable(name = "vikendicaId")Long vikendicaId,
-                                  @PathVariable(name = "id")Long id){
-        return rezervacijaService.getVikendicaById(id, vikendicaId);
+                                  @PathVariable(name = "id")Long id,
+                                  @RequestParam(name = "sort", defaultValue = "id") String sort){
+        return rezervacijaService.getVikendicaById(id, vikendicaId, sort);
     }
 
     @PostMapping("/{id}/brod/{brodId}")
