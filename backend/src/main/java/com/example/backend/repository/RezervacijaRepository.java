@@ -11,5 +11,5 @@ public interface RezervacijaRepository extends JpaRepository<Rezervacija, Long> 
     public Rezervacija findByIdAndBrodId(Long id, Long brodId);
     public Rezervacija findByIdAndCasId(Long id, Long brodId);
     public Rezervacija findByIdAndVikendicaId(Long id, Long brodId);
-   public Rezervacija findByUserAndVikendica(User user, Vikendica vikendica);
+    public Rezervacija findByUserAndVikendica(User user, Vikendica vikendica);
 }

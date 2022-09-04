@@ -22,8 +22,11 @@ public class VikendicaController {
     }
 
     @GetMapping("/getAll")
-    public List<VikendicaDTO> getAll(Principal principal) throws Exception {
-        return VikendicaMapper.toDto(vikendicaService.getAllVikendice(principal));
+    public List<VikendicaDTO> getAll(Principal principal,
+                                     @RequestParam(name = "sort", defaultValue = "id") String sort,
+                                     @RequestParam(name = "value") String value) throws Exception {
+        return VikendicaMapper.toDto(vikendicaService.getAllVikendice(principal, sort, value));
+
     }
 
     @GetMapping("/{vikendicaId}")
