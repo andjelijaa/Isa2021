@@ -6,6 +6,7 @@ import com.example.backend.models.Role;
 import com.example.backend.models.User;
 import com.example.backend.models.response.GetBrodDTO;
 import com.example.backend.repository.BrodRepository;
+import com.example.backend.utils.BrodSortingHelper;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -16,18 +17,20 @@ import java.util.Optional;
 public class BrodService {
     private final UserService userService;
     private final BrodRepository brodRepository;
+    private final BrodSortingHelper brodSortingHelper;
 
-    public BrodService(UserService userService, BrodRepository brodRepository) {
+    public BrodService(UserService userService, BrodRepository brodRepository,BrodSortingHelper brodSortingHelper) {
         this.userService = userService;
         this.brodRepository = brodRepository;
+        this.brodSortingHelper=brodSortingHelper;
     }
 
-    public List<Brod> getAllBrodovi(Principal principal) throws Exception {
+    public List<Brod> getAllBrodovi(Principal principal, String sort, String value) throws Exception {
         User user = userService.getActivatedUserFromPrincipal(principal);
         if(user == null){
             throw new Exception("User not found");
         }
-        List<Brod> brodovi = brodRepository.findAll();
+        List<Brod> brodovi = brodSortingHelper.getSortedBrodovi(sort, value);
         return brodovi;
     }
 

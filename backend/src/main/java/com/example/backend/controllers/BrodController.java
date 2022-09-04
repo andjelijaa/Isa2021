@@ -22,8 +22,10 @@ public class BrodController {
     }
 
     @RequestMapping(value = "/getAllBrodovi", method = RequestMethod.GET)
-    public List<BrodDTO> getAll(Principal principal) throws Exception {
-        return BrodMapper.toDto(brodService.getAllBrodovi(principal));
+    public List<BrodDTO> getAll(Principal principal,
+                                @RequestParam(name = "sort", defaultValue = "id") String sort,
+                                @RequestParam(name = "value") String value) throws Exception {
+        return BrodMapper.toDto(brodService.getAllBrodovi(principal, sort, value));
     }
 
     @GetMapping("/{brodId}")
