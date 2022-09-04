@@ -6,6 +6,7 @@ import com.example.backend.repository.BrodRepository;
 import com.example.backend.repository.CasRepository;
 import com.example.backend.repository.RezervacijaRepository;
 import com.example.backend.repository.VikendicaRepository;
+import com.example.backend.utils.RezervacijaSortingHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -19,17 +20,20 @@ public class RezervacijaService {
     private final BrodRepository brodRepository;
     private final CasRepository casRepository;
     private final VikendicaRepository vikendicaRepository;
+    private final RezervacijaSortingHelper rezervacijaSortingHelper;
 
     public RezervacijaService(RezervacijaRepository rezervacijaRepository,
                               EmailService emailService,
                               BrodRepository brodRepository,
                               CasRepository casRepository,
-                              VikendicaRepository vikendicaRepository) {
+                              VikendicaRepository vikendicaRepository,
+                              RezervacijaSortingHelper rezervacijaSortingHelper) {
         this.rezervacijaRepository = rezervacijaRepository;
         this.emailService = emailService;
         this.brodRepository = brodRepository;
         this.casRepository=casRepository;
         this.vikendicaRepository=vikendicaRepository;
+        this.rezervacijaSortingHelper=rezervacijaSortingHelper;
     }
 
     public Brod getBrodById(Long id, Long brodId) {
@@ -96,10 +100,10 @@ public class RezervacijaService {
         return cas;
     }
 
-    public Vikendica getVikendicaById(Long id, Long vikendicaId) {
-        Rezervacija rezervacija = rezervacijaRepository.findByIdAndVikendicaId(id, vikendicaId);
+    public Vikendica getVikendicaById(Long id, Long vikendicaId,String sort) {
+        List<Rezervacija> rezervacija= rezervacijaSortingHelper.getRezervacijeSortVikendica(id, vikendicaId, sort);
 
-        return rezervacija.getVikendica();
+        return rezervacija.get(0).getVikendica();
     }
 
     public Vikendica createRezervacijuZaVikendicu(Long vikendicaId, Rezervacija rezervacija) throws Exception {
