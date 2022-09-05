@@ -6,6 +6,8 @@ import com.example.backend.repository.CasRepository;
 import com.example.backend.repository.VikendicaRepository;
 import com.example.backend.repository.ZalbaRepository;
 import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import java.security.Principal;
 
@@ -80,6 +82,26 @@ public class ZalbaService {
 
         zalbaRepository.save(zalba);
         return true;
+    }
+
+    public List<Zalba> getAllZalbe(Principal principal) throws Exception {
+        User user = userService.getActivatedUserFromPrincipal(principal);
+        if(user == null){
+            throw new Exception("User not found");
+        }
+        if(!user.getRole().equals(Role.ROLE_ADMIN)){
+            throw new Exception("Authentificatio faild");
+        }
+
+        List<Zalba> zalbe = zalbaRepository.findAll();
+
+        List<Zalba> filterZalbe = zalbe
+                .stream()
+                .filter((zalba) -> zalba.isOdgovoreno() == false)
+                .collect(Collectors.toList());
+
+        return filterZalbe;
+
     }
 
 }

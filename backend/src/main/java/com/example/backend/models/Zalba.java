@@ -20,6 +20,9 @@ public class Zalba {
     @JoinColumn(name="brod_id")
     private Brod brod;
 
+    private User korisnik;
+    private boolean isOdgovoreno;
+
     public Zalba() {
     }
 
@@ -29,6 +32,22 @@ public class Zalba {
         this.vikendica = vikendica;
         this.cas = cas;
         this.brod = brod;
+    }
+
+    public User getKorisnik() {
+        return korisnik;
+    }
+
+    public void setKorisnik(User korisnik) {
+        this.korisnik = korisnik;
+    }
+
+    public boolean isOdgovoreno() {
+        return isOdgovoreno;
+    }
+
+    public void setOdgovoreno(boolean odgovoreno) {
+        isOdgovoreno = odgovoreno;
     }
 
     public long getId() {
