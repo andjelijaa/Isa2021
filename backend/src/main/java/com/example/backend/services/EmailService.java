@@ -78,4 +78,45 @@ public class EmailService {
 
         Transport.send(msg);
     }
+
+    public void sendEmailForZalba(String korisnik, String vlasnik, String opis, String odgovor) throws MessagingException {
+        System.out.println("posalje se mejl za zalbe");
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Zalba:\n");
+        sb.append(opis);
+        sb.append("Odgovor:\n");
+        sb.append(odgovor);
+
+
+        Message msg = new MimeMessage(session);
+        msg.setFrom(new InternetAddress("admin@admin.com", false));
+
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(korisnik));
+        msg.setSubject("Odgovor na zalbu");
+        msg.setContent(sb.toString(), "text/html");
+        msg.setSentDate(new Date());
+
+        MimeBodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setContent(sb.toString(), "text/html");
+
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(messageBodyPart);
+
+        Transport.send(msg);
+
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(vlasnik));
+        msg.setSubject("Odgovor na zalbu");
+        msg.setContent(sb.toString(), "text/html");
+        msg.setSentDate(new Date());
+
+        messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setContent(sb.toString(), "text/html");
+
+        multipart = new MimeMultipart();
+        multipart.addBodyPart(messageBodyPart);
+
+        Transport.send(msg);
+    }
+
 }
