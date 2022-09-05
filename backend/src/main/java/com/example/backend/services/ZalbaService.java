@@ -19,17 +19,20 @@ public class ZalbaService {
     private final BrodRepository brodRepository;
     private final UserService userService;
     private final ZalbaRepository zalbaRepository;
+    private final EmailService emailService;
 
     public ZalbaService(VikendicaRepository vikendicaRepository,
                         CasRepository casRepository,
                         BrodRepository brodRepository,
                         UserService userService,
-                        ZalbaRepository zalbaRepository) {
+                        ZalbaRepository zalbaRepository,
+                        EmailService emailService) {
         this.vikendicaRepository = vikendicaRepository;
         this.casRepository = casRepository;
         this.brodRepository = brodRepository;
         this.userService = userService;
         this.zalbaRepository = zalbaRepository;
+        this.emailService=emailService;
     }
 
 
@@ -104,4 +107,32 @@ public class ZalbaService {
 
     }
 
+    public boolean odgovori(Principal principal, Long id, String odgovorNaZalbu) throws Exception {
+        User user = userService.getActivatedUserFromPrincipal(principal);
+        if(user == null){
+            throw new Exception("User not found");
+        }
+        if(!user.getRole().equals(Role.ROLE_ADMIN)){
+            throw new Exception("Authentificatio faild");
+        }
+        Zalba zalba = zalbaRepository.findById(id)
+                .orElseThrow(() -> new Exception("zalba not found"));
+        String vlasnik = "";
+
+        if(zalba.getVikendica() != null){
+            vlasnik = zalba.getVikendica().getVlasnik().getUsername();
+        }
+        else if(zalba.getCas() != null){
+            vlasnik = zalba.getCas().getVlasnik().getUsername();
+        }else{
+            vlasnik = zalba.getBrod().getVlasnik().getUsername();
+        }
+
+
+        emailService.sendEmailForZalba(zalba.getKorisnik().getUsername(),
+                vlasnik,
+                zalba.getOpis(),
+                odgovorNaZalbu);
+        return true;
+    }
 }
