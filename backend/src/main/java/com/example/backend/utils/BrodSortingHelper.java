@@ -22,13 +22,13 @@ public class BrodSortingHelper {
     public List<Brod> getSortedBrodovi(String sort, String value){
         switch (sort){
             case id:
-                return brodRepository.findAllOrderByNazivAsc();
+                return brodRepository.findAllOrderByOcenaAsc();
             case ocena:
-                return brodRepository.findByOcenaOrderByNazivAsc(Integer.parseInt(value));
+                return brodRepository.findByOcenaOrderByOcenaAsc(Integer.parseInt(value));
             case naziv:
-                return brodRepository.findByNazivOrderByNazivAsc(value);
+                return brodRepository.findByNazivOrderByOcenaAsc(value);
             case lokacija:
-                return brodRepository.findByAdresaOrderByNazivAsc(value);
+                return brodRepository.findByAdresaOrderByOcenaAsc(value);
             default:
                 return brodRepository.findAll();
         }
