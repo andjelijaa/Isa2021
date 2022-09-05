@@ -6,6 +6,7 @@ import com.example.backend.models.response.GetVikendicaDTO;
 
 import com.example.backend.models.response.VikendicaDTO;
 import com.example.backend.services.VikendicaService;
+import com.example.backend.services.ZalbaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -16,9 +17,11 @@ import java.util.Optional;
 public class VikendicaController {
 
     private final VikendicaService vikendicaService;
+    private final ZalbaService zalbaService;
 
-    public VikendicaController(VikendicaService vikendicaService) {
+    public VikendicaController(VikendicaService vikendicaService, ZalbaService zalbaService) {
         this.vikendicaService = vikendicaService;
+        this.zalbaService=zalbaService;
     }
 
     @GetMapping("/getAll")
@@ -46,5 +49,12 @@ public class VikendicaController {
                               @PathVariable(name = "vikendicaId") Long vikendicaId,
                               @RequestBody Long ocena) throws Exception {
         return VikendicaMapper.INSTANCE.toDto(vikendicaService.oceniVikendic(principal, vikendicaId, ocena));
+    }
+
+    @PostMapping("/zalba/{vikendicaId}")
+    public boolean createZalbaZaVikendicu(Principal principal,
+                                          @PathVariable(name = "vikendicaId") Long vikendicaId,
+                                          @RequestBody String zalbaOpis) throws Exception {
+        return zalbaService.createZalbaZaVikendicu(principal, vikendicaId, zalbaOpis);
     }
 }

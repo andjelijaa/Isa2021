@@ -2,6 +2,7 @@ package com.example.backend.services;
 
 import com.example.backend.models.Brod;
 import com.example.backend.models.User;
+import com.example.backend.models.Vikendica;
 import com.example.backend.models.Zalba;
 import com.example.backend.repository.BrodRepository;
 import com.example.backend.repository.CasRepository;
@@ -45,6 +46,23 @@ public class ZalbaService {
                 .orElseThrow(() -> new Exception("Brod not found"));
 
         Zalba zalba = new Zalba(zalbaOpis, null, null, brod);
+
+        zalbaRepository.save(zalba);
+        return true;
+    }
+
+    public boolean createZalbaZaVikendicu(Principal principal,
+                                          Long vikendicaId,
+                                          String zalbaOpis) throws Exception {
+        User user = userService.getActivatedUserFromPrincipal(principal);
+        if(user == null){
+            throw new Exception("User not found");
+        }
+
+        Vikendica vikendica = vikendicaRepository.findById(vikendicaId)
+                .orElseThrow(() -> new Exception("Vikendica not found"));
+
+        Zalba zalba = new Zalba(zalbaOpis, vikendica, null, null);
 
         zalbaRepository.save(zalba);
         return true;
