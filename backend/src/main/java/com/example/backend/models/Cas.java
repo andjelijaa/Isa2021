@@ -9,8 +9,6 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 public class Cas{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +33,17 @@ public class Cas{
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cas")
     private List<Rezervacija> rezervacije;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cas")
+    private List<Zalba> zalbe;
+
+    public List<Zalba> getZalbe() {
+        return zalbe;
+    }
+
+    public void setZalbe(List<Zalba> zalbe) {
+        this.zalbe = zalbe;
+    }
 
     @ManyToOne
     private Akcija akcija;
@@ -156,6 +165,25 @@ public class Cas{
     }
 
     public void setAkcija(Akcija akcija) {
+        this.akcija = akcija;
+    }
+
+    public Cas(Long id, String naziv, String adresa, String promoOpis, String slike, int maxBrojOsoba, String slobodniTermini, String pravilaPonasanja, String opremaUzRezervaciju, String cenovnikInfo, String usloviOtkaza, String kratkaBiografijaInstruktora, User vlasnik, List<Rezervacija> rezervacije, List<Zalba> zalbe, Akcija akcija) {
+        this.id = id;
+        this.naziv = naziv;
+        this.adresa = adresa;
+        this.promoOpis = promoOpis;
+        this.slike = slike;
+        this.maxBrojOsoba = maxBrojOsoba;
+        this.slobodniTermini = slobodniTermini;
+        this.pravilaPonasanja = pravilaPonasanja;
+        this.opremaUzRezervaciju = opremaUzRezervaciju;
+        this.cenovnikInfo = cenovnikInfo;
+        this.usloviOtkaza = usloviOtkaza;
+        this.kratkaBiografijaInstruktora = kratkaBiografijaInstruktora;
+        this.vlasnik = vlasnik;
+        this.rezervacije = rezervacije;
+        this.zalbe = zalbe;
         this.akcija = akcija;
     }
 }

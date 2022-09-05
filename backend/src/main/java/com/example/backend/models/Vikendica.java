@@ -31,6 +31,17 @@ public class Vikendica {
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "vikendica")
     private List<Rezervacija> rezervacije;
 
+    public List<Zalba> getZalbe() {
+        return zalbe;
+    }
+
+    public void setZalbe(List<Zalba> zalbe) {
+        this.zalbe = zalbe;
+    }
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "vikendica")
+    private List<Zalba> zalbe;
+
     @ManyToOne
     private Akcija akcija;
 

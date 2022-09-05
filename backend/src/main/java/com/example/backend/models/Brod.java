@@ -26,6 +26,15 @@ public class Brod{
     private String snagaMotora;
     private int maxSpreed;
     private String navigacionaOprema;
+    private int ocena;
+
+    public int getOcena() {
+        return ocena;
+    }
+
+    public void setOcena(int ocena) {
+        this.ocena = ocena;
+    }
 
 
 
@@ -35,6 +44,18 @@ public class Brod{
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "brod")
     private List<Rezervacija> rezervacije;
+
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "brod")
+    private List<Zalba> zalbe;
+
+    public List<Zalba> getZalbe() {
+        return zalbe;
+    }
+
+    public void setZalbe(List<Zalba> zalbe) {
+        this.zalbe = zalbe;
+    }
 
     @ManyToOne
     private Akcija akcija;
