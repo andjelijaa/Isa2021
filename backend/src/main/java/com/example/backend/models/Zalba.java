@@ -70,4 +70,11 @@ public class Zalba {
     public void setBrod(Brod brod) {
         this.brod = brod;
     }
+
+    public Zalba(String opis, Vikendica vikendica, Cas cas, Brod brod) {
+        this.opis = opis;
+        this.vikendica = vikendica;
+        this.cas = cas;
+        this.brod = brod;
+    }
 }

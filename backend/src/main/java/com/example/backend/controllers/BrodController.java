@@ -5,6 +5,7 @@ import com.example.backend.models.mappers.BrodMapper;
 import com.example.backend.models.response.BrodDTO;
 import com.example.backend.models.response.GetBrodDTO;
 import com.example.backend.services.BrodService;
+import com.example.backend.services.ZalbaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
@@ -15,9 +16,11 @@ import java.util.List;
 public class BrodController {
 
     private final BrodService brodService;
+    private final ZalbaService zalbaService;
 
-    public BrodController(BrodService brodService) {
+    public BrodController(BrodService brodService, ZalbaService zalbaService) {
         this.brodService = brodService;
+        this.zalbaService=zalbaService;
 
     }
 
@@ -38,5 +41,12 @@ public class BrodController {
     public BrodDTO createBrod(Principal principal,
                            @RequestBody Brod brod) throws Exception {
         return BrodMapper.INSTANCE.toDto(brodService.createBrod(principal, brod));
+    }
+
+    @PostMapping("/zalba/{brodId}")
+    public boolean createZalba(Principal principal,
+                               @PathVariable(name = "brodId") Long brodId,
+                               @RequestBody String zalbaOpis) throws Exception {
+        return zalbaService.createZalbaZaBrod(principal, brodId, zalbaOpis);
     }
 }
