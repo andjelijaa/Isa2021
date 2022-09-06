@@ -9,6 +9,7 @@ import com.example.backend.services.EmailService;
 import com.example.backend.services.RezervacijaService;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,7 +31,7 @@ public class RezervacijaController {
                                                             @PathVariable(name = "rezervacijaID")Long rezervacijaID,
                                                             @RequestParam(name = "sort", defaultValue = "datum") String sort,
                                                             @RequestParam(name = "type") int type){
-        return rezervacijaService.getEntitets(rezervacijaID, entitetId, sort, type);
+        return rezervacijaService.getEntitetsRezervaije(rezervacijaID, entitetId, sort, type);
     }
 
 
@@ -48,4 +49,10 @@ public class RezervacijaController {
                        @RequestBody Rezervacija rezervacija) throws Exception {
         return rezervacijaService.createRezervacijuZaCas(casId, rezervacija);
     }
+    @PostMapping("/odkazi/{rezervacijaId}")
+    public boolean odkaziRezervaciju(Principal principal,
+                                     @PathVariable(name = "rezervacijaId") Long rezervacijaId) throws Exception {
+        return rezervacijaService.odkazi(principal, rezervacijaId);
+    }
+
 }

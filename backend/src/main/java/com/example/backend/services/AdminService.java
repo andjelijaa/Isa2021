@@ -9,4 +9,7 @@ public class AdminService  implements  AdminServiceInterface{
     public void notifyAdmin(User user, String link, String obrazlozenje){
 
     }
+    public void notifyAdminDaOpetRezervise() {
+        System.out.println("Obavesti se admin da pogleda rezervacije");
+    }
 }

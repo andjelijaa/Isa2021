@@ -21,6 +21,7 @@ public class Rezervacija {
     private int maxBrojOsoba;
     private String dodatneUsluge;
     private int cena;
+    private boolean zauzeto;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User klijent;
@@ -28,6 +29,14 @@ public class Rezervacija {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Entitet entitet;
+
+    public boolean isZauzeto() {
+        return zauzeto;
+    }
+
+    public void setZauzeto(boolean zauzeto) {
+        this.zauzeto = zauzeto;
+    }
 
     @OneToOne
     private Zalba zalba;
