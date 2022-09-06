@@ -4,14 +4,13 @@ import com.example.backend.models.Vikendica;
 import com.example.backend.models.mappers.VikendicaMapper;
 import com.example.backend.models.response.GetVikendicaDTO;
 
-import com.example.backend.models.response.VikendicaDTO;
+import com.example.backend.models.response.VikendicaPageDTO;
 import com.example.backend.services.VikendicaService;
 import com.example.backend.services.ZalbaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @RestController("/api/vikendica")
 public class VikendicaController {
@@ -25,9 +24,9 @@ public class VikendicaController {
     }
 
     @GetMapping("/getAll")
-    public List<VikendicaDTO> getAll(Principal principal,
-                                     @RequestParam(name = "sort", defaultValue = "id") String sort,
-                                     @RequestParam(name = "type", defaultValue = "2") int type) throws Exception {
+    public List<VikendicaPageDTO> getAll(Principal principal,
+                                         @RequestParam(name = "sort", defaultValue = "id") String sort,
+                                         @RequestParam(name = "type", defaultValue = "2") int type) throws Exception {
         return VikendicaMapper.toDto(vikendicaService.getAllVikendice(principal, sort,type));
 
     }
@@ -39,13 +38,13 @@ public class VikendicaController {
     }
 
     @PostMapping("/createVikendica")
-    public VikendicaDTO create(Principal principal,
+    public VikendicaPageDTO create(Principal principal,
                             @RequestBody Vikendica vikendica) throws Exception {
         return VikendicaMapper.INSTANCE.toDto(vikendicaService.createVikendica(principal, vikendica));
     }
 
     @PostMapping("/oceni/{vikendicaId}")
-    public VikendicaDTO ocena(Principal principal,
+    public VikendicaPageDTO ocena(Principal principal,
                               @PathVariable(name = "vikendicaId") Long vikendicaId,
                               @RequestBody Long ocena) throws Exception {
         return VikendicaMapper.INSTANCE.toDto(vikendicaService.oceniVikendic(principal, vikendicaId, ocena));

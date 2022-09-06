@@ -10,8 +10,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 public class Akcija {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

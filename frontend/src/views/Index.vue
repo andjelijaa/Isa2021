@@ -1,53 +1,40 @@
 <template>
   <div>
     <index-navbar />
-    <section
-      class="header relative pt-16 items-center flex h-screen max-h-860-px"
-    >
-      <div class="container px-4 mx-auto">
+    <section class="header relative items-center flex h-screen">
+
+<div>
+
+
+
+</div>
+ <div class="container px-4 mx-auto">
         <div class="flex flex-wrap">
-          <div class="w-full px-4 flex-1" @click="getVikendice">
-            <span
-              class="
-                text-sm
-                block
-                my-4
-                p-3
-                text-blueGray-700
-                rounded
-                border border-solid border-blueGray-100
-              "
-              >Vikendice</span
-            >
+            <div class="form-check col-4">
+            <input class="form-check-input" type="radio" value="Cas" v-model="radioButton" name="flexRadioDefault"
+              id="Cas">
+            <label class="form-check-label" for="Cas">
+              Cas
+            </label>
           </div>
-          <div class="w-full px-4 flex-1" @click="getBrodovi">
-            <span
-              class="
-                text-sm
-                block
-                my-4
-                p-3
-                text-blueGray-700
-                rounded
-                border border-solid border-blueGray-100
-              "
-              >Brodovi</span
-            >
+          <div class="form-check col-4">
+            <input class="form-check-input" type="radio" value="Brod" v-model="radioButton" name="flexRadioDefault"
+              id="Brod" checked>
+            <label class="form-check-label" for="Brod">
+              Brod
+            </label>
           </div>
-          <div class="w-full px-4 flex-1" @click="getInstruktori">
-            <span
-              class="
-                text-sm
-                block
-                my-4
-                p-3
-                text-blueGray-700
-                rounded
-                border border-solid border-blueGray-100
-              "
-              >Instruktori</span
-            >
+          <div class="form-check col-4">
+            <input class="form-check-input" type="radio" value="Vikendica" v-model="radioButton" name="flexRadioDefault"
+              id="Vikendica">
+            <label class="form-check-label" for="Vikendica">
+              Vikendica
+            </label>
           </div>
+
+        <div class="col-4">
+          <button class="btn btn-green" @click="alertt">SEARCH</button>
+        </div>
         </div>
       </div>
     </section>
@@ -108,74 +95,8 @@ export default {
       login,
       profile,
       landing,
-      items:[
-         {
-          name: "ime",
-          id: 1,
-          text: "text1",
-          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
-        },
-        {
-          name: "ime2",
-          id: 2,
-          text: "text2",
-          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
-        },
-        {
-          name: "ime2",
-          id: 2,
-          text: "text2",
-          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
-        },
-        {
-          name: "ime2",
-          id: 2,
-          text: "text2",
-          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
-        },
-        {
-          name: "ime2",
-          id: 2,
-          text: "text2",
-          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
-        },
-        {
-          name: "ime2",
-          id: 2,
-          text: "text2",
-          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
-        },
-        {
-          name: "ime2",
-          id: 2,
-          text: "text2",
-          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
-        },
-        {
-          name: "ime2",
-          id: 2,
-          text: "text2",
-          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
-        },
-        {
-          name: "ime2",
-          id: 2,
-          text: "text2",
-          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
-        },
-        {
-          name: "ime2",
-          id: 2,
-          text: "text2",
-          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
-        },
-        {
-          name: "ime22222",
-          id: 222222,
-          text: "text2",
-          src: "https://www.slikomania.rs/fotky6509/fotos/XOBFB576E1.jpg",
-        },
-      ],
+      radioButton: '',
+      items: [],
     };
   },
   methods:{
@@ -217,7 +138,10 @@ export default {
       .catch(err => {
         console.log(err.response)
       });
-    },
+    },    
+      alertt() {
+      alert(this.radioButton);
+    }
   },
   components: {
     IndexNavbar,

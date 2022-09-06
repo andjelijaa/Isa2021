@@ -1,6 +1,6 @@
 <template>
   <div>
-    <navbar />
+    <index-navbar />
     <main class="profile-page">
       <section class="relative block h-500-px">
         <div
@@ -347,7 +347,7 @@
   </div>
 </template>
 <script>
-import Navbar from "@/components/Navbars/AuthNavbar.vue";
+import IndexNavbar from "@/components/Navbars/IndexNavbar.vue";
 import axios from "axios";
 
 const apiUser = "http://localhost:8083/api/user/updateUser";
@@ -431,7 +431,7 @@ export default {
     },
   },
   components: {
-    Navbar
+    IndexNavbar,
   },
 };
 </script>
