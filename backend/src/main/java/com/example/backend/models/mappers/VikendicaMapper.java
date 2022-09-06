@@ -1,7 +1,7 @@
 package com.example.backend.models.mappers;
 
 import com.example.backend.models.Vikendica;
-import com.example.backend.models.response.VikendicaDTO;
+import com.example.backend.models.response.VikendicaPageDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -12,9 +12,9 @@ import java.util.stream.Collectors;
 public interface VikendicaMapper {
     VikendicaMapper INSTANCE = Mappers.getMapper(VikendicaMapper.class);
 
-    VikendicaDTO toDto(Vikendica vikendica);
+    VikendicaPageDTO toDto(Vikendica vikendica);
 
-    static List<VikendicaDTO> toDto(List<Vikendica> vikendicas){
+    static List<VikendicaPageDTO> toDto(List<Vikendica> vikendicas){
         return vikendicas
                 .stream()
                 .map(vikendica -> VikendicaMapper.INSTANCE.toDto(vikendica))

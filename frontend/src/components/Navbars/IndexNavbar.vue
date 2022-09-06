@@ -8,8 +8,6 @@
       flex flex-wrap
       items-center
       justify-between
-      px-2
-      py-3
       navbar-expand-lg
       bg-white
       shadow
