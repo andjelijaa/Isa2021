@@ -82,8 +82,8 @@ public class VikendicaService {
             throw new Exception("User not found");
         }
         if(rezervacijaService.isUserHaveRezervation(user, vikendica)){
-            vikendica.setBrojOcena(vikendica.getBrojOcena() + 2);
-            vikendica.setOcena((vikendica.getOcena() + ocena) / vikendica.getBrojOcena());
+            vikendica.setUkupnoOcena(vikendica.getUkupnoOcena() + 2);
+            vikendica.setZbirOcena((int) (vikendica.getZbirOcena() + ocena));
             vikendicaRepository.save(vikendica);
             return vikendica;
         }
