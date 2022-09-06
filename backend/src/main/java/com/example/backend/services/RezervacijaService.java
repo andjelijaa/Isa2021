@@ -10,8 +10,11 @@ import com.example.backend.utils.RezervacijaSortingHelper;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
+import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class RezervacijaService {
@@ -22,19 +25,24 @@ public class RezervacijaService {
     private final CasRepository casRepository;
     private final VikendicaRepository vikendicaRepository;
     private final RezervacijaSortingHelper rezervacijaSortingHelper;
+    private final UserService userService;
+    private final AdminService adminService;
 
     public RezervacijaService(RezervacijaRepository rezervacijaRepository,
                               EmailService emailService,
                               BrodRepository brodRepository,
                               CasRepository casRepository,
                               VikendicaRepository vikendicaRepository,
-                              RezervacijaSortingHelper rezervacijaSortingHelper) {
+                              RezervacijaSortingHelper rezervacijaSortingHelper,
+                              UserService userService, AdminService adminService) {
         this.rezervacijaRepository = rezervacijaRepository;
         this.emailService = emailService;
         this.brodRepository = brodRepository;
         this.casRepository=casRepository;
         this.vikendicaRepository=vikendicaRepository;
         this.rezervacijaSortingHelper=rezervacijaSortingHelper;
+        this.userService = userService;
+        this.adminService = adminService;
     }
 
 
@@ -63,7 +71,7 @@ public class RezervacijaService {
         return brod;
     }
 
-    public Optional<List<Rezervacija>> getEntitets(Long rezervacijaId, Long casId, String sort, int type) {
+    public Optional<List<Rezervacija>> getEntitetsRezervaije(Long rezervacijaId, Long casId, String sort, int type) {
         Optional<List<Rezervacija>> rezervacije = rezervacijaSortingHelper.getRezervacijeSortEntiteti(
                 rezervacijaId,
                 casId,
@@ -131,5 +139,31 @@ public class RezervacijaService {
             return true;
         }
         return false;
+    }
+
+    public boolean odkazi(Principal principal, Long rezervacijaId) throws Exception {
+        User user = userService.getActivatedUserFromPrincipal(principal);
+        if(user.getRole() == Role.ROLE_KORISNIK) {
+            Date now = new Date();
+            Rezervacija rezervacija = getRezervacijaForOtkaz(rezervacijaId, user.getId());
+            Date dateRezervacije = rezervacija.getDatumOd();
+            long nowMili = now.getTime();
+            long rezervacijaMili = dateRezervacije.getTime();
+            long razlika = rezervacijaMili - nowMili;
+            long days = TimeUnit.MILLISECONDS.toDays(razlika);
+            if (days <= 3) {
+                adminService.notifyAdminDaOpetRezervise();
+                rezervacija.setKlijent(null);
+                rezervacija.setZauzeto(false);
+                rezervacijaRepository.save(rezervacija);
+                return true;
+            }}
+            return false;
+
+    }
+
+    private Rezervacija getRezervacijaForOtkaz(Long rezervacijaId, Long id) throws Exception {
+        return rezervacijaRepository.findByIdAndKlijentId(rezervacijaId, id)
+                .orElseThrow(() -> new Exception("Rezervacija not found"));
     }
 }
