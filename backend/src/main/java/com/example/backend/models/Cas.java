@@ -1,29 +1,13 @@
 package com.example.backend.models;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-public class Cas{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String naziv;
-    private String adresa;
-    private String promoOpis;
-    private String slike; //todo zameni sa listom
-    private int maxBrojOsoba;
-    private String slobodniTermini;//todo isto
-    private String pravilaPonasanja;
-    private String opremaUzRezervaciju;
-    private String cenovnikInfo;
-    private String usloviOtkaza;
+@DiscriminatorValue("3")
+public class Cas extends  Entitet{
 
     private String kratkaBiografijaInstruktora;
 
@@ -31,7 +15,7 @@ public class Cas{
     @JoinColumn(name = "vlasnik_id")
     private User vlasnik;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cas")
+ /*   @OneToMany(cascade = CascadeType.ALL, mappedBy = "cas")
     private List<Rezervacija> rezervacije;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "cas")
@@ -44,6 +28,7 @@ public class Cas{
     public void setZalbe(List<Zalba> zalbe) {
         this.zalbe = zalbe;
     }
+
 
     @ManyToOne
     private Akcija akcija;
@@ -135,7 +120,7 @@ public class Cas{
     public void setUsloviOtkaza(String usloviOtkaza) {
         this.usloviOtkaza = usloviOtkaza;
     }
-
+*/
     public String getKratkaBiografijaInstruktora() {
         return kratkaBiografijaInstruktora;
     }
@@ -143,7 +128,7 @@ public class Cas{
     public void setKratkaBiografijaInstruktora(String kratkaBiografijaInstruktora) {
         this.kratkaBiografijaInstruktora = kratkaBiografijaInstruktora;
     }
-
+/*
     public User getVlasnik() {
         return vlasnik;
     }
@@ -186,4 +171,5 @@ public class Cas{
         this.zalbe = zalbe;
         this.akcija = akcija;
     }
+*/
 }

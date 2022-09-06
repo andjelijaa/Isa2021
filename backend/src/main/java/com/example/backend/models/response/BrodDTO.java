@@ -19,7 +19,7 @@ public class BrodDTO {
     private String naziv;
     private String adresa;
     private String promoOpis;
-    private String slike;
+    private List<String> slike;
     private int maxBrojOsoba;
     private String slobodniTermini;
     private String pravilaPonasanja;
@@ -28,13 +28,13 @@ public class BrodDTO {
     private String usloviOtkaza;
     private String tip;
     private int duzina;
-    private String brojMorora;
+    private String brojMotora;
     private String snagaMotora;
     private int maxSpreed;
-    private String navigacionaOprema;
+    private List<String> navigacionaOprema;
     private User vlasnik;
-    private List<Rezervacija> rezervacije;
-    private Akcija akcija;
+  //  private List<Rezervacija> rezervacije;
+  //  private Akcija akcija;
 
     public Long getId() {
         return id;
@@ -68,11 +68,11 @@ public class BrodDTO {
         this.promoOpis = promoOpis;
     }
 
-    public String getSlike() {
+    public List<String> getSlike() {
         return slike;
     }
 
-    public void setSlike(String slike) {
+    public void setSlike(List<String> slike) {
         this.slike = slike;
     }
 
@@ -140,12 +140,12 @@ public class BrodDTO {
         this.duzina = duzina;
     }
 
-    public String getBrojMorora() {
-        return brojMorora;
+    public String getBrojMotora() {
+        return brojMotora;
     }
 
-    public void setBrojMorora(String brojMorora) {
-        this.brojMorora = brojMorora;
+    public void setBrojMotora(String brojMotora) {
+        this.brojMotora = brojMotora;
     }
 
     public String getSnagaMotora() {
@@ -164,11 +164,11 @@ public class BrodDTO {
         this.maxSpreed = maxSpreed;
     }
 
-    public String getNavigacionaOprema() {
+    public List<String> getNavigacionaOprema() {
         return navigacionaOprema;
     }
 
-    public void setNavigacionaOprema(String navigacionaOprema) {
+    public void setNavigacionaOprema(List<String> navigacionaOprema) {
         this.navigacionaOprema = navigacionaOprema;
     }
 
@@ -180,7 +180,7 @@ public class BrodDTO {
         this.vlasnik = vlasnik;
     }
 
-    public List<Rezervacija> getRezervacije() {
+  /*  public List<Rezervacija> getRezervacije() {
         return rezervacije;
     }
 
@@ -195,4 +195,5 @@ public class BrodDTO {
     public void setAkcija(Akcija akcija) {
         this.akcija = akcija;
     }
+*/
 }

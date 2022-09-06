@@ -30,7 +30,7 @@ public class AkcijaService {
     public Brod addAkcijaToBrod(Long brodId, AkcijaRequestDTO akcijaRequestDTO) throws Exception {
         Brod brod = brodRepository.findById(brodId)
                 .orElseThrow(() -> new Exception("Brod not found"));
-        brod.setAkcija(new Akcija(akcijaRequestDTO));
+      //  brod.setAkcija(new Akcija(akcijaRequestDTO));
 
         return brodRepository.save(brod);
     }
@@ -38,7 +38,7 @@ public class AkcijaService {
     public Vikendica addAkcijaToVikendica(Long vikendicaId, AkcijaRequestDTO akcijaRequestDTO) throws Exception {
         Vikendica vikendica = vikendicaRepository.findById(vikendicaId)
                 .orElseThrow(() -> new Exception("Vikendica not found"));
-        vikendica.setAkcija(new Akcija(akcijaRequestDTO));
+       // vikendica.setAkcija(new Akcija(akcijaRequestDTO));
 
         return vikendicaRepository.save(vikendica);
     }
@@ -46,7 +46,7 @@ public class AkcijaService {
     public Cas addAkcijaToCas(Long casId,AkcijaRequestDTO akcijaRequestDTO) throws Exception {
         Cas cas = casRepository.findById(casId)
                 .orElseThrow(() -> new Exception("Cas not found"));
-        cas.setAkcija(new Akcija(akcijaRequestDTO));
+        //cas.setAkcija(new Akcija(akcijaRequestDTO));
 
         return casRepository.save(cas);
     }
@@ -54,9 +54,9 @@ public class AkcijaService {
     public Brod deleteAkcijuBrod(Long brodId) throws Exception {
         Brod brod = brodRepository.findById(brodId)
                 .orElseThrow(() -> new Exception("Brod not found"));
-        Akcija akcija = brod.getAkcija();
-        akcijaRepository.delete(akcija);
-        brod.setAkcija(null);
+       // Akcija akcija = brod.getAkcija();
+       // akcijaRepository.delete(akcija);
+       // brod.setAkcija(null);
 
         return brodRepository.save(brod);
     }
@@ -64,9 +64,9 @@ public class AkcijaService {
     public Vikendica deleteAkcijuVikendica(Long vikendicaId) throws Exception {
         Vikendica vikendica = vikendicaRepository.findById(vikendicaId)
                 .orElseThrow(() -> new Exception("Vikendica not found"));
-        Akcija akcija = vikendica.getAkcija();
-        akcijaRepository.delete(akcija);
-        vikendica.setAkcija(null);
+     //   Akcija akcija = vikendica.getAkcija();
+     //   akcijaRepository.delete(akcija);
+     //   vikendica.setAkcija(null);
 
         return vikendicaRepository.save(vikendica);
     }
@@ -74,9 +74,9 @@ public class AkcijaService {
     public Cas deleteAkcijuCas(Long casId) throws Exception {
         Cas cas = casRepository.findById(casId)
                 .orElseThrow(() -> new Exception("Cas not found"));
-        Akcija akcija = cas.getAkcija();
-        akcijaRepository.delete(akcija);
-        cas.setAkcija(null);
+     //   Akcija akcija = cas.getAkcija();
+     //   akcijaRepository.delete(akcija);
+     //   cas.setAkcija(null);
 
         return casRepository.save(cas);
     }
@@ -85,7 +85,7 @@ public class AkcijaService {
                                  UpdateAkcijaDTO updateAkcijaDTO) throws Exception {
         Brod brod = brodRepository.findById(brodId)
                 .orElseThrow(() -> new Exception("Brod not found"));
-        Akcija akcija = brod.getAkcija();
+        /*Akcija akcija = brod.getAkcija();
         if(updateAkcijaDTO.getDatumOd() != null){
             akcija.setDatumOd(updateAkcijaDTO.getDatumOd());
         }
@@ -93,7 +93,7 @@ public class AkcijaService {
             akcija.setDatumDo(updateAkcijaDTO.getDatumDo());
         }
         brod.setAkcija(akcija);
-
+*/
         return brodRepository.save(brod);
     }
 
@@ -101,7 +101,7 @@ public class AkcijaService {
                                            UpdateAkcijaDTO updateAkcijaDTO) throws Exception {
         Vikendica vikendica = vikendicaRepository.findById(vikendicaId)
                 .orElseThrow(() -> new Exception("Vikendica not found"));
-        Akcija akcija = vikendica.getAkcija();
+  /*      Akcija akcija = vikendica.getAkcija();
         if(updateAkcijaDTO.getDatumOd() != null){
             akcija.setDatumOd(updateAkcijaDTO.getDatumOd());
         }
@@ -109,7 +109,7 @@ public class AkcijaService {
             akcija.setDatumDo(updateAkcijaDTO.getDatumDo());
         }
         vikendica.setAkcija(akcija);
-
+*/
         return vikendicaRepository.save(vikendica);
     }
 
@@ -117,7 +117,7 @@ public class AkcijaService {
                                UpdateAkcijaDTO updateAkcijaDTO) throws Exception {
         Cas cas = casRepository.findById(casId)
                 .orElseThrow(() -> new Exception("Cas not found"));
-        Akcija akcija = cas.getAkcija();
+  /*      Akcija akcija = cas.getAkcija();
         if(updateAkcijaDTO.getDatumOd() != null){
             akcija.setDatumOd(updateAkcijaDTO.getDatumOd());
         }
@@ -125,7 +125,7 @@ public class AkcijaService {
             akcija.setDatumDo(updateAkcijaDTO.getDatumDo());
         }
         cas.setAkcija(akcija);
-
+*/
         return casRepository.save(cas);
     }
 

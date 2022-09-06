@@ -1,8 +1,7 @@
 package com.example.backend.models;
 
 
-import lombok.*;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +27,12 @@ public class User {
     private Role role;
     private String activation;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "vlasnik")
+    @OneToMany
+    @JoinColumn(name = "vlasnik_id")
+    @JsonIgnore
+    private List<Entitet> entiteti;
+
+  /*  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "vlasnik")
     private List<Vikendica> vikendice;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "vlasnik")
@@ -42,7 +46,7 @@ public class User {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<Loyalty> loyalties;
-
+*/
     private int penali;
 
     public int getPenali() {
@@ -53,36 +57,14 @@ public class User {
         this.penali = penali;
     }
 
-    public User() {
+    public List<Entitet> getEntiteti() {
+        return entiteti;
     }
 
-    public List<Loyalty> getLoyalties() {
-        return loyalties;
+    public void setEntiteti(List<Entitet> entiteti) {
+        this.entiteti = entiteti;
     }
 
-    public void setLoyalties(List<Loyalty> loyalties) {
-        this.loyalties = loyalties;
-    }
-
-    public User(Long id, String username, String password, String address, String ime, String prezime, String grad, String drzava, String phone, Role role, String activation, List<Vikendica> vikendice, List<Cas> casovi, List<Brod> brodovi, List<Rezervacija> rezervacije, List<Loyalty> loyalties) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.address = address;
-        this.ime = ime;
-        this.prezime = prezime;
-        this.grad = grad;
-        this.drzava = drzava;
-        this.phone = phone;
-        this.role = role;
-        this.activation = activation;
-        this.vikendice = vikendice;
-        this.casovi = casovi;
-        this.brodovi = brodovi;
-        this.rezervacije = rezervacije;
-        this.loyalties = loyalties;
-        this.penali = 0;
-    }
 
     public Long getId() {
         return id;
@@ -172,37 +154,14 @@ public class User {
         this.activation = activation;
     }
 
-    public List<Vikendica> getVikendice() {
-        return vikendice;
-    }
 
-    public void setVikendice(List<Vikendica> vikendice) {
-        this.vikendice = vikendice;
-    }
-
-    public List<Cas> getCasovi() {
-        return casovi;
-    }
-
-    public void setCasovi(List<Cas> casovi) {
-        this.casovi = casovi;
-    }
-
-    public List<Brod> getBrodovi() {
-        return brodovi;
-    }
-
-    public void setBrodovi(List<Brod> brodovi) {
-        this.brodovi = brodovi;
-    }
-
-    public List<Rezervacija> getRezervacije() {
+  /*  public List<Rezervacija> getRezervacije() {
         return rezervacije;
     }
 
     public void setRezervacije(List<Rezervacija> rezervacije) {
         this.rezervacije = rezervacije;
     }
-
+*/
 }
 

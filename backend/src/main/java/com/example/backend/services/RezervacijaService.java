@@ -47,21 +47,21 @@ public class RezervacijaService {
     public Brod createRezervacijuZaBrod(Long brodId, Rezervacija rezervacija) throws Exception {
         Brod brod = brodRepository.findById(brodId).orElseThrow(() -> new Exception("Brod not found"));
         User user = rezervacija.getKlijent();
-        LoyaltyPogodnost pogodnost = user.getLoyalties().get(0).getPogodnosti();
+       /* LoyaltyPogodnost pogodnost = user.getLoyalties().get(0).getPogodnosti();
         if(pogodnost == LoyaltyPogodnost.POPUST_20){
             rezervacija.setCena(rezervacija.getCena() * 20/100);
         }else if(pogodnost == LoyaltyPogodnost.POPUST_30){
             rezervacija.setCena(rezervacija.getCena() * 30/100);
         }else if(pogodnost == LoyaltyPogodnost.POPUST_50){
             rezervacija.setCena(rezervacija.getCena() * 50/100);
-        }
+        } */
         Rezervacija rez = rezervacijaRepository.saveAndFlush(rezervacija);
         if(user.getPenali() >= 3){
             throw new Exception("Ne mozete rezervisati brod zbog penala");
         }
-        List<Rezervacija> rezervacije = brod.getRezervacije();
-        rezervacije.add(rez);
-        brod.setRezervacije(rezervacije);
+   //     List<Rezervacija> rezervacije = brod.getRezervacije();
+   //     rezervacije.add(rez);
+   //     brod.setRezervacije(rezervacije);
         brodRepository.save(brod);
         emailService.sendRezervacijaEmail(rezervacija.getKlijent().getUsername());
 
@@ -78,21 +78,21 @@ public class RezervacijaService {
     public Cas createRezervacijuZaCas(Long casId, Rezervacija rezervacija) throws Exception {
         Cas cas = casRepository.findById(casId).orElseThrow(() -> new Exception("Cas not found"));
         User user = rezervacija.getKlijent();
-        LoyaltyPogodnost pogodnost = user.getLoyalties().get(0).getPogodnosti();
+     /*   LoyaltyPogodnost pogodnost = user.getLoyalties().get(0).getPogodnosti();
         if(pogodnost == LoyaltyPogodnost.POPUST_20){
             rezervacija.setCena(rezervacija.getCena() * 20/100);
         }else if(pogodnost == LoyaltyPogodnost.POPUST_30){
             rezervacija.setCena(rezervacija.getCena() * 30/100);
         }else if(pogodnost == LoyaltyPogodnost.POPUST_50){
             rezervacija.setCena(rezervacija.getCena() * 50/100);
-        }
+        }*/
         Rezervacija rez = rezervacijaRepository.saveAndFlush(rezervacija);
         if(user.getPenali() >= 3){
             throw new Exception("Ne mozete rezervisati cas zbog penala");
         }
-        List<Rezervacija> rezervacije = cas.getRezervacije();
-        rezervacije.add(rez);
-        cas.setRezervacije(rezervacije);
+     //   List<Rezervacija> rezervacije = cas.getRezervacije();
+     //   rezervacije.add(rez);
+     //   cas.setRezervacije(rezervacije);
         casRepository.save(cas);
         emailService.sendRezervacijaEmail(rezervacija.getKlijent().getUsername());
 
@@ -110,21 +110,21 @@ public class RezervacijaService {
         Vikendica vikendica = vikendicaRepository.findById(vikendicaId)
                 .orElseThrow(() -> new Exception("Vikendica not found"));
         User user = rezervacija.getKlijent();
-        LoyaltyPogodnost pogodnost = user.getLoyalties().get(0).getPogodnosti();
+       /* LoyaltyPogodnost pogodnost = user.getLoyalties().get(0).getPogodnosti();
         if(pogodnost == LoyaltyPogodnost.POPUST_20){
             rezervacija.setCena(rezervacija.getCena() * 20/100);
         }else if(pogodnost == LoyaltyPogodnost.POPUST_30){
             rezervacija.setCena(rezervacija.getCena() * 30/100);
         }else if(pogodnost == LoyaltyPogodnost.POPUST_50){
             rezervacija.setCena(rezervacija.getCena() * 50/100);
-        }
+        }*/
         Rezervacija rez = rezervacijaRepository.saveAndFlush(rezervacija);
         if(user.getPenali() >= 3){
             throw new Exception("Ne mozete rezervisati vikendicu zbog penala");
         }
-        List<Rezervacija> rezervacije = vikendica.getRezervacije();
-        rezervacije.add(rez);
-        vikendica.setRezervacije(rezervacije);
+   //     List<Rezervacija> rezervacije = vikendica.getRezervacije();
+   //     rezervacije.add(rez);
+   //     vikendica.setRezervacije(rezervacije);
         vikendicaRepository.save(vikendica);
         emailService.sendRezervacijaEmail(rezervacija.getKlijent().getUsername());
 
