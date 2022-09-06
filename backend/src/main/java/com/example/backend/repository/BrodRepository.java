@@ -8,11 +8,5 @@ import java.util.List;
 
 @Repository
 public interface BrodRepository extends JpaRepository<Brod, Long> {
-    List<Brod> findAllOrderByOcenaAsc();
 
-    List<Brod> findByOcenaOrderByOcenaAsc(int ocena);
-
-    List<Brod> findByNazivOrderByOcenaAsc(String naziv);
-
-    List<Brod> findByAdresaOrderByOcenaAsc(String adresa);
 }

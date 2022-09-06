@@ -7,6 +7,7 @@ import com.example.backend.models.response.GetBrodDTO;
 import com.example.backend.services.BrodService;
 import com.example.backend.services.ZalbaService;
 import org.springframework.web.bind.annotation.*;
+import com.example.backend.models.request.CreateZalbaDTO;
 
 import java.security.Principal;
 import java.util.List;
@@ -27,8 +28,8 @@ public class BrodController {
     @RequestMapping(value = "/getAllBrodovi", method = RequestMethod.GET)
     public List<BrodDTO> getAll(Principal principal,
                                 @RequestParam(name = "sort", defaultValue = "id") String sort,
-                                @RequestParam(name = "value") String value) throws Exception {
-        return BrodMapper.toDto(brodService.getAllBrodovi(principal, sort, value));
+                                @RequestParam(name = "type" , defaultValue = "1") int type) throws Exception {
+        return BrodMapper.toDto(brodService.getAllBrodovi(principal, sort, type));
     }
 
     @GetMapping("/{brodId}")
@@ -46,7 +47,7 @@ public class BrodController {
     @PostMapping("/zalba/{brodId}")
     public boolean createZalba(Principal principal,
                                @PathVariable(name = "brodId") Long brodId,
-                               @RequestBody String zalbaOpis) throws Exception {
-        return zalbaService.createZalbaZaBrod(principal, brodId, zalbaOpis);
+                               @RequestBody CreateZalbaDTO zalba) throws Exception {
+        return zalbaService.createZalbaZaEntitet(principal, brodId, zalba);
     }
 }

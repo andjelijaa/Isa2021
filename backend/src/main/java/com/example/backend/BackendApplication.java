@@ -64,7 +64,7 @@ public class BackendApplication {
 			brod.setNaziv("brod1");
 			brod.setAdresa("adresa1");
 			brod.setPromoOpis("PromoOpis1");
-			brod.setSlike(Arrays.asList("brod-jedan.jpeg"));
+			brod.setSlike("brod-jedan.jpeg");
 			brod.setMaxBrojOsoba(3);
 //			brod.setSlobodniTermini();
 			brod.setPravilaPonasanja("pravila1");
@@ -75,7 +75,7 @@ public class BackendApplication {
 			brod.setBrojMotora("AHC41");
 			brod.setSnagaMotora("66KW");
 			brod.setMaxSpreed(200);
-			brod.setNavigacionaOprema(Arrays.asList("Mapa", "Kompas"));
+			brod.setNavigacionaOprema("Mapa;Kompas");
 			brod.setZbirOcena(0);
 			brod.setUkupnoOcena(0);
 			brodRepository.saveAndFlush(brod);
@@ -84,7 +84,7 @@ public class BackendApplication {
 			vikendica.setNaziv("vikendica1");
 			vikendica.setAdresa("adresa1");
 			vikendica.setPromoOpis("PromoOpis1");
-			vikendica.setSlike(Arrays.asList("vikendica-jedan.jpg"));
+			vikendica.setSlike("vikendica-jedan.jpg");
 			vikendica.setMaxBrojOsoba(3);
 //			vikendica.setSlobodniTermini();
 			vikendica.setPravilaPonasanja("pravila1");

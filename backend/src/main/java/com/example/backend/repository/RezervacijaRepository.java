@@ -6,29 +6,18 @@ import com.example.backend.models.Vikendica;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface RezervacijaRepository extends JpaRepository<Rezervacija, Long> {
-    public Rezervacija findByIdAndBrodId(Long id, Long brodId);
-    public Rezervacija findByIdAndCasId(Long id, Long brodId);
-    public Rezervacija findByIdAndVikendicaId(Long id, Long brodId);
-    public Rezervacija findByUserAndVikendica(User user, Vikendica vikendica);
 
-    List<Rezervacija> findByIdAndVikendicaIdOrderByDatumPocetkaAsc(Long id, Long vikendicaId);
+    Rezervacija findByKlijentIdAndEntitetId(Long id, Long entitetId);
 
-    List<Rezervacija> findByIdAndVikendicaIdOrderByCenaAsc(Long id, Long vikendicaId);
+    Optional<Rezervacija> findByIdAndKlijentIdAndEntitetId(Long id, Long klijentId, Long entitetId);
 
-    List<Rezervacija> findByIdAndVikendicaIdOrderByTrajanjeAsc(Long id, Long vikendicaId);
+    Optional<List<Rezervacija>> findAllByOrderByCenaAsc();
 
-    List<Rezervacija> findByIdAndBrodIdOrderByDatumPocetkaAsc(Long id, Long vikendicaId);
+    Optional<List<Rezervacija>> findAllByOrderByDatumOdAsc();
 
-    List<Rezervacija> findByIdAndBrodIdOrderByCenaAsc(Long id, Long vikendicaId);
-
-    List<Rezervacija> findByIdAndBrodIdOrderByTrajanjeAsc(Long id, Long vikendicaId);
-
-    List<Rezervacija> findByIdAndCasIdOrderByCenaAsc(Long id, Long vikendicaId);
-
-    List<Rezervacija> findByIdAndCasIdOrderByDatumPocetkaAsc(Long id, Long vikendicaId);
-
-    List<Rezervacija> findByIdAndCasIdOrderByTrajanjeAsc(Long id, Long vikendicaId);
+    Optional<List<Rezervacija>> findAllByOrderByTrajanjeAsc();
 }

@@ -1,10 +1,8 @@
 package com.example.backend.services;
 
 import com.example.backend.models.*;
-import com.example.backend.repository.BrodRepository;
-import com.example.backend.repository.CasRepository;
-import com.example.backend.repository.VikendicaRepository;
-import com.example.backend.repository.ZalbaRepository;
+import com.example.backend.models.request.CreateZalbaDTO;
+import com.example.backend.repository.*;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -20,81 +18,59 @@ public class ZalbaService {
     private final UserService userService;
     private final ZalbaRepository zalbaRepository;
     private final EmailService emailService;
+    private final RezervacijaRepository rezervacijaRepository;
 
     public ZalbaService(VikendicaRepository vikendicaRepository,
                         CasRepository casRepository,
                         BrodRepository brodRepository,
                         UserService userService,
                         ZalbaRepository zalbaRepository,
-                        EmailService emailService) {
+                        EmailService emailService,
+                        RezervacijaRepository rezervacijaRepository) {
         this.vikendicaRepository = vikendicaRepository;
         this.casRepository = casRepository;
         this.brodRepository = brodRepository;
         this.userService = userService;
         this.zalbaRepository = zalbaRepository;
         this.emailService=emailService;
+        this.rezervacijaRepository=rezervacijaRepository;
     }
 
 
-    public boolean createZalbaZaBrod(Principal principal,
-                                     Long brodId,
-                                     String zalbaOpis) throws Exception {
+    public boolean createZalbaZaEntitet(Principal principal,
+                                     Long entitetId,
+                                        CreateZalbaDTO zalba) throws Exception {
         User user = userService.getActivatedUserFromPrincipal(principal);
         if(user == null){
-            throw new Exception("User not found");
+            throw new Exception("Auth fail");
         }
 
-        Brod brod = brodRepository.findById(brodId)
-                .orElseThrow(() -> new Exception("Brod not found"));
+        Rezervacija rezervacija = rezervacijaRepository.findByIdAndKlijentIdAndEntitetId(
+                zalba.getRezervacijaId(),
+                user.getId(),
+                entitetId
+        ).orElseThrow(() -> new Exception("Rezervacija not found"));
 
-        Zalba zalba = new Zalba(zalbaOpis, null, null, brod);
+        Brod brod = (Brod) rezervacija.getEntitet();
+        User vlasnik = brod.getVlasnik();
+        vlasnik.addOcena(zalba.getOcena());
+        brod.addOcena(zalba.getOcena());
 
-        zalbaRepository.save(zalba);
+        userService.save(vlasnik);
+        brodRepository.save(brod);
+        Zalba zalbaSave = new Zalba();
+        zalbaSave.setOpis(zalba.getOpis());
+        zalbaSave.setOdgovoreno(false);
+        zalbaSave.setRezervacija(rezervacija);
+
+        zalbaRepository.save(zalbaSave);
         return true;
     }
 
-    public boolean createZalbaZaVikendicu(Principal principal,
-                                          Long vikendicaId,
-                                          String zalbaOpis) throws Exception {
-        User user = userService.getActivatedUserFromPrincipal(principal);
-        if(user == null){
-            throw new Exception("User not found");
-        }
 
-        Vikendica vikendica = vikendicaRepository.findById(vikendicaId)
-                .orElseThrow(() -> new Exception("Vikendica not found"));
-
-        Zalba zalba = new Zalba(zalbaOpis, vikendica, null, null);
-
-        zalbaRepository.save(zalba);
-        return true;
-    }
-
-    public boolean createZalbaZaCas(Principal principal,
-                                    Long casId,
-                                    String zalbaOpis) throws Exception {
-        User user = userService.getActivatedUserFromPrincipal(principal);
-        if(user == null){
-            throw new Exception("User not found");
-        }
-
-        Cas cas = casRepository.findById(casId)
-                .orElseThrow(() -> new Exception("Cas not found"));
-
-        Zalba zalba = new Zalba(zalbaOpis, null, cas, null);
-
-        zalbaRepository.save(zalba);
-        return true;
-    }
 
     public List<Zalba> getAllZalbe(Principal principal) throws Exception {
-        User user = userService.getActivatedUserFromPrincipal(principal);
-        if(user == null){
-            throw new Exception("User not found");
-        }
-        if(!user.getRole().equals(Role.ROLE_ADMIN)){
-            throw new Exception("Authentificatio faild");
-        }
+        User user = userService.isUserAdmin(principal);
 
         List<Zalba> zalbe = zalbaRepository.findAll();
 
@@ -112,24 +88,15 @@ public class ZalbaService {
         if(user == null){
             throw new Exception("User not found");
         }
-        if(!user.getRole().equals(Role.ROLE_ADMIN)){
+        if(user.getRole()!=Role.ROLE_ADMIN){
             throw new Exception("Authentificatio faild");
         }
         Zalba zalba = zalbaRepository.findById(id)
                 .orElseThrow(() -> new Exception("zalba not found"));
-        String vlasnik = "";
-
-        if(zalba.getVikendica() != null){
-            vlasnik = zalba.getVikendica().getVlasnik().getUsername();
-        }
-        else if(zalba.getCas() != null){
-            vlasnik = zalba.getCas().getVlasnik().getUsername();
-        }else{
-            vlasnik = zalba.getBrod().getVlasnik().getUsername();
-        }
+        String vlasnik = zalba.getRezervacija().getEntitet().getVlasnik().getUsername();
 
 
-        emailService.sendEmailForZalba(zalba.getKorisnik().getUsername(),
+        emailService.sendEmailForZalba(zalba.getRezervacija().getKlijent().getUsername(),
                 vlasnik,
                 zalba.getOpis(),
                 odgovorNaZalbu);

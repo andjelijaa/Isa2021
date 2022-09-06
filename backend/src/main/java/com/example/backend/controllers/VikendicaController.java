@@ -27,8 +27,8 @@ public class VikendicaController {
     @GetMapping("/getAll")
     public List<VikendicaDTO> getAll(Principal principal,
                                      @RequestParam(name = "sort", defaultValue = "id") String sort,
-                                     @RequestParam(name = "value") String value) throws Exception {
-        return VikendicaMapper.toDto(vikendicaService.getAllVikendice(principal, sort, value));
+                                     @RequestParam(name = "type", defaultValue = "2") int type) throws Exception {
+        return VikendicaMapper.toDto(vikendicaService.getAllVikendice(principal, sort,type));
 
     }
 
@@ -51,10 +51,4 @@ public class VikendicaController {
         return VikendicaMapper.INSTANCE.toDto(vikendicaService.oceniVikendic(principal, vikendicaId, ocena));
     }
 
-    @PostMapping("/zalba/{vikendicaId}")
-    public boolean createZalbaZaVikendicu(Principal principal,
-                                          @PathVariable(name = "vikendicaId") Long vikendicaId,
-                                          @RequestBody String zalbaOpis) throws Exception {
-        return zalbaService.createZalbaZaVikendicu(principal, vikendicaId, zalbaOpis);
-    }
 }

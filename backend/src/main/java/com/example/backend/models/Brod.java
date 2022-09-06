@@ -13,7 +13,7 @@ public class Brod extends  Entitet{
     private String brojMotora;
     private String snagaMotora;
     private int maxSpreed;
-    private List<String> navigacionaOprema;
+    private String navigacionaOprema;
 
 
     public String getTip() {
@@ -56,11 +56,11 @@ public class Brod extends  Entitet{
         this.maxSpreed = maxSpreed;
     }
 
-    public List<String> getNavigacionaOprema() {
+    public String getNavigacionaOprema() {
         return navigacionaOprema;
     }
 
-    public void setNavigacionaOprema(List<String> navigacionaOprema) {
+    public void setNavigacionaOprema(String navigacionaOprema) {
         this.navigacionaOprema = navigacionaOprema;
     }
 

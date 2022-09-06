@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -14,29 +15,36 @@ public class Rezervacija {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String datumPocetka;
-    private String vremePocetka;
+    private Date datumOd;
+    private Date datumDo;
     private int trajanje;
     private int maxBrojOsoba;
     private String dodatneUsluge;
     private int cena;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "klijent_id")
+    @ManyToOne(fetch = FetchType.EAGER)
     private User klijent;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "brod_id")
-    private Brod brod;
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Entitet entitet;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "vikendica_id")
-    private Vikendica vikendica;
+    @OneToOne
+    private Zalba zalba;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "cas_id")
-    private Cas cas;
+    @OneToOne
+    private Akcija akcija;
+
+    public Rezervacija() {
+    }
+
+    public Akcija getAkcija() {
+        return akcija;
+    }
+
+    public void setAkcija(Akcija akcija) {
+        this.akcija = akcija;
+    }
 
     public Long getId() {
         return id;
@@ -46,20 +54,20 @@ public class Rezervacija {
         this.id = id;
     }
 
-    public String getDatumPocetka() {
-        return datumPocetka;
+    public Date getDatumOd() {
+        return datumOd;
     }
 
-    public void setDatumPocetka(String datumPocetka) {
-        this.datumPocetka = datumPocetka;
+    public void setDatumOd(Date datumOd) {
+        this.datumOd = datumOd;
     }
 
-    public String getVremePocetka() {
-        return vremePocetka;
+    public Date getDatumDo() {
+        return datumDo;
     }
 
-    public void setVremePocetka(String vremePocetka) {
-        this.vremePocetka = vremePocetka;
+    public void setDatumDo(Date datumDo) {
+        this.datumDo = datumDo;
     }
 
     public int getTrajanje() {
@@ -102,27 +110,19 @@ public class Rezervacija {
         this.klijent = klijent;
     }
 
-    public Brod getBrod() {
-        return brod;
+    public Entitet getEntitet() {
+        return entitet;
     }
 
-    public void setBrod(Brod brod) {
-        this.brod = brod;
+    public void setEntitet(Entitet entitet) {
+        this.entitet = entitet;
     }
 
-    public Vikendica getVikendica() {
-        return vikendica;
+    public Zalba getZalba() {
+        return zalba;
     }
 
-    public void setVikendica(Vikendica vikendica) {
-        this.vikendica = vikendica;
-    }
-
-    public Cas getCas() {
-        return cas;
-    }
-
-    public void setCas(Cas cas) {
-        this.cas = cas;
+    public void setZalba(Zalba zalba) {
+        this.zalba = zalba;
     }
 }

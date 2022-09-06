@@ -1,5 +1,7 @@
 package com.example.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -19,16 +21,43 @@ public class Entitet {
 
     private String adresa;
     private String promoOpis;
-    private List<String> slike;
+    private String slike;
     private int maxBrojOsoba;
     private String slobodniTermini;//todo isto
     private String pravilaPonasanja;
     private String opremaUzRezervaciju;
     private String cenovnikInfo;
     private String usloviOtkaza;
+    private int ocena;
 
     private int zbirOcena;
     private int ukupnoOcena;
+
+    @OneToMany
+    @JoinColumn(name = "entitet_id")
+    @JsonIgnore
+    private List<Rezervacija> rezervacije;
+
+    @OneToMany
+    @JoinColumn(name = "akcija_id")
+    @JsonIgnore
+    private List<Akcija> akcije;
+
+    public List<Akcija> getAkcije() {
+        return akcije;
+    }
+
+    public void setAkcije(List<Akcija> akcije) {
+        this.akcije = akcije;
+    }
+
+    public List<Rezervacija> getRezervacije() {
+        return rezervacije;
+    }
+
+    public void setRezervacije(List<Rezervacija> rezervacije) {
+        this.rezervacije = rezervacije;
+    }
 
     public int getUkupnoOcena() {
         return ukupnoOcena;
@@ -87,11 +116,11 @@ public class Entitet {
         this.promoOpis = promoOpis;
     }
 
-    public List<String>  getSlike() {
+    public String  getSlike() {
         return slike;
     }
 
-    public void setSlike(List<String>  slike) {
+    public void setSlike(String slike) {
         this.slike = slike;
     }
 
@@ -143,4 +172,21 @@ public class Entitet {
         this.usloviOtkaza = usloviOtkaza;
     }
 
+    public void addOcena(int ocena) {
+        int zbir = this.getZbirOcena() + ocena;
+        this.setZbirOcena(zbir);
+        this.setUkupnoOcena(this.getUkupnoOcena() + 1);
+    }
+
+    public float getProsek(){
+        return this.getZbirOcena() / this.getUkupnoOcena();
+    }
+
+    public int getOcena() {
+        return ocena;
+    }
+
+    public void setOcena(int ocena) {
+        this.ocena = ocena;
+    }
 }

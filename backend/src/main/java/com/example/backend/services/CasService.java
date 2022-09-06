@@ -1,36 +1,42 @@
 package com.example.backend.services;
 import com.example.backend.models.Cas;
+import com.example.backend.models.Entitet;
 import com.example.backend.models.Role;
 import com.example.backend.models.User;
 import com.example.backend.models.response.GetCasDTO;
 import com.example.backend.repository.CasRepository;
-import com.example.backend.utils.CasSortingHelper;
+import com.example.backend.utils.EntitetSortingHelper;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class CasService {
 
     private final CasRepository casRepository;
     private final UserService userService;
-    private final CasSortingHelper casSortingHelper;
+    private final EntitetSortingHelper entitetSortingHelper;
 
-    public CasService(CasRepository casRepository, UserService userService, CasSortingHelper casSortingHelper) {
+    public CasService(CasRepository casRepository, UserService userService, EntitetSortingHelper entitetSortingHelper) {
         this.casRepository = casRepository;
         this.userService = userService;
-        this.casSortingHelper=casSortingHelper;
+        this.entitetSortingHelper= entitetSortingHelper;
     }
 
-    public List<Cas> getAllCasovi(Principal principal,String sort, String value) throws Exception {
+    public List<Cas> getAllCasovi(Principal principal,String sort, int value) throws Exception {
         User user = userService.getActivatedUserFromPrincipal(principal);
         if(user == null){
             throw new Exception("User not found");
         }
-        List<Cas> casovi = casSortingHelper.getSortedCasovi(sort, value);
-        return casovi;
+        Optional<List<Entitet>> entiteti = entitetSortingHelper.getSortedEntiteti(sort, value);
+        List<Cas> casovi = entiteti
+                .get()
+                .stream()
+                .map(entitet -> (Cas) entitet)
+                .collect(Collectors.toList());        return casovi;
     }
 
     public GetCasDTO getCasByCasId(Principal principal, Long casId) throws Exception {

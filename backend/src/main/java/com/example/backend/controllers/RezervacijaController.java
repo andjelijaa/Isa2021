@@ -9,7 +9,8 @@ import com.example.backend.services.EmailService;
 import com.example.backend.services.RezervacijaService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
+import java.util.List;
+import java.util.Optional;
 
 @RestController("/api/rezervacije")
 public class RezervacijaController {
@@ -24,38 +25,17 @@ public class RezervacijaController {
         this.rezervacijaService=rezervacijaService;
     }
 
-    @GetMapping("/{id}/brod/{brodId}")
-    public Brod getBrod(@PathVariable(name = "brodId")Long brodId,
-                        @PathVariable(name = "id")Long id,
-                        @RequestParam(name = "sort", defaultValue = "datum") String sort){
-
-        return rezervacijaService.getBrodById(id, brodId,sort);
-    }
-
-    @GetMapping("/{id}/cas/{casId}")
-    public Cas getCas(@PathVariable(name = "casId")Long casId,
-                      @PathVariable(name = "id")Long id,
-                      @RequestParam(name = "sort", defaultValue = "datum") String sort){
-        return rezervacijaService.getCasById(id, casId,sort);
+    @GetMapping("/{rezervacijaID}/entitet/{entitetId}")
+    public Optional<List<Rezervacija>> getSortedRezervacije(@PathVariable(name = "entitetId")Long entitetId,
+                                                            @PathVariable(name = "rezervacijaID")Long rezervacijaID,
+                                                            @RequestParam(name = "sort", defaultValue = "datum") String sort,
+                                                            @RequestParam(name = "type") int type){
+        return rezervacijaService.getEntitets(rezervacijaID, entitetId, sort, type);
     }
 
 
-    @GetMapping("/{id}/vikendica/{vikendicaId}")
-    public Vikendica getVikendica(@PathVariable(name = "vikendicaId")Long vikendicaId,
-                                  @PathVariable(name = "id")Long id,
-                                  @RequestParam(name = "sort", defaultValue = "datum") String sort){
-        return rezervacijaService.getVikendicaById(id, vikendicaId, sort);
-    }
 
-    @PostMapping("/{id}/brod/{brodId}")
-    public Brod postBrod(@PathVariable(name = "brodId")Long brodId,
-                         @PathVariable(name = "id")Long id,
-                         @RequestBody Rezervacija rezervacija) throws Exception {
-
-        return rezervacijaService.createRezervacijuZaBrod(brodId, rezervacija);
-    }
-
-    @PostMapping("/{id}/vikendica/{vikendicaId}")
+    @PostMapping("/{rezervacijaID}/entitet/{entitetId}")
     public Vikendica postVikendica(@PathVariable(name = "vikendicaId")Long vikendicaId,
                                    @PathVariable(name = "id")Long id,
                                    @RequestBody Rezervacija rezervacija) throws Exception {

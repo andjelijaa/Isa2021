@@ -13,4 +13,12 @@ public interface EntitetRepository extends JpaRepository<Entitet, Long> {
 
     List<Entitet> findAllByVlasnikId(Long id);
     Optional<Entitet> findByIdAndVlasnikId(Long id, Long vlasnikId);
+
+    Optional<List<Entitet>> findAllByOrderByIdAsc();
+
+    Optional<List<Entitet>> findAllByOrderByOcenaAsc();
+
+    Optional<List<Entitet>> findAllByOrderByNaziv();
+
+    Optional<List<Entitet>> findAllByOrderByAdresa();
 }

@@ -6,6 +6,7 @@ import com.example.backend.repository.RezervacijaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RezervacijaSortingHelper {
@@ -19,42 +20,17 @@ public class RezervacijaSortingHelper {
         this.rezervacijaRepository = repository;
     }
 
-    public List<Rezervacija> getRezervacijeSortVikendica(Long id, Long vikendicaId, String sort) {
-        switch (sort) {
-            case datum:
-                return rezervacijaRepository.findByIdAndVikendicaIdOrderByDatumPocetkaAsc(id, vikendicaId);
-            case cena:
-                return rezervacijaRepository.findByIdAndVikendicaIdOrderByCenaAsc(id, vikendicaId);
-            case trajanje:
-                return rezervacijaRepository.findByIdAndVikendicaIdOrderByTrajanjeAsc(id, vikendicaId);
-                default:
-                return rezervacijaRepository.findAll();
-    }
-    }
 
-    public List<Rezervacija> getRezervacijeSortBrodovi(Long id, Long brodId, String sort){
+    public Optional<List<Rezervacija>> getRezervacijeSortEntiteti(Long id, Long entitetId, String sort,int type){
         switch (sort){
             case datum:
-                return rezervacijaRepository.findByIdAndBrodIdOrderByDatumPocetkaAsc(id, brodId);
+                return rezervacijaRepository.findAllByOrderByDatumOdAsc();
             case cena:
-                return rezervacijaRepository.findByIdAndBrodIdOrderByCenaAsc(id, brodId);
+                return rezervacijaRepository.findAllByOrderByCenaAsc();
             case trajanje:
-                return rezervacijaRepository.findByIdAndBrodIdOrderByTrajanjeAsc(id, brodId);
+                return rezervacijaRepository.findAllByOrderByTrajanjeAsc();
             default:
-                return rezervacijaRepository.findAll();
-        }
-    }
-
-    public List<Rezervacija> getRezervacijeSortCasovi(Long id, Long casId, String sort){
-        switch (sort){
-            case datum:
-                return rezervacijaRepository.findByIdAndCasIdOrderByDatumPocetkaAsc(id, casId);
-            case cena:
-                return rezervacijaRepository.findByIdAndCasIdOrderByCenaAsc(id, casId);
-            case trajanje:
-                return rezervacijaRepository.findByIdAndCasIdOrderByTrajanjeAsc(id, casId);
-            default:
-                return rezervacijaRepository.findAll();
+                return null;
         }
     }
 }
