@@ -158,7 +158,6 @@
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Username"
                       aria-describedby="basic-addon1"
                       v-model="username"
                       readonly="readonly"
@@ -173,7 +172,6 @@
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Password"
                       aria-describedby="basic-addon1"
                       v-model="password"
                     />
@@ -189,7 +187,6 @@
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Ime"
                       aria-describedby="basic-addon1"
                       v-model="ime"
                     />
@@ -205,7 +202,6 @@
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Prezime"
                       aria-describedby="basic-addon1"
                       v-model="prezime"
                     />
@@ -220,7 +216,6 @@
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Grad"
                       aria-describedby="basic-addon1"
                       v-model="grad"
                     />
@@ -238,7 +233,6 @@
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Drzava"
                       aria-describedby="basic-addon1"
                       v-model="drzava"
                     />
@@ -254,7 +248,6 @@
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Drzava"
                       aria-describedby="basic-addon1"
                       v-model="adresa"
                     />
@@ -270,14 +263,81 @@
                     <input
                       type="text"
                       class="form-control"
-                      placeholder="Telefon"
                       aria-describedby="basic-addon1"
                       v-model="broj_telefona"
                     />
                   </div>
                 </div>
               </div>
-            
+              <div>
+                  <!-- Button trigger modal -->
+                  <button
+                    type="button"
+                    class="btn btn-danger"
+                    data-toggle="modal"
+                    data-target="#exampleModal"
+                  >
+                    Obrisi nalog
+                  </button>
+
+                  <!-- Modal -->
+                  <div
+                    class="modal fade"
+                    id="exampleModal"
+                    tabindex="-1"
+                    role="dialog"
+                    aria-labelledby="exampleModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="exampleModalLabel">
+                            Modal title
+                          </h5>
+                          <button
+                            type="button"
+                            class="close"
+                            data-dismiss="modal"
+                            aria-label="Close"
+                          >
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"
+                                >Razlog brisanja naloga</span
+                              >
+                            </div>
+                            <textarea
+                              class="form-control"
+                              v-model="text_brisanje"
+                            ></textarea>
+                          </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-dismiss="modal"
+                          >
+                            Close
+                          </button>
+                          <button
+                            type="button"
+                            @click="zahtevZaBrisanjeNaloga"
+                            class="btn btn-danger"
+                          >
+                            Obrisi
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
             </div>
           </div>
         </div>
@@ -289,7 +349,9 @@
 <script>
 import Navbar from "@/components/Navbars/AuthNavbar.vue";
 import axios from "axios";
-const apiUser = "http://localhost:8083/api/users/updateUser";
+
+const apiUser = "http://localhost:8083/api/user/updateUser";
+const apiDeleteUser = "http://localhost:8083/api/user/brisanjeNaloga";
 const config = {
   headers: {
     Authorization: localStorage.auth,
@@ -308,6 +370,7 @@ export default {
       grad: "",
       drzava: "",
       broj_telefona: "",
+      text_brisanje: "",
     };
   },
   beforeMount() {
@@ -344,7 +407,27 @@ export default {
         .then(res => {
           console.log(res)
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
+    },
+    zahtevZaBrisanjeNaloga() {
+      const brisanjeNalogaDto = {
+        zahtev: this.text_brisanje
+      }
+      axios
+        .post(apiDeleteUser, brisanjeNalogaDto, config)
+        .then((res) => {
+          console.log(res);
+          if(res){
+            alert("Uspesno ste podneli zahtev");
+          }else{
+            alert("Nesto je krenulo lose :(, pokusajte ponovo");
+          }
+        })
+        
+        .catch(err =>{
+          console.log(err)
+          alert("Nesto je krenulo lose :(, pokusajte ponovo");
+        });
     },
   },
   components: {
