@@ -11,21 +11,21 @@
  <div class="container px-4 mx-auto">
         <div class="flex flex-wrap">
             <div class="form-check col-4">
-            <input class="form-check-input" type="radio" value="Cas" v-model="radioButton" name="flexRadioDefault"
+            <input class="form-check-input" type="radio" @click="getInstruktori" value="Cas" v-model="radioButton" name="flexRadioDefault"
               id="Cas">
             <label class="form-check-label" for="Cas">
               Cas
             </label>
           </div>
           <div class="form-check col-4">
-            <input class="form-check-input" type="radio" value="Brod" v-model="radioButton" name="flexRadioDefault"
+            <input class="form-check-input" type="radio" @click="getBrodovi" value="Brod" v-model="radioButton" name="flexRadioDefault"
               id="Brod" checked>
             <label class="form-check-label" for="Brod">
               Brod
             </label>
           </div>
           <div class="form-check col-4">
-            <input class="form-check-input" type="radio" value="Vikendica" v-model="radioButton" name="flexRadioDefault"
+            <input class="form-check-input" @click="getVikendice" type="radio" value="Vikendica" v-model="radioButton" name="flexRadioDefault"
               id="Vikendica">
             <label class="form-check-label" for="Vikendica">
               Vikendica
@@ -33,7 +33,7 @@
           </div>
 
         <div class="col-4">
-          <button class="btn btn-green" @click="alertt">SEARCH</button>
+          <button class="btn btn-green" @click="search">SEARCH</button>
         </div>
         </div>
       </div>
@@ -139,8 +139,9 @@ export default {
         console.log(err.response)
       });
     },    
-      alertt() {
-      alert(this.radioButton);
+    search() {
+
+    
     }
   },
   components: {

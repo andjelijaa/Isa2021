@@ -29,7 +29,7 @@ public class AkcijaController {
         return akcijaService.addAkcijaToCas(casId, akcijaRequestDTO);
     }
 
-    @PostMapping("/vikendica/{vikendicaId}")
+    @PostMapping("/vikendx/{vikendicaId}")
     public Vikendica addAkcijaToVikendica(@RequestBody AkcijaRequestDTO akcijaRequestDTO,
                                           @PathVariable(name = "vikendicaId") Long vikendicaId) throws Exception {
         return akcijaService.addAkcijaToVikendica(vikendicaId, akcijaRequestDTO);

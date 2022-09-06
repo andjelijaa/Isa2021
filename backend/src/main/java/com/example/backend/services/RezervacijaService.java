@@ -2,11 +2,9 @@ package com.example.backend.services;
 
 import com.example.backend.models.*;
 import com.example.backend.models.enums.LoyaltyPogodnost;
-import com.example.backend.repository.BrodRepository;
-import com.example.backend.repository.CasRepository;
-import com.example.backend.repository.RezervacijaRepository;
-import com.example.backend.repository.VikendicaRepository;
+import com.example.backend.repository.*;
 import com.example.backend.utils.RezervacijaSortingHelper;
+import org.hibernate.ResourceClosedException;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -27,6 +25,7 @@ public class RezervacijaService {
     private final RezervacijaSortingHelper rezervacijaSortingHelper;
     private final UserService userService;
     private final AdminService adminService;
+    private final EntitetRepository entitetRepository;
 
     public RezervacijaService(RezervacijaRepository rezervacijaRepository,
                               EmailService emailService,
@@ -34,7 +33,7 @@ public class RezervacijaService {
                               CasRepository casRepository,
                               VikendicaRepository vikendicaRepository,
                               RezervacijaSortingHelper rezervacijaSortingHelper,
-                              UserService userService, AdminService adminService) {
+                              UserService userService, AdminService adminService, EntitetRepository entitetRepository) {
         this.rezervacijaRepository = rezervacijaRepository;
         this.emailService = emailService;
         this.brodRepository = brodRepository;
@@ -43,6 +42,7 @@ public class RezervacijaService {
         this.rezervacijaSortingHelper=rezervacijaSortingHelper;
         this.userService = userService;
         this.adminService = adminService;
+        this.entitetRepository=entitetRepository;
     }
 
 
@@ -107,30 +107,34 @@ public class RezervacijaService {
     }
 
 
-    public Vikendica createRezervacijuZaVikendicu(Long vikendicaId, Rezervacija rezervacija) throws Exception {
-        Vikendica vikendica = vikendicaRepository.findById(vikendicaId)
-                .orElseThrow(() -> new Exception("Vikendica not found"));
-        User user = rezervacija.getKlijent();
-       /* LoyaltyPogodnost pogodnost = user.getLoyalties().get(0).getPogodnosti();
-        if(pogodnost == LoyaltyPogodnost.POPUST_20){
-            rezervacija.setCena(rezervacija.getCena() * 20/100);
-        }else if(pogodnost == LoyaltyPogodnost.POPUST_30){
-            rezervacija.setCena(rezervacija.getCena() * 30/100);
-        }else if(pogodnost == LoyaltyPogodnost.POPUST_50){
-            rezervacija.setCena(rezervacija.getCena() * 50/100);
-        }*/
+    public Vikendica createRezervacijuZaVikendicu(Principal principal,
+                                                  Long vikendicaId,
+                                                  Rezervacija rezervacija) throws Exception {
+        User user = userService.getActivatedUserFromPrincipal(principal);
+        if(user == null){
+            throw new Exception("Auth fail");
+        }
+        Optional<Vikendica> vikendica = vikendicaRepository.findById(vikendicaId);
+        if(vikendica.isPresent()){
+            Optional<Rezervacija> rezervacijaOptim = rezervacijaRepository
+                    .findByEntitetIdAndZauzetoTrue(vikendica.get().getId());
+            if(rezervacijaOptim.isPresent()){
+                throw new ResourceClosedException("Zauzeto u medjuvrremenu");
+            }
+        }
+
+        rezervacija.setKlijent(user);
+        rezervacija.setEntitet(vikendica.get());
         Rezervacija rez = rezervacijaRepository.saveAndFlush(rezervacija);
         if(user.getPenali() >= 3){
-            throw new Exception("Ne mozete rezervisati vikendicu zbog penala");
+            throw new Exception("Nemozete rezervisati vikendicu zbog penala");
         }
-   //     List<Rezervacija> rezervacije = vikendica.getRezervacije();
-   //     rezervacije.add(rez);
-   //     vikendica.setRezervacije(rezervacije);
-        vikendicaRepository.save(vikendica);
+        List<Rezervacija> rezervacije = vikendica.get().getRezervacije();
+        rezervacije.add(rez);
+        vikendica.get().setRezervacije(rezervacije);
+        vikendicaRepository.save(vikendica.get());
         emailService.sendRezervacijaEmail(rezervacija.getKlijent().getUsername());
-
-
-        return vikendica;
+        return vikendica.get();
     }
 
     public boolean isUserHaveRezervation(User user, Vikendica vikendica) {
@@ -157,8 +161,9 @@ public class RezervacijaService {
                 rezervacija.setZauzeto(false);
                 rezervacijaRepository.save(rezervacija);
                 return true;
-            }}
+            }    }
             return false;
+
 
     }
 

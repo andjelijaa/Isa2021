@@ -1,6 +1,5 @@
 package com.example.backend.controllers;
 
-import com.example.backend.models.Brod;
 import com.example.backend.models.Cas;
 import com.example.backend.models.Rezervacija;
 import com.example.backend.models.Vikendica;
@@ -36,19 +35,14 @@ public class RezervacijaController {
 
 
 
-    @PostMapping("/{rezervacijaID}/entitet/{entitetId}")
-    public Vikendica postVikendica(@PathVariable(name = "vikendicaId")Long vikendicaId,
-                                   @PathVariable(name = "id")Long id,
-                                   @RequestBody Rezervacija rezervacija) throws Exception {
-        return rezervacijaService.createRezervacijuZaVikendicu(vikendicaId, rezervacija);
+    @PostMapping("/vikendica/{vikendicaId}")
+    public Vikendica postEntitet(Principal principal,
+                                 @PathVariable(name = "vikendicaId") Long vikendicaId,
+                                 @RequestBody Rezervacija rezervacija) throws Exception {
+        return rezervacijaService.createRezervacijuZaVikendicu(principal, vikendicaId, rezervacija);
     }
 
-    @PostMapping("/{id}/cas/{casId}")
-    public Cas postCas(@PathVariable(name = "casId")Long casId,
-                       @PathVariable(name = "id")Long id,
-                       @RequestBody Rezervacija rezervacija) throws Exception {
-        return rezervacijaService.createRezervacijuZaCas(casId, rezervacija);
-    }
+
     @PostMapping("/odkazi/{rezervacijaId}")
     public boolean odkaziRezervaciju(Principal principal,
                                      @PathVariable(name = "rezervacijaId") Long rezervacijaId) throws Exception {

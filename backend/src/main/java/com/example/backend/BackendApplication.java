@@ -53,11 +53,7 @@ public class BackendApplication {
 	@Bean
 	InitializingBean sendDatabase() {
 		return () -> {
-			brodRepository.deleteAll();
-			casRepository.deleteAll();
-			vikendicaRepository.deleteAll();
-			userRepository.deleteAll();
-			akcijaRepository.deleteAll();
+
 
 			Brod brod = new Brod();
 			Vikendica vikendica = new Vikendica();

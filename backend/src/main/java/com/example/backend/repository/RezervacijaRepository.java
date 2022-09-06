@@ -18,7 +18,7 @@ public interface RezervacijaRepository extends JpaRepository<Rezervacija, Long> 
     Optional<List<Rezervacija>> findAllByOrderByCenaAsc();
 
     Optional<List<Rezervacija>> findAllByOrderByDatumOdAsc();
-
+    Optional<Rezervacija> findByEntitetIdAndZauzetoTrue(Long id);
     Optional<List<Rezervacija>> findAllByOrderByTrajanjeAsc();
     Optional<Rezervacija> findByIdAndKlijentId(Long rezervacijaId, Long id);
 }
