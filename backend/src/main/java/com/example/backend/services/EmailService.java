@@ -50,12 +50,6 @@ public class EmailService {
         msg.setContent("This is you activation link: " + link, "text/html");
         msg.setSentDate(new Date());
 
-        MimeBodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setContent("This is you activation link: " + link, "text/html");
-
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(messageBodyPart);
-
         Transport.send(msg);
     }
 
@@ -70,11 +64,6 @@ public class EmailService {
         msg.setContent("Uspesno ste rezervisali uslugu", "text/html");
         msg.setSentDate(new Date());
 
-        MimeBodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setContent("Uspesno ste rezervisali uslugu", "text/html");
-
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(messageBodyPart);
 
         Transport.send(msg);
     }
@@ -97,12 +86,6 @@ public class EmailService {
         msg.setContent(sb.toString(), "text/html");
         msg.setSentDate(new Date());
 
-        MimeBodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setContent(sb.toString(), "text/html");
-
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(messageBodyPart);
-
         Transport.send(msg);
 
         msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(vlasnik));
@@ -110,12 +93,19 @@ public class EmailService {
         msg.setContent(sb.toString(), "text/html");
         msg.setSentDate(new Date());
 
-        messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setContent(sb.toString(), "text/html");
+        Transport.send(msg);
+    }
 
-        multipart = new MimeMultipart();
-        multipart.addBodyPart(messageBodyPart);
+    public void sendEmailForZahtevZaBrisanje(String to, String odgovor) throws MessagingException {
+        System.out.println("Odgovor na zahtev za gasenje naloga");
 
+        Message msg = new MimeMessage(session);
+        msg.setFrom(new InternetAddress(username, false));
+
+        msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+        msg.setSubject("Odgovor na zahtev za gasenje naloga");
+        msg.setContent(odgovor, "text/html");
+        msg.setSentDate(new Date());
         Transport.send(msg);
     }
 

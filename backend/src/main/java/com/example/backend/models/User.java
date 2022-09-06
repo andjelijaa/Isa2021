@@ -32,6 +32,15 @@ public class User {
     @JsonIgnore
     private List<Entitet> entiteti;
 
+    @OneToMany
+    @JoinColumn(name = "zahtev_id")
+    @JsonIgnore
+    private List<ZahtevZaBrisanje> zahtevi;
+
+    @OneToOne
+    @JoinColumn(name = "korisnik_id", referencedColumnName = "id")
+    private ZahtevZaBrisanje zahtev;
+
   /*  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "vlasnik")
     private List<Vikendica> vikendice;
 
