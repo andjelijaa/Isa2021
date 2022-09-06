@@ -28,8 +28,8 @@ public class CasController {
 
     @GetMapping("/getAllCas")
     public List<CasDTO> getAll(Principal principal,@RequestParam(name = "sort", defaultValue = "id") String sort,
-                               @RequestParam(name = "value") String value) throws Exception {
-        return CasMapper.toDto(casService.getAllCasovi(principal, sort, value));
+                               @RequestParam(name = "type", defaultValue = "3") int type) throws Exception {
+        return CasMapper.toDto(casService.getAllCasovi(principal, sort, type));
     }
 
     @GetMapping("/{casId}")
@@ -44,10 +44,5 @@ public class CasController {
         return CasMapper.INSTANCE.toDto(casService.createCas(principal, cas));
     }
 
-    @PostMapping("/zalba/{casId}")
-    public boolean createZalbaZaCas(Principal principal,
-                                    @PathVariable(name = "casId") Long casId,
-                                    @RequestBody String zalbaOpis) throws Exception {
-        return zalbaService.createZalbaZaCas(principal, casId, zalbaOpis);
-    }
+
 }

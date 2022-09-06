@@ -11,7 +11,7 @@ public class ZahtevZaBrisanje {
     private String odgovor;
     private boolean izbrisan;
 
-    @OneToOne(mappedBy = "zahtev")
+    @OneToOne
     private User korisnik;
 
     @ManyToOne(fetch = FetchType.EAGER)

@@ -7,7 +7,5 @@ import com.example.backend.models.Zalba;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ZalbaRepository extends JpaRepository<Zalba, Long> {
-    Zalba findByVikendica(Vikendica vikendica);
-    Zalba findByCas(Cas cas);
-    Zalba findByBrod(Brod brod);
+
 }

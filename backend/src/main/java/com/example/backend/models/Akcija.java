@@ -6,10 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -21,13 +18,25 @@ public class Akcija {
     private Long id;
     private Date datumOd;
     private Date datumDo;
-    private String tipAkcije;
+    private String dodatneUsluge;
+    private boolean pocela;
+    private int cena;
 
-    public Akcija(AkcijaRequestDTO akcijaRequestDTO) {
-        this.id = akcijaRequestDTO.getId();
-        this.datumOd = akcijaRequestDTO.getDatumOd();
-        this.datumDo = akcijaRequestDTO.getDatumDo();
-        this.tipAkcije = akcijaRequestDTO.getTipAkcije();
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Entitet entitet;
+
+    @OneToOne
+    private Rezervacija rezervacija;
+
+    public Akcija() {
+    }
+
+    public int getCena() {
+        return cena;
+    }
+
+    public void setCena(int cena) {
+        this.cena = cena;
     }
 
     public Long getId() {
@@ -54,11 +63,35 @@ public class Akcija {
         this.datumDo = datumDo;
     }
 
-    public String getTipAkcije() {
-        return tipAkcije;
+    public String getDodatneUsluge() {
+        return dodatneUsluge;
     }
 
-    public void setTipAkcije(String tipAkcije) {
-        this.tipAkcije = tipAkcije;
+    public void setDodatneUsluge(String dodatneUsluge) {
+        this.dodatneUsluge = dodatneUsluge;
+    }
+
+    public boolean isPocela() {
+        return pocela;
+    }
+
+    public void setPocela(boolean pocela) {
+        this.pocela = pocela;
+    }
+
+    public Entitet getEntitet() {
+        return entitet;
+    }
+
+    public void setEntitet(Entitet entitet) {
+        this.entitet = entitet;
+    }
+
+    public Rezervacija getRezervacija() {
+        return rezervacija;
+    }
+
+    public void setRezervacija(Rezervacija rezervacija) {
+        this.rezervacija = rezervacija;
     }
 }

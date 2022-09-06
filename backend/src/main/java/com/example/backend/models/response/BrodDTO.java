@@ -19,7 +19,7 @@ public class BrodDTO {
     private String naziv;
     private String adresa;
     private String promoOpis;
-    private List<String> slike;
+    private String slike;
     private int maxBrojOsoba;
     private String slobodniTermini;
     private String pravilaPonasanja;
@@ -31,7 +31,7 @@ public class BrodDTO {
     private String brojMotora;
     private String snagaMotora;
     private int maxSpreed;
-    private List<String> navigacionaOprema;
+    private String navigacionaOprema;
     private User vlasnik;
   //  private List<Rezervacija> rezervacije;
   //  private Akcija akcija;
@@ -68,11 +68,11 @@ public class BrodDTO {
         this.promoOpis = promoOpis;
     }
 
-    public List<String> getSlike() {
+    public String getSlike() {
         return slike;
     }
 
-    public void setSlike(List<String> slike) {
+    public void setSlike(String slike) {
         this.slike = slike;
     }
 
@@ -164,11 +164,11 @@ public class BrodDTO {
         this.maxSpreed = maxSpreed;
     }
 
-    public List<String> getNavigacionaOprema() {
+    public String getNavigacionaOprema() {
         return navigacionaOprema;
     }
 
-    public void setNavigacionaOprema(List<String> navigacionaOprema) {
+    public void setNavigacionaOprema(String navigacionaOprema) {
         this.navigacionaOprema = navigacionaOprema;
     }
 

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RezervacijaService {
@@ -36,13 +37,6 @@ public class RezervacijaService {
         this.rezervacijaSortingHelper=rezervacijaSortingHelper;
     }
 
-    public Brod getBrodById(Long id, Long brodId, String sort) {
-       List<Rezervacija> rezervacija = rezervacijaSortingHelper.getRezervacijeSortBrodovi(id, brodId, sort);
-
-
-        return rezervacija.get(0).getBrod();
-
-    }
 
     public Brod createRezervacijuZaBrod(Long brodId, Rezervacija rezervacija) throws Exception {
         Brod brod = brodRepository.findById(brodId).orElseThrow(() -> new Exception("Brod not found"));
@@ -69,12 +63,16 @@ public class RezervacijaService {
         return brod;
     }
 
-    public Cas getCasById(Long id, Long casId, String sort) {
-        List<Rezervacija> rezervacija = rezervacijaSortingHelper.getRezervacijeSortCasovi(id,casId,sort);
+    public Optional<List<Rezervacija>> getEntitets(Long rezervacijaId, Long casId, String sort, int type) {
+        Optional<List<Rezervacija>> rezervacije = rezervacijaSortingHelper.getRezervacijeSortEntiteti(
+                rezervacijaId,
+                casId,
+                sort,
+                type
+        );
 
-        return rezervacija.get(0).getCas();
+        return rezervacije;
     }
-
     public Cas createRezervacijuZaCas(Long casId, Rezervacija rezervacija) throws Exception {
         Cas cas = casRepository.findById(casId).orElseThrow(() -> new Exception("Cas not found"));
         User user = rezervacija.getKlijent();
@@ -100,11 +98,6 @@ public class RezervacijaService {
         return cas;
     }
 
-    public Vikendica getVikendicaById(Long id, Long vikendicaId,String sort) {
-        List<Rezervacija> rezervacija= rezervacijaSortingHelper.getRezervacijeSortVikendica(id, vikendicaId, sort);
-
-        return rezervacija.get(0).getVikendica();
-    }
 
     public Vikendica createRezervacijuZaVikendicu(Long vikendicaId, Rezervacija rezervacija) throws Exception {
         Vikendica vikendica = vikendicaRepository.findById(vikendicaId)
@@ -133,7 +126,7 @@ public class RezervacijaService {
     }
 
     public boolean isUserHaveRezervation(User user, Vikendica vikendica) {
-        Rezervacija rezervacija = rezervacijaRepository.findByUserAndVikendica(user, vikendica);
+        Rezervacija rezervacija = rezervacijaRepository.findByKlijentIdAndEntitetId(user.getId(), vikendica.getId());
         if(rezervacija != null){
             return true;
         }

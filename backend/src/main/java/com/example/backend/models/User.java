@@ -27,6 +27,14 @@ public class User {
     private Role role;
     private String activation;
 
+    private int zbirOcena;
+    private int ukupnoOcena;
+
+    @OneToMany
+    @JoinColumn(name = "klijent_id")
+    @JsonIgnore
+    private List<Rezervacija> rezervacije;
+
     @OneToMany
     @JoinColumn(name = "vlasnik_id")
     @JsonIgnore
@@ -35,11 +43,10 @@ public class User {
     @OneToMany
     @JoinColumn(name = "zahtev_id")
     @JsonIgnore
-    private List<ZahtevZaBrisanje> zahtevi;
+    private List<ZahtevZaBrisanje> zahteviAdmin;
 
     @OneToOne
-    @JoinColumn(name = "korisnik_id", referencedColumnName = "id")
-    private ZahtevZaBrisanje zahtev;
+    private ZahtevZaBrisanje zahtevKorisnik;
 
   /*  @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "vlasnik")
     private List<Vikendica> vikendice;
@@ -57,6 +64,46 @@ public class User {
     private List<Loyalty> loyalties;
 */
     private int penali;
+
+    public List<Rezervacija> getRezervacije() {
+        return rezervacije;
+    }
+
+    public void setRezervacije(List<Rezervacija> rezervacije) {
+        this.rezervacije = rezervacije;
+    }
+
+    public int getZbirOcena() {
+        return zbirOcena;
+    }
+
+    public void setZbirOcena(int zbirOcena) {
+        this.zbirOcena = zbirOcena;
+    }
+
+    public int getUkupnoOcena() {
+        return ukupnoOcena;
+    }
+
+    public void setUkupnoOcena(int ukupnoOcena) {
+        this.ukupnoOcena = ukupnoOcena;
+    }
+
+    public List<ZahtevZaBrisanje> getZahteviAdmin() {
+        return zahteviAdmin;
+    }
+
+    public void setZahteviAdmin(List<ZahtevZaBrisanje> zahteviAdmin) {
+        this.zahteviAdmin = zahteviAdmin;
+    }
+
+    public ZahtevZaBrisanje getZahtevKorisnik() {
+        return zahtevKorisnik;
+    }
+
+    public void setZahtevKorisnik(ZahtevZaBrisanje zahtevKorisnik) {
+        this.zahtevKorisnik = zahtevKorisnik;
+    }
 
     public int getPenali() {
         return penali;
@@ -163,6 +210,15 @@ public class User {
         this.activation = activation;
     }
 
+    public void addOcena(int ocena) {
+        int zbir = this.getZbirOcena() + ocena;
+        this.setZbirOcena(zbir);
+        this.setUkupnoOcena(this.getUkupnoOcena() + 1);
+    }
+
+    public float getProsek(){
+        return this.getZbirOcena() / this.getUkupnoOcena();
+    }
 
   /*  public List<Rezervacija> getRezervacije() {
         return rezervacije;

@@ -1,16 +1,18 @@
 package com.example.backend.services;
 
+import com.example.backend.models.Entitet;
 import com.example.backend.models.Role;
 import com.example.backend.models.User;
 import com.example.backend.models.Vikendica;
 import com.example.backend.models.response.GetVikendicaDTO;
 import com.example.backend.repository.VikendicaRepository;
-import com.example.backend.utils.VikendicaSortingHelper;
+import com.example.backend.utils.EntitetSortingHelper;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class VikendicaService {
@@ -18,23 +20,27 @@ public class VikendicaService {
     public final VikendicaRepository vikendicaRepository;
     public final UserService userService;
     private final RezervacijaService rezervacijaService;
-    private final VikendicaSortingHelper vikendicaSortingHelper;
+    private final EntitetSortingHelper entitetSortingHelper;
 
 
-    public VikendicaService(VikendicaRepository vikendicaRepository, UserService userService, RezervacijaService rezervacijaService, VikendicaSortingHelper vikendicaSortingHelper) {
+    public VikendicaService(VikendicaRepository vikendicaRepository, UserService userService, RezervacijaService rezervacijaService, EntitetSortingHelper entitetSortingHelper) {
         this.vikendicaRepository = vikendicaRepository;
         this.userService = userService;
         this.rezervacijaService=rezervacijaService;
-        this.vikendicaSortingHelper=vikendicaSortingHelper;
+        this.entitetSortingHelper=entitetSortingHelper;
     }
 
-    public List<Vikendica> getAllVikendice(Principal principal, String sort, String value) throws Exception {
+    public List<Vikendica> getAllVikendice(Principal principal, String sort, int value) throws Exception {
         User user = userService.getActivatedUserFromPrincipal(principal);
         if (user == null) {
             throw new Exception("User not found");
         }
-        List<Vikendica> vikendice = vikendicaSortingHelper.getSortedVikendice(sort, value);
-        return vikendice;
+        Optional<List<Entitet>> entiteti = entitetSortingHelper.getSortedEntiteti(sort, value);
+        List<Vikendica> vikendice = entiteti
+                .get()
+                .stream()
+                .map(entitet -> (Vikendica) entitet)
+                .collect(Collectors.toList());        return vikendice;
     }
 
     public GetVikendicaDTO getVikendicaByVikendicaId(Principal principal, Long vikendicaId) throws Exception {
