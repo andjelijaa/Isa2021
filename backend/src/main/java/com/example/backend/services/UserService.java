@@ -1,9 +1,14 @@
 package com.example.backend.services;
 
 import java.util.List;
+
+import com.example.backend.models.Role;
 import com.example.backend.models.User;
+import com.example.backend.models.ZahtevZaBrisanje;
+import com.example.backend.models.request.BrisanjeNalogaDTO;
 import com.example.backend.models.request.UpdateUserDTO;
 import com.example.backend.repository.UserRepository;
+import com.example.backend.repository.ZahtevZaBrisanjeRepository;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -11,9 +16,12 @@ import java.security.Principal;
 @Service
 public class UserService implements UserServiceInterface {
     public final UserRepository userRepository;
+    private final ZahtevZaBrisanjeRepository repository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository,
+                       ZahtevZaBrisanjeRepository repository ) {
         this.userRepository = userRepository;
+        this.repository=repository;
     }
 
     public User getActivatedUserFromPrincipal(Principal principal){
@@ -85,5 +93,35 @@ public class UserService implements UserServiceInterface {
                     user.setPenali(0);
                     userRepository.save(user);
                 });
+    }
+
+    @Override
+    public boolean zahtevZaBrisanjeNaloga(Principal principal,
+                                          BrisanjeNalogaDTO brisanjeNalogaDto) {
+        User user = getActivatedUserFromPrincipal(principal);
+        if(user == null ){
+            return false;
+        }
+        ZahtevZaBrisanje zahtev = new ZahtevZaBrisanje();
+        zahtev.setZahtev(brisanjeNalogaDto.getZahtev());
+        zahtev.setKorisnik(user);
+        zahtev.setIzbrisan(false);
+
+        repository.save(zahtev);
+        return true;
+    }
+
+
+    public User isUserAdmin(Principal principal) throws Exception {
+        User user = getActivatedUserFromPrincipal(principal);
+
+        if(user.getRole() != Role.ROLE_ADMIN){
+            throw new Exception("Auth faild");
+        }
+        return user;
+    }
+
+    public void removeUser(Long id) {
+        userRepository.deleteById(id);
     }
 }

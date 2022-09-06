@@ -1,12 +1,10 @@
 package com.example.backend.controllers;
 
 import com.example.backend.models.User;
+import com.example.backend.models.request.BrisanjeNalogaDTO;
 import com.example.backend.models.request.UpdateUserDTO;
 import com.example.backend.services.UserService;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 
@@ -23,5 +21,12 @@ public class UserController {
                            @RequestBody UpdateUserDTO updateUserDTO) throws Exception {
 
         return userService.updateUser(principal, updateUserDTO);
+    }
+
+
+    @PostMapping("/brisanjeNaloga")
+    public boolean zahtevZaBrisanjeNaloga(Principal principal,
+                                          @RequestBody BrisanjeNalogaDTO brisanjeNalogaDto){
+        return userService.zahtevZaBrisanjeNaloga(principal, brisanjeNalogaDto);
     }
 }

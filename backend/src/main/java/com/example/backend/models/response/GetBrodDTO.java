@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 
 public class GetBrodDTO {
+
     private Brod brod;
     private boolean daLiJeTrenutniUserVlasnik;
 
